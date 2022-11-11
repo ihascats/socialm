@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Icons from './components/Icons';
 import Nav from './components/Nav';
 import PostList from './components/PostList';
 import UserHeader from './components/UserHeader';
