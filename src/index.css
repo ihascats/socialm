@@ -5,7 +5,7 @@
 body {
   height: 100vh;
   --tw-bg-opacity: 1;
-  background-color: rgb(113 113 122 / var(--tw-bg-opacity));
+  background-color: rgb(190 242 100 / var(--tw-bg-opacity));
 }
 
 .hide-scroll::-webkit-scrollbar {

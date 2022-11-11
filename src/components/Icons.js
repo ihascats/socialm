@@ -101,7 +101,7 @@ export default function Icons() {
   const like = (
     <Icon
       path={mdiThumbUpOutline}
-      size={1.5}
+      size={1}
       horizontal
       vertical
       rotate={180}
@@ -131,7 +131,7 @@ export default function Icons() {
   const moreOptions = (
     <Icon
       path={mdiDotsVertical}
-      size={1.5}
+      size={1}
       horizontal
       vertical
       rotate={180}
@@ -141,7 +141,7 @@ export default function Icons() {
   const comment = (
     <Icon
       path={mdiCommentOutline}
-      size={1.5}
+      size={1}
       horizontal
       vertical
       rotate={180}
@@ -151,7 +151,7 @@ export default function Icons() {
   const newPost = (
     <Icon
       path={mdiPlus}
-      size={1.5}
+      size={2}
       horizontal
       vertical
       rotate={180}
