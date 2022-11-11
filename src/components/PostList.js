@@ -7,16 +7,16 @@ export default function PostList({ post }) {
   const [likeCount, setLikeCount] = useState(post.likes.length);
 
   async function like() {
-    const response = await fetch(
-      `${process.env.REACT_APP_APILINK}/post/${post._id}/like`,
-      {
-        mode: 'cors',
-        method: 'PUT',
-        headers: new Headers({
-          Authorization: localStorage.Authorization,
-        }),
-      },
-    );
+    const link = post.comment_text
+      ? `${process.env.REACT_APP_APILINK}/post/comment/${post._id}/like`
+      : `${process.env.REACT_APP_APILINK}/post/${post._id}/like`;
+    const response = await fetch(link, {
+      mode: 'cors',
+      method: 'PUT',
+      headers: new Headers({
+        Authorization: localStorage.Authorization,
+      }),
+    });
     if (response.status === 200) {
       const json = await response.json(); //extract JSON from the http response
       setLikeCount(json.likeCount);
