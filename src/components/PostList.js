@@ -31,13 +31,15 @@ export default function PostList({ post }) {
         <button>{icons.moreOptions}</button>
       </div>
       <div className="pt-2">
-        <p>{post.post_text}</p>
+        <p>{post.post_text || post.comment_text}</p>
       </div>
       <div className="flex justify-end gap-6">
-        <button className="flex gap-1">
-          {icons.comment}
-          {`${post.replies.length}`}
-        </button>
+        {post.comment_text ? null : (
+          <button className="flex gap-1">
+            {icons.comment}
+            {`${post.replies.length}`}
+          </button>
+        )}
         <button className="flex gap-1">
           {icons.like}
           {`${post.likes.length}`}
