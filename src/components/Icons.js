@@ -12,6 +12,9 @@ import {
   mdiDelete,
   mdiDotsVertical,
   mdiCommentOutline,
+  mdiPlus,
+  mdiCogOutline,
+  mdiAccountMultipleOutline,
 } from '@mdi/js';
 
 export default function Icons() {
@@ -45,9 +48,19 @@ export default function Icons() {
       color="inherit"
     />
   );
-  const friendList = (
+  const profile = (
     <Icon
       path={mdiAccountOutline}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const friendList = (
+    <Icon
+      path={mdiAccountMultipleOutline}
       size={1.5}
       horizontal
       vertical
@@ -135,6 +148,26 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const newPost = (
+    <Icon
+      path={mdiPlus}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const settings = (
+    <Icon
+      path={mdiCogOutline}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
 
   return {
     // ..icons
@@ -150,5 +183,8 @@ export default function Icons() {
     deleteSVG,
     moreOptions,
     comment,
+    newPost,
+    settings,
+    profile,
   };
 }
