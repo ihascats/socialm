@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { fetchPutLike } from '../fetch_requests';
 import Icons from './Icons';
 
 export default function PostList({ post, user }) {
@@ -7,21 +8,9 @@ export default function PostList({ post, user }) {
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [liked, setLiked] = useState(post.likes.includes(user._id));
 
-  async function like(event) {
-    const link = post.comment_text
-      ? `${process.env.REACT_APP_APILINK}/post/comment/${post._id}/like`
-      : `${process.env.REACT_APP_APILINK}/post/${post._id}/like`;
-    const response = await fetch(link, {
-      mode: 'cors',
-      method: 'PUT',
-      headers: new Headers({
-        Authorization: localStorage.Authorization,
-      }),
-    });
-    if (response.status === 200) {
-      const json = await response.json(); //extract JSON from the http response
-      setLikeCount(json.likeCount);
-    }
+  async function like() {
+    const json = await fetchPutLike(post);
+    setLikeCount(json.likeCount);
     setLiked((prevState) => !prevState);
   }
 
@@ -80,7 +69,7 @@ export default function PostList({ post, user }) {
           <button
             onClick={async (event) => {
               event.preventDefault();
-              like(event);
+              like();
             }}
             className={`flex gap-1 ${
               liked

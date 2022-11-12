@@ -2,44 +2,12 @@ import { useEffect, useState } from 'react';
 import Nav from './components/Nav';
 import PostList from './components/PostList';
 import UserHeader from './components/UserHeader';
+import { fetchUserInformation, fetchUserPosts } from './fetch_requests';
 
 export default function User() {
   const [userInformation, setUserInformation] = useState();
   const [userPosts, setUserPosts] = useState();
   const [showPosts, setShowPosts] = useState(true);
-
-  async function fetchUserInformation() {
-    const response = await fetch(`${process.env.REACT_APP_APILINK}/user`, {
-      mode: 'cors',
-      headers: new Headers({
-        Authorization: localStorage.Authorization,
-      }),
-    });
-    if (response.status === 200) {
-      const json = await response.json(); //extract JSON from the http response
-      return { user: json, response };
-    } else {
-      return { response };
-    }
-  }
-
-  async function fetchUserPosts(user_id) {
-    const response = await fetch(
-      `${process.env.REACT_APP_APILINK}/post/user/${user_id}`,
-      {
-        mode: 'cors',
-        headers: new Headers({
-          Authorization: localStorage.Authorization,
-        }),
-      },
-    );
-    if (response.status === 200) {
-      const json = await response.json(); //extract JSON from the http response
-      return { posts_comments: json, response };
-    } else {
-      return { response };
-    }
-  }
 
   function update() {
     fetchUserInformation().then(
