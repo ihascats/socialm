@@ -1,6 +1,6 @@
 export default function UserHeader({ userInformation }) {
   return (
-    <div className="flex gap-2 items-end p-2 w-full dark:bg-neutral-800 dark:text-neutral-50 border-b-2 border-neutral-900 dark:border-lime-300">
+    <div className="flex gap-2 items-end p-2 w-full dark:bg-neutral-800 dark:text-neutral-50">
       <img
         alt=""
         src={userInformation.profile_picture}

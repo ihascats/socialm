@@ -80,7 +80,7 @@ export default function User() {
               setShowPosts(true);
               update();
             }}
-            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300"
+            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
           >
             Posts
           </button>
@@ -89,7 +89,7 @@ export default function User() {
               setShowPosts(false);
               update();
             }}
-            className="w-1/2 border-b-2 border-l-2 border-neutral-900 dark:border-lime-300"
+            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
           >
             Comments
           </button>
