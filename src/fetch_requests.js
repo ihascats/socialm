@@ -31,6 +31,21 @@ exports.fetchUserPosts = async function (user_id) {
   }
 };
 
+exports.fetchTimeline = async function (user_id) {
+  const response = await fetch(`${process.env.REACT_APP_APILINK}/timeline`, {
+    mode: 'cors',
+    headers: new Headers({
+      Authorization: localStorage.Authorization,
+    }),
+  });
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    return { timeline: json, response };
+  } else {
+    return { response };
+  }
+};
+
 exports.fetchPutLike = async function (post) {
   const link = post.comment_text
     ? `${process.env.REACT_APP_APILINK}/post/comment/${post._id}/like`

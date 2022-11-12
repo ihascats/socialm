@@ -24,7 +24,7 @@ export default function PostList({ post, user }) {
             <img
               alt=""
               src={post.author.profile_picture}
-              className="rounded-full h-10 border-2 border-neutral-900"
+              className="rounded-full w-10 h-10 border-2 border-neutral-900"
             ></img>
             <h1 className="font-mono">{post.author.username}</h1>
             {Math.abs(Date.parse(post.createdAt) - Date.now()) / 36e5 > 23 ? (
