@@ -21,12 +21,31 @@ export default function PostList({ post, user }) {
       <div className="p-2 border-b-2 border-neutral-900 dark:border-lime-300">
         <div className="flex justify-between">
           <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2">
-            <img
-              alt=""
-              src={post.author.profile_picture}
-              className="rounded-full w-10 h-10 border-2 border-neutral-900"
-            ></img>
-            <h1 className="font-mono">{post.author.username}</h1>
+            <Link
+              as={Link}
+              to={
+                user._id === post.author._id
+                  ? `/user`
+                  : `/user/${post.author._id}`
+              }
+            >
+              <img
+                alt=""
+                src={post.author.profile_picture}
+                className="rounded-full w-10 h-10 border-2 border-neutral-900"
+              ></img>
+            </Link>
+            <Link
+              as={Link}
+              to={
+                user._id === post.author._id
+                  ? `/user`
+                  : `/user/${post.author._id}`
+              }
+              className="font-mono"
+            >
+              {post.author.username}
+            </Link>
             {Math.abs(Date.parse(post.createdAt) - Date.now()) / 36e5 > 23 ? (
               <h2 className="text-sm font-bold opacity-60 font-mono">
                 {`${Date(post.createdAt).split(' ')[1].trim()} ${Date(
