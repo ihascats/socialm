@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Nav from './components/Nav';
 import PostList from './components/PostList';
 import UserHeader from './components/UserHeader';
@@ -8,9 +9,10 @@ export default function User() {
   const [userInformation, setUserInformation] = useState();
   const [userPosts, setUserPosts] = useState();
   const [showPosts, setShowPosts] = useState(true);
+  const { id } = useParams();
 
   function update() {
-    fetchUserInformation().then(
+    fetchUserInformation(id).then(
       function (value) {
         if (value.response.status === 200) {
           setUserInformation(value.user);

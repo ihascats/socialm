@@ -1,5 +1,8 @@
-exports.fetchUserInformation = async function () {
-  const response = await fetch(`${process.env.REACT_APP_APILINK}/user`, {
+exports.fetchUserInformation = async function (user_id) {
+  const link = user_id
+    ? `${process.env.REACT_APP_APILINK}/users/${user_id}`
+    : `${process.env.REACT_APP_APILINK}/user`;
+  const response = await fetch(link, {
     mode: 'cors',
     headers: new Headers({
       Authorization: localStorage.Authorization,

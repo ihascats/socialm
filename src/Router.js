@@ -14,6 +14,7 @@ const RouteSwitch = () => {
         />
         <Route path={'/timeline'} element={<Timeline />} />
         <Route path={'/user'} element={<User />} />
+        <Route path={'/user/:id'} element={<User />} />
         <Route path={'/post/:id'} element={<Post />} />
         <Route path={'/signIn/:validation'} element={<SignIn />} />
       </Routes>
