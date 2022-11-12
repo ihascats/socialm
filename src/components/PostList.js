@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icons from './Icons';
 
-export default function PostList({ post }) {
+export default function PostList({ post, user }) {
   const icons = Icons();
   const [likeCount, setLikeCount] = useState(post.likes.length);
+  const [liked, setLiked] = useState(post.likes.includes(user._id));
 
-  async function like() {
+  async function like(event) {
     const link = post.comment_text
       ? `${process.env.REACT_APP_APILINK}/post/comment/${post._id}/like`
       : `${process.env.REACT_APP_APILINK}/post/${post._id}/like`;
@@ -21,6 +22,7 @@ export default function PostList({ post }) {
       const json = await response.json(); //extract JSON from the http response
       setLikeCount(json.likeCount);
     }
+    setLiked((prevState) => !prevState);
   }
 
   return (
@@ -69,7 +71,7 @@ export default function PostList({ post }) {
               onClick={(event) => {
                 event.preventDefault();
               }}
-              className="flex gap-1"
+              className="flex gap-1 text-neutral-900"
             >
               {icons.comment}
               {`${post.replies.length}`}
@@ -78,9 +80,13 @@ export default function PostList({ post }) {
           <button
             onClick={async (event) => {
               event.preventDefault();
-              like();
+              like(event);
             }}
-            className="flex gap-1"
+            className={`flex gap-1 ${
+              liked
+                ? 'fill-red-500 text-red-500 dark:fill-rose-300 dark:text-rose-300'
+                : 'fill-neutral-900 text-neutral-900'
+            }`}
           >
             {icons.like}
             {`${likeCount}`}
