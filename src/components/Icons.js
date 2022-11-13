@@ -15,6 +15,8 @@ import {
   mdiPlus,
   mdiCogOutline,
   mdiAccountMultipleOutline,
+  mdiAccountPlusOutline,
+  mdiAccountClockOutline,
 } from '@mdi/js';
 
 export default function Icons() {
@@ -168,6 +170,26 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const sendFriendRequest = (
+    <Icon
+      path={mdiAccountPlusOutline}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const friendRequestPending = (
+    <Icon
+      path={mdiAccountClockOutline}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
 
   return {
     // ..icons
@@ -186,5 +208,7 @@ export default function Icons() {
     newPost,
     settings,
     profile,
+    sendFriendRequest,
+    friendRequestPending,
   };
 }

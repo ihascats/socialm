@@ -54,16 +54,22 @@ export default function User() {
   }, []);
 
   useEffect(() => {
-    if (userInformation)
-      if (userInformation.profile_picture.slice(0, 4) !== 'http') {
-        fetchImage(userInformation, setUserInformation);
-      }
+    if (userInformation) {
+      if (userInformation.profile_picture.slice(0, 4) !== 'blob')
+        if (userInformation.profile_picture.slice(0, 4) !== 'http') {
+          fetchImage(userInformation, setUserInformation);
+        }
+    }
   }, [userInformation]);
 
   return (
     <div className="dark:text-neutral-50 dark:bg-neutral-900">
       {userInformation ? (
-        <UserHeader userInformation={userInformation} />
+        <UserHeader
+          userInformation={userInformation}
+          signedUserInfo={signedUserInfo}
+          setSignedUserInfo={setSignedUserInfo}
+        />
       ) : null}
       {userPosts ? (
         <div>
