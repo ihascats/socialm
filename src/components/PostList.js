@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchImage, fetchPutLike } from '../fetch_requests';
+import { fetchImage } from '../fetch_requests/img.fetch';
+import { fetchPutLike } from '../fetch_requests/post.fetch';
 import Icons from './Icons';
 
 export default function PostList({ post, user }) {

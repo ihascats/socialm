@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import Nav from './components/Nav';
 import PostList from './components/PostList';
-import { fetchTimeline, fetchUserInformation } from './fetch_requests';
+import { fetchTimeline } from './fetch_requests/post.fetch';
+import { fetchUserInformation } from './fetch_requests/user.fetch';
 
 export default function Timeline() {
   const [timeline, setTimeline] = useState();

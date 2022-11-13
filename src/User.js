@@ -3,11 +3,9 @@ import { useParams } from 'react-router-dom';
 import Nav from './components/Nav';
 import PostList from './components/PostList';
 import UserHeader from './components/UserHeader';
-import {
-  fetchImage,
-  fetchUserInformation,
-  fetchUserPosts,
-} from './fetch_requests';
+import { fetchImage } from './fetch_requests/img.fetch';
+import { fetchUserPosts } from './fetch_requests/post.fetch';
+import { fetchUserInformation } from './fetch_requests/user.fetch';
 
 export default function User() {
   const [userInformation, setUserInformation] = useState();
@@ -101,7 +99,29 @@ export default function User() {
                 ))}
           </ul>
         </div>
-      ) : null}
+      ) : (
+        <div>
+          <button
+            onClick={() => {
+              setShowPosts(true);
+              update();
+            }}
+            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+          >
+            Posts
+          </button>
+          <button
+            onClick={() => {
+              setShowPosts(false);
+              update();
+            }}
+            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+          >
+            Comments
+          </button>
+          <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 h-screen dark:from-indigo-600 dark:to-green-600"></ul>
+        </div>
+      )}
 
       <Nav timeline={true} />
     </div>

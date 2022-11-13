@@ -4,7 +4,7 @@ import {
   fetchPutDeclineFr,
   fetchPutFriendRequest,
   fetchPutRemoveFr,
-} from '../fetch_requests';
+} from '../fetch_requests/user.fetch';
 import Icons from './Icons';
 
 export default function UserHeader({
