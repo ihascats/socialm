@@ -11,6 +11,7 @@ import {
 
 export default function User() {
   const [userInformation, setUserInformation] = useState();
+  const [signedUserInfo, setSignedUserInfo] = useState();
   const [userPosts, setUserPosts] = useState();
   const [showPosts, setShowPosts] = useState(true);
   const { id } = useParams();
@@ -40,6 +41,16 @@ export default function User() {
 
   useEffect(() => {
     update();
+    fetchUserInformation().then(
+      async function (value) {
+        if (value.response.status === 200) {
+          setSignedUserInfo(value.user);
+        }
+      },
+      function (error) {
+        console.log(error);
+      },
+    );
   }, []);
 
   useEffect(() => {
@@ -77,10 +88,10 @@ export default function User() {
           <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen dark:from-indigo-600 dark:to-green-600">
             {showPosts
               ? userPosts.posts.map((post) => (
-                  <PostList key={post._id} post={post} user={userInformation} />
+                  <PostList key={post._id} post={post} user={signedUserInfo} />
                 ))
               : userPosts.comments.map((post) => (
-                  <PostList key={post._id} post={post} user={userInformation} />
+                  <PostList key={post._id} post={post} user={signedUserInfo} />
                 ))}
           </ul>
         </div>
