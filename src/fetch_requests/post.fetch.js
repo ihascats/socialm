@@ -46,3 +46,21 @@ exports.fetchPutLike = async function (post) {
     return await response.json(); //extract JSON from the http response
   }
 };
+
+exports.fetchPost = async function (post_id) {
+  const response = await fetch(
+    `${process.env.REACT_APP_APILINK}/post/${post_id}`,
+    {
+      mode: 'cors',
+      headers: new Headers({
+        Authorization: localStorage.Authorization,
+      }),
+    },
+  );
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    return { post: json, response };
+  } else {
+    return { response };
+  }
+};

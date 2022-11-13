@@ -78,13 +78,15 @@ export default function PostList({ post, user }) {
               </h2>
             )}
           </div>
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-            }}
-          >
-            {icons.moreOptions}
-          </button>
+          {user._id === post.author._id ? (
+            <button
+              onClick={(event) => {
+                event.preventDefault();
+              }}
+            >
+              {icons.moreOptions}
+            </button>
+          ) : null}
         </div>
         <div className="pt-2">
           <p>{post.post_text || post.comment_text}</p>
