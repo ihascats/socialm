@@ -3,7 +3,11 @@ import { useParams } from 'react-router-dom';
 import Nav from './components/Nav';
 import PostList from './components/PostList';
 import UserHeader from './components/UserHeader';
-import { fetchUserInformation, fetchUserPosts } from './fetch_requests';
+import {
+  fetchImage,
+  fetchUserInformation,
+  fetchUserPosts,
+} from './fetch_requests';
 
 export default function User() {
   const [userInformation, setUserInformation] = useState();
@@ -13,7 +17,7 @@ export default function User() {
 
   function update() {
     fetchUserInformation(id).then(
-      function (value) {
+      async function (value) {
         if (value.response.status === 200) {
           setUserInformation(value.user);
           fetchUserPosts(value.user._id).then(
@@ -37,6 +41,13 @@ export default function User() {
   useEffect(() => {
     update();
   }, []);
+
+  useEffect(() => {
+    if (userInformation)
+      if (userInformation.profile_picture.slice(0, 4) !== 'http') {
+        fetchImage(userInformation, setUserInformation);
+      }
+  }, [userInformation]);
 
   return (
     <div className="dark:text-neutral-50 dark:bg-neutral-900">

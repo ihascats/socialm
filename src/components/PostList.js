@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchPutLike } from '../fetch_requests';
+import { fetchImage, fetchPutLike } from '../fetch_requests';
 import Icons from './Icons';
 
 export default function PostList({ post, user }) {
   const icons = Icons();
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [liked, setLiked] = useState(post.likes.includes(user._id));
+  const [image, setImage] = useState();
 
   async function like() {
     const json = await fetchPutLike(post);
     setLikeCount(json.likeCount);
     setLiked((prevState) => !prevState);
   }
+
+  useEffect(() => {
+    if (post.author.profile_picture.slice(0, 4) !== 'http') {
+      fetchImage(post.author, setImage);
+    }
+  }, []);
 
   return (
     <Link
@@ -29,11 +36,19 @@ export default function PostList({ post, user }) {
                   : `/user/${post.author._id}`
               }
             >
-              <img
-                alt=""
-                src={post.author.profile_picture}
-                className="rounded-full w-10 h-10 border-2 border-neutral-900"
-              ></img>
+              {image ? (
+                <img
+                  alt=""
+                  src={image.profile_picture}
+                  className="rounded-full w-10 h-10 border-2 border-neutral-900"
+                ></img>
+              ) : (
+                <img
+                  alt=""
+                  src={post.author.profile_picture}
+                  className="rounded-full w-10 h-10 border-2 border-neutral-900"
+                ></img>
+              )}
             </Link>
             <Link
               as={Link}

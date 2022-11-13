@@ -8,11 +8,11 @@ export default function Timeline() {
   const [userInformation, setUserInformation] = useState();
 
   useEffect(() => {
-    fetchTimeline().then((value) => setTimeline(value.timeline));
     fetchUserInformation().then(
       function (value) {
         if (value.response.status === 200) {
           setUserInformation(value.user);
+          fetchTimeline().then((value) => setTimeline(value.timeline));
         }
       },
       function (error) {
