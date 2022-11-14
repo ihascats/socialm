@@ -38,7 +38,7 @@ export default function Post() {
 
   return (
     <div>
-      <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 h-screen dark:from-indigo-600 dark:to-green-600">
+      <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
         {postInformation ? (
           <PostList post={postInformation} user={signedUserInfo} />
         ) : null}

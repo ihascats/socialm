@@ -3,7 +3,15 @@ module.exports = {
   darkMode: 'class',
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        'screen-nav': 'calc(100vh - 68px)',
+      },
+      minHeight: {
+        'screen-nav': 'calc(100vh - 68px)',
+        'screen-user': 'calc(100vh - 190px)',
+      },
+    },
   },
   plugins: [],
   'tailwindCSS.includeLanguages': {

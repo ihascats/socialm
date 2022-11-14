@@ -89,7 +89,7 @@ export default function User() {
           >
             Comments
           </button>
-          <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen dark:from-indigo-600 dark:to-green-600">
+          <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
             {showPosts
               ? userPosts.posts.map((post) => (
                   <PostList key={post._id} post={post} user={signedUserInfo} />
@@ -119,7 +119,7 @@ export default function User() {
           >
             Comments
           </button>
-          <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 h-screen dark:from-indigo-600 dark:to-green-600"></ul>
+          <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600"></ul>
         </div>
       )}
 
