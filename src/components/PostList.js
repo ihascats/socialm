@@ -28,7 +28,7 @@ export default function PostList({ post, user }) {
     >
       <div className="p-2 border-b-2 border-neutral-900 dark:border-lime-300">
         <div className="flex justify-between">
-          <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2">
+          <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
             <Link
               as={Link}
               to={
@@ -58,12 +58,12 @@ export default function PostList({ post, user }) {
                   ? `/user`
                   : `/user/${post.author._id}`
               }
-              className="font-mono"
+              className="font-mono overflow-clip text-ellipsis"
             >
               {post.author.username}
             </Link>
             {Math.abs(Date.parse(post.createdAt) - Date.now()) / 36e5 > 23 ? (
-              <h2 className="text-sm font-bold opacity-60 font-mono">
+              <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
                 {`${Date(post.createdAt).split(' ')[1].trim()} ${Date(
                   post.createdAt,
                 )
@@ -71,7 +71,7 @@ export default function PostList({ post, user }) {
                   .trim()}`}
               </h2>
             ) : (
-              <h2 className="text-sm font-bold opacity-60 font-mono">
+              <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
                 {`${Math.floor(
                   Math.abs(Date.parse(post.createdAt) - Date.now()) / 36e5,
                 )}h`}
