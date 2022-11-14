@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { fetchImage } from '../fetch_requests/img.fetch';
 import { fetchPutLike } from '../fetch_requests/post.fetch';
 import Icons from './Icons';
+import MoreOptionsMenu from './MoreOptionsMenu';
 
 export default function PostList({ post, user }) {
   const icons = Icons();
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [liked, setLiked] = useState(post.likes.includes(user._id));
   const [image, setImage] = useState();
+  const [menuVisible, setMenuVisible] = useState(false);
 
   async function like() {
     const json = await fetchPutLike(post);
@@ -82,11 +84,13 @@ export default function PostList({ post, user }) {
             <button
               onClick={(event) => {
                 event.preventDefault();
+                setMenuVisible(true);
               }}
             >
               {icons.moreOptions}
             </button>
           ) : null}
+          {menuVisible ? <MoreOptionsMenu /> : null}
         </div>
         <div className="pt-2">
           <p>{post.post_text || post.comment_text}</p>

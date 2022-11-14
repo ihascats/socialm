@@ -68,7 +68,9 @@ export default function User() {
           signedUserInfo={signedUserInfo}
           setSignedUserInfo={setSignedUserInfo}
         />
-      ) : null}
+      ) : (
+        <div className="h-20 bg-lime-300"></div>
+      )}
       {userPosts ? (
         <div>
           <button

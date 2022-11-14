@@ -113,7 +113,7 @@ export default function Icons() {
   const edit = (
     <Icon
       path={mdiPencilOutline}
-      size={1.5}
+      size={1}
       horizontal
       vertical
       rotate={180}
@@ -123,7 +123,7 @@ export default function Icons() {
   const deleteSVG = (
     <Icon
       path={mdiDelete}
-      size={1.5}
+      size={1}
       horizontal
       vertical
       rotate={180}
