@@ -9,10 +9,6 @@ export default function MoreOptionsMenu({ setMenuVisible }) {
       setMenuVisible(false);
       window.ontouchmove = null;
     };
-    window.ontouchstart = () => {
-      setMenuVisible(false);
-      window.ontouchstart = null;
-    };
     window.ontouchend = () => {
       setMenuVisible(false);
       window.ontouchend = null;
@@ -23,6 +19,12 @@ export default function MoreOptionsMenu({ setMenuVisible }) {
     <div
       onMouseLeave={() => {
         setMenuVisible(false);
+      }}
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+      onTouchEnd={(event) => {
+        event.stopPropagation();
       }}
       className="absolute grid right-2 w-32 bg-lime-200 py-1 font-mono rounded-lg"
     >
