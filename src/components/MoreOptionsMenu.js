@@ -1,15 +1,36 @@
+import { useEffect } from 'react';
 import Icons from './Icons';
 
-export default function MoreOptionsMenu() {
+export default function MoreOptionsMenu({ setMenuVisible }) {
   const icons = Icons();
 
+  useEffect(() => {
+    window.ontouchmove = () => {
+      setMenuVisible(false);
+      window.ontouchmove = null;
+    };
+    window.ontouchstart = () => {
+      setMenuVisible(false);
+      window.ontouchstart = null;
+    };
+    window.ontouchend = () => {
+      setMenuVisible(false);
+      window.ontouchend = null;
+    };
+  }, []);
+
   return (
-    <div className="optionsMenu absolute mt-3 grid right-10 bg-lime-200 pl-2 pr-14 py-1 justify-items-start font-mono rounded-lg">
-      <button className="flex gap-2">
+    <div
+      onMouseLeave={() => {
+        setMenuVisible(false);
+      }}
+      className="absolute grid right-2 w-32 bg-lime-200 py-1 font-mono rounded-lg"
+    >
+      <button className="flex gap-2 hover:bg-lime-500 px-2">
         {icons.edit}
         <p>Edit</p>
       </button>
-      <button className="flex gap-2">
+      <button className="flex gap-2 hover:bg-lime-500 px-2">
         {icons.deleteSVG}
         <p>Delete</p>
       </button>

@@ -90,7 +90,9 @@ export default function PostList({ post, user }) {
               {icons.moreOptions}
             </button>
           ) : null}
-          {menuVisible ? <MoreOptionsMenu /> : null}
+          {menuVisible ? (
+            <MoreOptionsMenu setMenuVisible={setMenuVisible} />
+          ) : null}
         </div>
         <div className="pt-2">
           <p>{post.post_text || post.comment_text}</p>
