@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import CommentCard from './components/CommentCard';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
@@ -98,11 +98,13 @@ export default function User() {
                   <PostCard key={post._id} post={post} user={signedUserInfo} />
                 ))
               : userPosts.comments.map((comment) => (
-                  <CommentCard
-                    key={comment._id}
-                    comment={comment}
-                    user={signedUserInfo}
-                  />
+                  <Link draggable={false} to={`/post/${comment.parent}`}>
+                    <CommentCard
+                      key={comment._id}
+                      comment={comment}
+                      user={signedUserInfo}
+                    />
+                  </Link>
                 ))}
           </ul>
         </div>
