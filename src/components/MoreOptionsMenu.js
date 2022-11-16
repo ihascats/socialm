@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Icons from './Icons';
 
-export default function MoreOptionsMenu({ setMenuVisible }) {
+export default function MoreOptionsMenu({ setMenuVisible, setEditPost }) {
   const icons = Icons();
 
   useEffect(() => {
@@ -28,7 +28,13 @@ export default function MoreOptionsMenu({ setMenuVisible }) {
       }}
       className="absolute grid right-2 w-32 bg-lime-200 py-1 font-mono rounded-lg"
     >
-      <button className="flex gap-2 hover:bg-lime-500 px-2">
+      <button
+        onClick={() => {
+          setMenuVisible(false);
+          setEditPost(true);
+        }}
+        className="flex gap-2 hover:bg-lime-500 px-2"
+      >
         {icons.edit}
         <p>Edit</p>
       </button>
