@@ -98,12 +98,12 @@ export default function User() {
                   <PostCard key={post._id} post={post} user={signedUserInfo} />
                 ))
               : userPosts.comments.map((comment) => (
-                  <Link draggable={false} to={`/post/${comment.parent}`}>
-                    <CommentCard
-                      key={comment._id}
-                      comment={comment}
-                      user={signedUserInfo}
-                    />
+                  <Link
+                    key={comment._id}
+                    draggable={false}
+                    to={`/post/${comment.parent}`}
+                  >
+                    <CommentCard comment={comment} user={signedUserInfo} />
                   </Link>
                 ))}
           </ul>
