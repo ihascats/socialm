@@ -97,10 +97,10 @@ export default function User() {
               ? userPosts.posts.map((post) => (
                   <PostCard key={post._id} post={post} user={signedUserInfo} />
                 ))
-              : userPosts.comments.map((post) => (
+              : userPosts.comments.map((comment) => (
                   <CommentCard
-                    key={post._id}
-                    post={post}
+                    key={comment._id}
+                    comment={comment}
                     user={signedUserInfo}
                   />
                 ))}

@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import Icons from './Icons';
 
-export default function MoreOptionsMenu({ setMenuVisible, setEditPost }) {
+export default function MoreOptionsMenu({
+  setMenuVisible,
+  setEditPost,
+  setEditComment,
+}) {
   const icons = Icons();
 
   useEffect(() => {
@@ -31,7 +35,7 @@ export default function MoreOptionsMenu({ setMenuVisible, setEditPost }) {
       <button
         onClick={() => {
           setMenuVisible(false);
-          setEditPost(true);
+          setEditPost ? setEditPost(true) : setEditComment(true);
         }}
         className="flex gap-2 hover:bg-lime-500 px-2"
       >

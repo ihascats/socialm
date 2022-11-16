@@ -86,3 +86,25 @@ exports.fetchPutPost = async function (post_id, post_text) {
     return { response };
   }
 };
+
+exports.fetchPutComment = async function (comment_id, comment_text) {
+  var urlencoded = new URLSearchParams();
+  urlencoded.append('comment_text', comment_text);
+  const response = await fetch(
+    `${process.env.REACT_APP_APILINK}/post/comment/${comment_id}`,
+    {
+      mode: 'cors',
+      method: 'PUT',
+      body: urlencoded,
+      headers: new Headers({
+        Authorization: localStorage.Authorization,
+      }),
+    },
+  );
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    return { comment: json, response };
+  } else {
+    return { response };
+  }
+};

@@ -44,8 +44,12 @@ export default function Post() {
           <PostCard post={postInformation} user={signedUserInfo} />
         ) : null}
         {postInformation
-          ? postInformation.replies.map((post) => (
-              <CommentCard key={post._id} post={post} user={signedUserInfo} />
+          ? postInformation.replies.map((comment) => (
+              <CommentCard
+                key={comment._id}
+                comment={comment}
+                user={signedUserInfo}
+              />
             ))
           : null}
       </ul>
