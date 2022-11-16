@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Nav from './components/Nav';
-import PostList from './components/PostList';
+import PostCard from './components/PostCard';
 import { fetchTimeline } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
 
@@ -28,10 +28,10 @@ export default function Timeline() {
         <a href={`${process.env.REACT_APP_APILINK}/auth/google`}>Google</a>
       )}
 
-      <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
+      <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
         {timeline
           ? timeline.map((post) => (
-              <PostList key={post._id} post={post} user={userInformation} />
+              <PostCard key={post._id} post={post} user={userInformation} />
             ))
           : null}
       </ul>

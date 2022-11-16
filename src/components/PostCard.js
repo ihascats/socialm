@@ -25,9 +25,7 @@ export default function PostList({ post, user }) {
   }, []);
 
   return (
-    <Link
-      to={post.comment_text ? `/post/comment/${post._id}` : `/post/${post._id}`}
-    >
+    <Link to={`/post/${post._id}`}>
       <div className="p-2 border-b-2 border-neutral-900 dark:border-lime-300">
         <div className="flex justify-between">
           <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
@@ -95,20 +93,18 @@ export default function PostList({ post, user }) {
           ) : null}
         </div>
         <div className="pt-2">
-          <p>{post.post_text || post.comment_text}</p>
+          <p>{post.post_text}</p>
         </div>
         <div className="flex justify-end gap-6">
-          {post.comment_text ? null : (
-            <button
-              onClick={(event) => {
-                event.preventDefault();
-              }}
-              className="flex gap-1 text-neutral-900"
-            >
-              {icons.comment}
-              {`${post.replies.length}`}
-            </button>
-          )}
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+            }}
+            className="flex gap-1 text-neutral-900"
+          >
+            {icons.comment}
+            {`${post.replies.length}`}
+          </button>
           <button
             onClick={async (event) => {
               event.preventDefault();

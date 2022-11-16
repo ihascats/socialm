@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import CommentCard from './components/CommentCard';
 import Nav from './components/Nav';
-import PostList from './components/PostList';
+import PostCard from './components/PostCard';
 import UserHeader from './components/UserHeader';
 import { fetchImage } from './fetch_requests/img.fetch';
 import { fetchUserPosts } from './fetch_requests/post.fetch';
@@ -91,13 +92,17 @@ export default function User() {
           >
             Comments
           </button>
-          <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
+          <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
             {showPosts
               ? userPosts.posts.map((post) => (
-                  <PostList key={post._id} post={post} user={signedUserInfo} />
+                  <PostCard key={post._id} post={post} user={signedUserInfo} />
                 ))
               : userPosts.comments.map((post) => (
-                  <PostList key={post._id} post={post} user={signedUserInfo} />
+                  <CommentCard
+                    key={post._id}
+                    post={post}
+                    user={signedUserInfo}
+                  />
                 ))}
           </ul>
         </div>
@@ -121,7 +126,7 @@ export default function User() {
           >
             Comments
           </button>
-          <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600"></ul>
+          <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600"></ul>
         </div>
       )}
 
