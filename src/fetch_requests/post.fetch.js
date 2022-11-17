@@ -130,3 +130,23 @@ exports.fetchPostPost = async function (post_text) {
     return { response };
   }
 };
+
+exports.fetchDeletePost = async function (post_id) {
+  console.log(window.location.pathname);
+  let link = `${process.env.REACT_APP_APILINK}/post/${post_id}`;
+  if (window.location.pathname === '/timeline')
+    link = `${process.env.REACT_APP_APILINK}/post/${post_id}/timeline`;
+  const response = await fetch(link, {
+    mode: 'cors',
+    method: 'DELETE',
+    headers: new Headers({
+      Authorization: localStorage.Authorization,
+    }),
+  });
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    return { post: json, response };
+  } else {
+    return { response };
+  }
+};

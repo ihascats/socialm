@@ -31,11 +31,16 @@ export default function Timeline() {
       <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
         {timeline
           ? timeline.map((post) => (
-              <PostCard key={post._id} post={post} user={userInformation} />
+              <PostCard
+                key={post._id}
+                post={post}
+                user={userInformation}
+                setTimeline={setTimeline}
+              />
             ))
           : null}
       </ul>
-      <Nav />
+      <Nav setTimeline={setTimeline} />
     </div>
   );
 }

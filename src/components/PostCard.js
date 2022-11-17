@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchImage } from '../fetch_requests/img.fetch';
 import { fetchPutLike, fetchPutPost } from '../fetch_requests/post.fetch';
+import DeletePost from './DeletePost';
 import Icons from './Icons';
 import MoreOptionsMenu from './MoreOptionsMenu';
 
-export default function PostList({ post, user }) {
+export default function PostCard({ post, user, setTimeline }) {
   const icons = Icons();
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [liked, setLiked] = useState(post.likes.includes(user._id));
@@ -14,6 +15,7 @@ export default function PostList({ post, user }) {
   const [editPost, setEditPost] = useState(false);
   const textArea = useRef();
   const [postData, setPostData] = useState(post);
+  const [deletePost, setDeletePost] = useState(false);
 
   async function like() {
     const json = await fetchPutLike(post);
@@ -96,6 +98,7 @@ export default function PostList({ post, user }) {
             <MoreOptionsMenu
               setMenuVisible={setMenuVisible}
               setEditPost={setEditPost}
+              setDeletePost={setDeletePost}
             />
           ) : null}
         </div>
@@ -167,6 +170,13 @@ export default function PostList({ post, user }) {
           </div>
         )}
       </div>
+      {deletePost ? (
+        <DeletePost
+          setDeletePost={setDeletePost}
+          postId={postData._id}
+          setTimeline={setTimeline}
+        />
+      ) : null}
     </Link>
   );
 }
