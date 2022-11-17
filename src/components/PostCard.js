@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchImage } from '../fetch_requests/img.fetch';
-import { fetchPutLike, fetchPutPost } from '../fetch_requests/post.fetch';
+import { fetchPutLike } from '../fetch_requests/post.fetch';
 import DeletePost from './DeletePost';
 import Icons from './Icons';
+import CommentLikeButtons from './mini-components/buttons/CommentLikeButtons';
+import EditCancelSaveButtons from './mini-components/buttons/EditCancelSaveButtons';
+import MoreOptionsButton from './mini-components/buttons/MoreOptionsButton';
 import MoreOptionsMenu from './MoreOptionsMenu';
 
 export default function PostCard({ post, user, setTimeline }) {
@@ -84,16 +87,11 @@ export default function PostCard({ post, user, setTimeline }) {
               </h2>
             )}
           </div>
+
           {user._id === postData.author._id ? (
-            <button
-              onClick={(event) => {
-                event.preventDefault();
-                setMenuVisible(true);
-              }}
-            >
-              {icons.moreOptions}
-            </button>
+            <MoreOptionsButton setMenuVisible={setMenuVisible} />
           ) : null}
+
           {menuVisible ? (
             <MoreOptionsMenu
               setMenuVisible={setMenuVisible}
@@ -102,6 +100,7 @@ export default function PostCard({ post, user, setTimeline }) {
             />
           ) : null}
         </div>
+
         <div className="pt-2">
           {editPost ? (
             <textarea
@@ -117,57 +116,19 @@ export default function PostCard({ post, user, setTimeline }) {
           )}
         </div>
         {editPost ? (
-          <div className="flex justify-end gap-2">
-            <button
-              onClick={(event) => {
-                event.preventDefault();
-                setEditPost(false);
-              }}
-              className="border-b-2 border-red-500 px-4 py-1 rounded-md"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={async (event) => {
-                event.preventDefault();
-                const updatedPostData = await fetchPutPost(
-                  postData._id,
-                  textArea.current.value,
-                );
-                setPostData(updatedPostData.post.post);
-                setEditPost(false);
-              }}
-              className="border-b-2 border-green-500 px-4 py-1 rounded-md"
-            >
-              Save
-            </button>
-          </div>
+          <EditCancelSaveButtons
+            setEditPost={setEditPost}
+            setPostData={setPostData}
+            textArea={textArea}
+            postData={postData}
+          />
         ) : (
-          <div className="flex justify-end gap-6">
-            <button
-              onClick={(event) => {
-                event.preventDefault();
-              }}
-              className="flex gap-1 text-neutral-900"
-            >
-              {icons.comment}
-              {`${postData.replies.length}`}
-            </button>
-            <button
-              onClick={async (event) => {
-                event.preventDefault();
-                like();
-              }}
-              className={`flex gap-1 ${
-                liked
-                  ? 'fill-red-500 text-red-500 dark:fill-rose-300 dark:text-rose-300'
-                  : 'fill-neutral-900 text-neutral-900'
-              }`}
-            >
-              {icons.like}
-              {`${likeCount}`}
-            </button>
-          </div>
+          <CommentLikeButtons
+            like={like}
+            liked={liked}
+            likeCount={likeCount}
+            postData={postData}
+          />
         )}
       </div>
       {deletePost ? (

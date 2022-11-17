@@ -1,11 +1,9 @@
 import { useParams } from 'react-router-dom';
-import {
-  fetchPutAcceptFr,
-  fetchPutDeclineFr,
-  fetchPutFriendRequest,
-  fetchPutRemoveFr,
-} from '../fetch_requests/user.fetch';
+import { fetchPutRemoveFr } from '../fetch_requests/user.fetch';
 import Icons from './Icons';
+import AcceptDeclineFrButtons from './mini-components/buttons/AcceptDeclineFrButtons';
+import RemoveFriendButton from './mini-components/buttons/RemoveFriendButton';
+import SendFrButton from './mini-components/buttons/SendFrButton';
 
 export default function UserHeader({
   userInformation,
@@ -19,52 +17,18 @@ export default function UserHeader({
   function friendStatus() {
     if (userInformation.friend_requests.includes(signId))
       return <div>{icons.friendRequestPending}</div>;
+
     if (signedUserInfo.friend_requests.includes(userInformation._id))
       return (
-        <div className="flex gap-3">
-          <button
-            onClick={async () => {
-              const userInfo = await fetchPutAcceptFr(id);
-              setSignedUserInfo(userInfo.user);
-            }}
-            className="fill-blue-500"
-          >
-            {icons.acceptFriendRequest}
-          </button>
-          <button
-            onClick={async () => {
-              const userInfo = await fetchPutDeclineFr(id);
-              setSignedUserInfo(userInfo.user);
-            }}
-            className="fill-red-500"
-          >
-            {icons.declineFriendRequest}
-          </button>
-        </div>
+        <AcceptDeclineFrButtons setSignedUserInfo={setSignedUserInfo} id={id} />
       );
+
     if (signedUserInfo.friends_list.includes(userInformation._id))
       return (
-        <button
-          onClick={async () => {
-            const userInfo = await fetchPutRemoveFr(id);
-            setSignedUserInfo(userInfo.user);
-          }}
-        >
-          Friends
-        </button>
+        <RemoveFriendButton setSignedUserInfo={setSignedUserInfo} id={id} />
       );
-    return (
-      <button
-        onClick={async () => {
-          const userInfo = await fetchPutFriendRequest(id);
-          if ('user' in userInfo) {
-            setSignedUserInfo(userInfo.user);
-          }
-        }}
-      >
-        {icons.sendFriendRequest}
-      </button>
-    );
+
+    return <SendFrButton setSignedUserInfo={setSignedUserInfo} id={id} />;
   }
 
   const icons = Icons();
