@@ -67,7 +67,7 @@ exports.fetchPost = async function (post_id) {
 
 exports.fetchPutPost = async function (post_id, post_text) {
   var urlencoded = new URLSearchParams();
-  urlencoded.append('post_text', post_text);
+  urlencoded.append('post_text', post_text.trim());
   const response = await fetch(
     `${process.env.REACT_APP_APILINK}/post/${post_id}`,
     {
@@ -89,7 +89,7 @@ exports.fetchPutPost = async function (post_id, post_text) {
 
 exports.fetchPutComment = async function (comment_id, comment_text) {
   var urlencoded = new URLSearchParams();
-  urlencoded.append('comment_text', comment_text);
+  urlencoded.append('comment_text', comment_text.trim());
   const response = await fetch(
     `${process.env.REACT_APP_APILINK}/post/comment/${comment_id}`,
     {
@@ -104,6 +104,26 @@ exports.fetchPutComment = async function (comment_id, comment_text) {
   if (response.status === 200) {
     const json = await response.json(); //extract JSON from the http response
     return { comment: json, response };
+  } else {
+    return { response };
+  }
+};
+
+exports.fetchPostPost = async function (post_text) {
+  if (post_text.length === 0) return;
+  var urlencoded = new URLSearchParams();
+  urlencoded.append('post_text', post_text.trim());
+  const response = await fetch(`${process.env.REACT_APP_APILINK}/post/`, {
+    mode: 'cors',
+    method: 'POST',
+    body: urlencoded,
+    headers: new Headers({
+      Authorization: localStorage.Authorization,
+    }),
+  });
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    return { post: json, response };
   } else {
     return { response };
   }

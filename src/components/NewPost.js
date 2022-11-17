@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { fetchPostPost } from '../fetch_requests/post.fetch';
 
 export default function NewPost({ setNewPostVisible }) {
   const textArea = useRef();
@@ -28,6 +29,7 @@ export default function NewPost({ setNewPostVisible }) {
             onClick={async (event) => {
               event.preventDefault();
               setNewPostVisible(false);
+              const post = await fetchPostPost(textArea.current.value);
             }}
             className="border-b-2 border-green-500 px-4 py-1"
           >
