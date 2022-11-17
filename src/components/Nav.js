@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Icons from './Icons';
 import NewPost from './NewPost';
 
-export default function Nav({ timeline, setTimeline }) {
+export default function Nav({ timeline, setTimeline, setUserPosts }) {
   const [newPostVisible, setNewPostVisible] = useState(false);
   const showTimeline = false || timeline;
   const icons = Icons();
@@ -28,6 +28,7 @@ export default function Nav({ timeline, setTimeline }) {
         <NewPost
           setNewPostVisible={setNewPostVisible}
           setTimeline={setTimeline}
+          setUserPosts={setUserPosts}
         />
       ) : null}
     </nav>

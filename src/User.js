@@ -95,7 +95,12 @@ export default function User() {
           <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
             {showPosts
               ? userPosts.posts.map((post) => (
-                  <PostCard key={post._id} post={post} user={signedUserInfo} />
+                  <PostCard
+                    key={post._id}
+                    post={post}
+                    user={signedUserInfo}
+                    setUserPosts={setUserPosts}
+                  />
                 ))
               : userPosts.comments.map((comment) => (
                   <Link
@@ -132,7 +137,7 @@ export default function User() {
         </div>
       )}
 
-      <Nav timeline={true} />
+      <Nav timeline={true} setUserPosts={setUserPosts} />
     </div>
   );
 }

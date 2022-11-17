@@ -1,6 +1,11 @@
 import { fetchDeletePost } from '../fetch_requests/post.fetch';
 
-export default function DeletePost({ setDeletePost, postId, setTimeline }) {
+export default function DeletePost({
+  setDeletePost,
+  postId,
+  setTimeline,
+  setUserPosts,
+}) {
   return (
     <div
       onClick={(event) => {
@@ -23,7 +28,8 @@ export default function DeletePost({ setDeletePost, postId, setTimeline }) {
             onClick={async () => {
               setDeletePost(false);
               const posts = await fetchDeletePost(postId);
-              setTimeline(posts.post);
+              if (setTimeline) setTimeline(posts.post);
+              if (setUserPosts) setUserPosts(posts.post);
             }}
             className=" hover:bg-red-500 w-full h-full"
           >

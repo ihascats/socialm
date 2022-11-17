@@ -4,6 +4,7 @@ export default function NewPostButtons({
   setNewPostVisible,
   setTimeline,
   textArea,
+  setUserPosts,
 }) {
   return (
     <div className="flex justify-end gap-2">
@@ -21,7 +22,8 @@ export default function NewPostButtons({
           event.preventDefault();
           setNewPostVisible(false);
           const posts = await fetchPostPost(textArea.current.value);
-          setTimeline(posts.post.posts);
+          if (setTimeline) setTimeline(posts.post.posts);
+          if (setUserPosts) setUserPosts(posts.post);
         }}
         className="border-b-2 border-green-500 px-4 py-1"
       >

@@ -132,10 +132,7 @@ exports.fetchPostPost = async function (post_text) {
 };
 
 exports.fetchDeletePost = async function (post_id) {
-  console.log(window.location.pathname);
-  let link = `${process.env.REACT_APP_APILINK}/post/${post_id}`;
-  if (window.location.pathname === '/timeline')
-    link = `${process.env.REACT_APP_APILINK}/post/${post_id}/timeline`;
+  let link = `${process.env.REACT_APP_APILINK}/post/${post_id}${window.location.pathname}`;
   const response = await fetch(link, {
     mode: 'cors',
     method: 'DELETE',

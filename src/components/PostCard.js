@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import { fetchImage } from '../fetch_requests/img.fetch';
 import { fetchPutLike } from '../fetch_requests/post.fetch';
 import DeletePost from './DeletePost';
-import Icons from './Icons';
 import CommentLikeButtons from './mini-components/buttons/CommentLikeButtons';
 import EditCancelSaveButtons from './mini-components/buttons/EditCancelSaveButtons';
 import MoreOptionsButton from './mini-components/buttons/MoreOptionsButton';
 import MoreOptionsMenu from './MoreOptionsMenu';
 
-export default function PostCard({ post, user, setTimeline }) {
-  const icons = Icons();
+export default function PostCard({ post, user, setTimeline, setUserPosts }) {
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [liked, setLiked] = useState(post.likes.includes(user._id));
   const [image, setImage] = useState();
@@ -136,6 +134,7 @@ export default function PostCard({ post, user, setTimeline }) {
           setDeletePost={setDeletePost}
           postId={postData._id}
           setTimeline={setTimeline}
+          setUserPosts={setUserPosts}
         />
       ) : null}
     </Link>

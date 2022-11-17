@@ -1,8 +1,11 @@
 import { useRef } from 'react';
-import { fetchPostPost } from '../fetch_requests/post.fetch';
 import NewPostButtons from './mini-components/buttons/NewPostButtons';
 
-export default function NewPost({ setNewPostVisible, setTimeline }) {
+export default function NewPost({
+  setNewPostVisible,
+  setTimeline,
+  setUserPosts,
+}) {
   const textArea = useRef();
 
   return (
@@ -19,6 +22,7 @@ export default function NewPost({ setNewPostVisible, setTimeline }) {
         <NewPostButtons
           setNewPostVisible={setNewPostVisible}
           setTimeline={setTimeline}
+          setUserPosts={setUserPosts}
           textArea={textArea}
         />
       </div>
