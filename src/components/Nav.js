@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icons from './Icons';
+import NewPost from './NewPost';
 
 export default function Nav({ timeline }) {
+  const [newPostVisible, setNewPostVisible] = useState(false);
   const showTimeline = false || timeline;
   const icons = Icons();
   return (
@@ -12,9 +15,18 @@ export default function Nav({ timeline }) {
         <Link to={`/user`}>{icons.profile}</Link>
       )}
       <button>{icons.friendList}</button>
-      <button>{icons.newPost}</button>
+      <button
+        onClick={() => {
+          setNewPostVisible(true);
+        }}
+      >
+        {icons.newPost}
+      </button>
       <button>{icons.notifications}</button>
       <button>{icons.settings}</button>
+      {newPostVisible ? (
+        <NewPost setNewPostVisible={setNewPostVisible} />
+      ) : null}
     </nav>
   );
 }
