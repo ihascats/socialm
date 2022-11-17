@@ -66,6 +66,7 @@ exports.fetchPost = async function (post_id) {
 };
 
 exports.fetchPutPost = async function (post_id, post_text) {
+  if (post_text.length === 0) return;
   var urlencoded = new URLSearchParams();
   urlencoded.append('post_text', post_text.trim());
   const response = await fetch(
@@ -88,6 +89,7 @@ exports.fetchPutPost = async function (post_id, post_text) {
 };
 
 exports.fetchPutComment = async function (comment_id, comment_text) {
+  if (comment_text.length === 0) return;
   var urlencoded = new URLSearchParams();
   urlencoded.append('comment_text', comment_text.trim());
   const response = await fetch(
