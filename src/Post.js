@@ -45,6 +45,7 @@ export default function Post() {
             post={postInformation}
             user={signedUserInfo}
             setPostInformation={setPostInformation}
+            postInformation={postInformation}
           />
         ) : null}
         {postInformation
@@ -59,7 +60,11 @@ export default function Post() {
               ))
           : null}
       </ul>
-      <Nav timeline={true} />
+      <Nav
+        timeline={true}
+        setPostInformation={setPostInformation}
+        postId={id}
+      />
     </div>
   );
 }

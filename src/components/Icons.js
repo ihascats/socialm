@@ -150,6 +150,16 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const bigComment = (
+    <Icon
+      path={mdiCommentOutline}
+      size={2}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
   const newPost = (
     <Icon
       path={mdiPlus}
@@ -205,6 +215,7 @@ export default function Icons() {
     deleteSVG,
     moreOptions,
     comment,
+    bigComment,
     newPost,
     settings,
     profile,

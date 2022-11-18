@@ -15,6 +15,7 @@ export default function PostCard({
   setTimeline,
   setUserPosts,
   setPostInformation,
+  postInformation,
 }) {
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [liked, setLiked] = useState(post.likes.includes(user._id));
@@ -38,6 +39,13 @@ export default function PostCard({
       fetchImage(postData.author, setImage);
     }
   }, [postData.author]);
+
+  useEffect(() => {
+    if (postInformation)
+      if (postInformation.replies.length !== repliesCount) {
+        setRepliesCount(postInformation.replies.length);
+      }
+  }, [postInformation]);
 
   return (
     <Link draggable={false} to={`/post/${postData._id}`}>

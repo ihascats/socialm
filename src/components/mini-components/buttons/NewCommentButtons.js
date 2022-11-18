@@ -23,7 +23,7 @@ export default function NewCommentButtons({
           event.preventDefault();
           setNewCommentVisible(false);
           const posts = await fetchPostComment(textArea.current.value, postId);
-          setRepliesCount(posts.post.replies.length);
+          if (setRepliesCount) setRepliesCount(posts.post.replies.length);
           if (setPostInformation) setPostInformation(posts.post);
         }}
         className="border-b-2 border-green-500 px-4 py-1"
