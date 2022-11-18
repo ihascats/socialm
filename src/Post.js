@@ -56,6 +56,7 @@ export default function Post() {
                   key={comment._id}
                   comment={comment}
                   user={signedUserInfo}
+                  setPostInformation={setPostInformation}
                 />
               ))
           : null}

@@ -170,3 +170,20 @@ exports.fetchDeletePost = async function (post_id) {
     return { response };
   }
 };
+
+exports.fetchDeleteComment = async function (comment_id) {
+  let link = `${process.env.REACT_APP_APILINK}/post/comment/${comment_id}`;
+  const response = await fetch(link, {
+    mode: 'cors',
+    method: 'DELETE',
+    headers: new Headers({
+      Authorization: localStorage.Authorization,
+    }),
+  });
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    return { post: json, response };
+  } else {
+    return { response };
+  }
+};

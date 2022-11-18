@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchImage } from '../fetch_requests/img.fetch';
 import { fetchPutComment, fetchPutLike } from '../fetch_requests/post.fetch';
+import DeleteComment from './DeleteComment';
 import Icons from './Icons';
 import MoreOptionsMenu from './MoreOptionsMenu';
 
-export default function CommentCard({ comment, user }) {
+export default function CommentCard({ comment, user, setPostInformation }) {
   const icons = Icons();
   const [likeCount, setLikeCount] = useState(comment.likes.length);
   const [liked, setLiked] = useState(comment.likes.includes(user._id));
@@ -14,6 +15,7 @@ export default function CommentCard({ comment, user }) {
   const [editComment, setEditComment] = useState(false);
   const textArea = useRef();
   const [commentData, setCommentData] = useState(comment);
+  const [deleteComment, setDeleteComment] = useState(false);
 
   async function like() {
     const json = await fetchPutLike(comment);
@@ -96,6 +98,7 @@ export default function CommentCard({ comment, user }) {
           <MoreOptionsMenu
             setMenuVisible={setMenuVisible}
             setEditComment={setEditComment}
+            setDeleteComment={setDeleteComment}
           />
         ) : null}
       </div>
@@ -157,6 +160,13 @@ export default function CommentCard({ comment, user }) {
           </button>
         </div>
       )}
+      {deleteComment ? (
+        <DeleteComment
+          setDeleteComment={setDeleteComment}
+          commentId={comment._id}
+          setPostInformation={setPostInformation}
+        />
+      ) : null}
     </div>
   );
 }

@@ -6,6 +6,7 @@ export default function MoreOptionsMenu({
   setEditPost,
   setEditComment,
   setDeletePost,
+  setDeleteComment,
 }) {
   const icons = Icons();
 
@@ -46,7 +47,7 @@ export default function MoreOptionsMenu({
       <button
         onClick={() => {
           setMenuVisible(false);
-          setDeletePost(true);
+          setDeletePost ? setDeletePost(true) : setDeleteComment(true);
         }}
         className="flex gap-2 hover:bg-lime-500 px-2"
       >
