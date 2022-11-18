@@ -131,6 +131,29 @@ exports.fetchPostPost = async function (post_text) {
   }
 };
 
+exports.fetchPostComment = async function (comment_text, post_id) {
+  if (comment_text.length === 0) return;
+  var urlencoded = new URLSearchParams();
+  urlencoded.append('comment_text', comment_text.trim());
+  const response = await fetch(
+    `${process.env.REACT_APP_APILINK}/post/${post_id}/comment`,
+    {
+      mode: 'cors',
+      method: 'POST',
+      body: urlencoded,
+      headers: new Headers({
+        Authorization: localStorage.Authorization,
+      }),
+    },
+  );
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    return { post: json, response };
+  } else {
+    return { response };
+  }
+};
+
 exports.fetchDeletePost = async function (post_id) {
   let link = `${process.env.REACT_APP_APILINK}/post/${post_id}${window.location.pathname}`;
   const response = await fetch(link, {

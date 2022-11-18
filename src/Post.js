@@ -41,16 +41,22 @@ export default function Post() {
     <div>
       <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
         {postInformation ? (
-          <PostCard post={postInformation} user={signedUserInfo} />
+          <PostCard
+            post={postInformation}
+            user={signedUserInfo}
+            setPostInformation={setPostInformation}
+          />
         ) : null}
         {postInformation
-          ? postInformation.replies.map((comment) => (
-              <CommentCard
-                key={comment._id}
-                comment={comment}
-                user={signedUserInfo}
-              />
-            ))
+          ? postInformation.replies
+              .reverse()
+              .map((comment) => (
+                <CommentCard
+                  key={comment._id}
+                  comment={comment}
+                  user={signedUserInfo}
+                />
+              ))
           : null}
       </ul>
       <Nav timeline={true} />

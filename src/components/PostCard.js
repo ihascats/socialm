@@ -7,8 +7,15 @@ import CommentLikeButtons from './mini-components/buttons/CommentLikeButtons';
 import EditCancelSaveButtons from './mini-components/buttons/EditCancelSaveButtons';
 import MoreOptionsButton from './mini-components/buttons/MoreOptionsButton';
 import MoreOptionsMenu from './MoreOptionsMenu';
+import NewComment from './NewComment';
 
-export default function PostCard({ post, user, setTimeline, setUserPosts }) {
+export default function PostCard({
+  post,
+  user,
+  setTimeline,
+  setUserPosts,
+  setPostInformation,
+}) {
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [liked, setLiked] = useState(post.likes.includes(user._id));
   const [image, setImage] = useState();
@@ -17,6 +24,8 @@ export default function PostCard({ post, user, setTimeline, setUserPosts }) {
   const textArea = useRef();
   const [postData, setPostData] = useState(post);
   const [deletePost, setDeletePost] = useState(false);
+  const [newCommentVisible, setNewCommentVisible] = useState(false);
+  const [repliesCount, setRepliesCount] = useState(post.replies.length);
 
   async function like() {
     const json = await fetchPutLike(post);
@@ -125,7 +134,9 @@ export default function PostCard({ post, user, setTimeline, setUserPosts }) {
             like={like}
             liked={liked}
             likeCount={likeCount}
+            repliesCount={repliesCount}
             postData={postData}
+            setNewCommentVisible={setNewCommentVisible}
           />
         )}
       </div>
@@ -135,6 +146,16 @@ export default function PostCard({ post, user, setTimeline, setUserPosts }) {
           postId={postData._id}
           setTimeline={setTimeline}
           setUserPosts={setUserPosts}
+        />
+      ) : null}
+      {newCommentVisible ? (
+        <NewComment
+          setNewCommentVisible={setNewCommentVisible}
+          postId={postData._id}
+          setTimeline={setTimeline}
+          setUserPosts={setUserPosts}
+          setRepliesCount={setRepliesCount}
+          setPostInformation={setPostInformation}
         />
       ) : null}
     </Link>

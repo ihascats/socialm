@@ -4,7 +4,9 @@ export default function CommentLikeButtons({
   like,
   liked,
   likeCount,
+  repliesCount,
   postData,
+  setNewCommentVisible,
 }) {
   const icons = Icons();
   return (
@@ -12,11 +14,12 @@ export default function CommentLikeButtons({
       <button
         onClick={(event) => {
           event.preventDefault();
+          setNewCommentVisible(true);
         }}
         className="flex gap-1 text-neutral-900"
       >
         {icons.comment}
-        {`${postData.replies.length}`}
+        {`${repliesCount}`}
       </button>
       <button
         onClick={async (event) => {

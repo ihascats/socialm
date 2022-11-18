@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { fetchPutRemoveFr } from '../fetch_requests/user.fetch';
 import Icons from './Icons';
 import AcceptDeclineFrButtons from './mini-components/buttons/AcceptDeclineFrButtons';
 import RemoveFriendButton from './mini-components/buttons/RemoveFriendButton';
