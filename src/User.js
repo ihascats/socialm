@@ -108,7 +108,11 @@ export default function User() {
                     draggable={false}
                     to={`/post/${comment.parent}`}
                   >
-                    <CommentCard comment={comment} user={signedUserInfo} />
+                    <CommentCard
+                      comment={comment}
+                      user={signedUserInfo}
+                      setUserPosts={setUserPosts}
+                    />
                   </Link>
                 ))}
           </ul>

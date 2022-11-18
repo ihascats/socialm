@@ -4,6 +4,7 @@ export default function DeleteComment({
   setDeleteComment,
   commentId,
   setPostInformation,
+  setUserPosts,
 }) {
   return (
     <div
@@ -27,7 +28,10 @@ export default function DeleteComment({
             onClick={async () => {
               setDeleteComment(false);
               const posts = await fetchDeleteComment(commentId);
-              setPostInformation(posts.post);
+              console.log(posts);
+              setPostInformation
+                ? setPostInformation(posts.post)
+                : setUserPosts(posts.post);
             }}
             className=" hover:bg-red-500 w-full h-full"
           >

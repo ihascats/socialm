@@ -172,7 +172,9 @@ exports.fetchDeletePost = async function (post_id) {
 };
 
 exports.fetchDeleteComment = async function (comment_id) {
-  let link = `${process.env.REACT_APP_APILINK}/post/comment/${comment_id}`;
+  let link = `${process.env.REACT_APP_APILINK}/post/comment/${comment_id}/${
+    window.location.pathname.split('/')[1]
+  }`;
   const response = await fetch(link, {
     mode: 'cors',
     method: 'DELETE',

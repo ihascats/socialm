@@ -6,7 +6,12 @@ import DeleteComment from './DeleteComment';
 import Icons from './Icons';
 import MoreOptionsMenu from './MoreOptionsMenu';
 
-export default function CommentCard({ comment, user, setPostInformation }) {
+export default function CommentCard({
+  comment,
+  user,
+  setPostInformation,
+  setUserPosts,
+}) {
   const icons = Icons();
   const [likeCount, setLikeCount] = useState(comment.likes.length);
   const [liked, setLiked] = useState(comment.likes.includes(user._id));
@@ -165,6 +170,7 @@ export default function CommentCard({ comment, user, setPostInformation }) {
           setDeleteComment={setDeleteComment}
           commentId={comment._id}
           setPostInformation={setPostInformation}
+          setUserPosts={setUserPosts}
         />
       ) : null}
     </div>
