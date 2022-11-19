@@ -14,6 +14,19 @@ export default function UserSearch() {
   const [outgoingFr, setOutgoingFr] = useState();
   const [incomingFr, setIncomingFr] = useState();
 
+  function updateOutgoing() {
+    fetchOutgoingFr().then(
+      function (value) {
+        if (value.response.status === 200) {
+          setOutgoingFr(value.users);
+        }
+      },
+      function (error) {
+        console.log(error);
+      },
+    );
+  }
+
   useEffect(() => {
     fetchUsers().then(
       function (value) {
@@ -25,16 +38,7 @@ export default function UserSearch() {
         console.log(error);
       },
     );
-    fetchOutgoingFr().then(
-      function (value) {
-        if (value.response.status === 200) {
-          setOutgoingFr(value.users);
-        }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
+    updateOutgoing();
     fetchIncomingFr().then(
       function (value) {
         if (value.response.status === 200) {
@@ -68,7 +72,14 @@ export default function UserSearch() {
         </h1>
         {allUsers && signedUserInfo && outgoingFr
           ? outgoingFr.map((user) => {
-              return <UserCard key={user._id} user={user} />;
+              return (
+                <UserCard
+                  key={user._id}
+                  user={user}
+                  signedUserInfo={signedUserInfo}
+                  setSignedUserInfo={setSignedUserInfo}
+                />
+              );
             })
           : null}
         <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
@@ -76,7 +87,14 @@ export default function UserSearch() {
         </h1>
         {allUsers && signedUserInfo && incomingFr
           ? incomingFr.map((user) => {
-              return <UserCard key={user._id} user={user} />;
+              return (
+                <UserCard
+                  key={user._id}
+                  user={user}
+                  signedUserInfo={signedUserInfo}
+                  setSignedUserInfo={setSignedUserInfo}
+                />
+              );
             })
           : null}
         <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
@@ -86,16 +104,40 @@ export default function UserSearch() {
           ? allUsers.map((user) => {
               if (user._id === signedUserInfo._id) return;
               if (signedUserInfo.friends_list.includes(user._id))
-                return <UserCard key={user._id} user={user} />;
+                return (
+                  <UserCard
+                    key={user._id}
+                    user={user}
+                    signedUserInfo={signedUserInfo}
+                    setSignedUserInfo={setSignedUserInfo}
+                  />
+                );
             })
           : null}
         <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
           SocialM Users
         </h1>
-        {allUsers && signedUserInfo
+        {allUsers && signedUserInfo && outgoingFr
           ? allUsers.map((user) => {
               if (user._id === signedUserInfo._id) return;
-              return <UserCard key={user._id} user={user} />;
+              if (signedUserInfo.friend_requests.includes(user._id)) return;
+              if (signedUserInfo.friends_list.includes(user._id)) return;
+              if (
+                outgoingFr.some(
+                  (friend_request) => friend_request._id === user._id,
+                )
+              )
+                return;
+
+              return (
+                <UserCard
+                  key={user._id}
+                  user={user}
+                  signedUserInfo={signedUserInfo}
+                  setSignedUserInfo={setSignedUserInfo}
+                  updateOutgoing={updateOutgoing}
+                />
+              );
             })
           : null}
       </ul>

@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchImage } from '../fetch_requests/img.fetch';
+import FriendStatus from './FriendStatus';
 
-export default function UserCard({ user }) {
+export default function UserCard({
+  user,
+  signedUserInfo,
+  setSignedUserInfo,
+  updateOutgoing,
+}) {
   const [userInfo, setUserInfo] = useState(user);
   useEffect(() => {
     if (userInfo.profile_picture.slice(0, 4) !== 'http') {
@@ -34,6 +40,18 @@ export default function UserCard({ user }) {
         >
           {userInfo.username}
         </Link>
+        {signedUserInfo && userInfo ? (
+          signedUserInfo._id ? (
+            userInfo._id !== signedUserInfo._id ? (
+              <FriendStatus
+                userInformation={userInfo}
+                signedUserInfo={signedUserInfo}
+                setSignedUserInfo={setSignedUserInfo}
+                updateOutgoing={updateOutgoing}
+              />
+            ) : null
+          ) : null
+        ) : null}
       </div>
     </li>
   );
