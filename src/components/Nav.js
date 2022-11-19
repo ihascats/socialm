@@ -23,7 +23,7 @@ export default function Nav({
       ) : (
         <Link to={`/user`}>{icons.profile}</Link>
       )}
-      <button>{icons.friendList}</button>
+      <Link to={`/userSearch`}>{icons.friendList}</Link>
       {setPostInformation ? (
         <button
           onClick={() => {
