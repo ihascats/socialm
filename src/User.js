@@ -53,6 +53,11 @@ export default function User() {
   }, []);
 
   useEffect(() => {
+    console.log(signedUserInfo);
+    update();
+  }, [signedUserInfo]);
+
+  useEffect(() => {
     if (userInformation) {
       if (userInformation.profile_picture.slice(0, 4) !== 'blob')
         if (userInformation.profile_picture.slice(0, 4) !== 'http') {
