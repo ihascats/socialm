@@ -53,7 +53,6 @@ export default function User() {
   }, []);
 
   useEffect(() => {
-    console.log(signedUserInfo);
     update();
   }, [signedUserInfo]);
 
