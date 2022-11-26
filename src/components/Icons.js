@@ -17,6 +17,7 @@ import {
   mdiAccountMultipleOutline,
   mdiAccountPlusOutline,
   mdiAccountClockOutline,
+  mdiImagePlusOutline,
 } from '@mdi/js';
 
 export default function Icons() {
@@ -200,6 +201,16 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const addImage = (
+    <Icon
+      path={mdiImagePlusOutline}
+      size={1}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
 
   return {
     // ..icons
@@ -221,5 +232,6 @@ export default function Icons() {
     profile,
     sendFriendRequest,
     friendRequestPending,
+    addImage,
   };
 }
