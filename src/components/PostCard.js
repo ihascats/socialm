@@ -35,10 +35,19 @@ export default function PostCard({
   }
 
   useEffect(() => {
-    if (postData.author.profile_picture.slice(0, 4) !== 'http') {
+    if (postData.author._id === user._id) {
+      if (user.profile_picture.slice(0, 4) !== 'http') {
+        fetchImage(user, setImage);
+      } else if (image) {
+        setImage();
+        const clone = structuredClone(postData);
+        clone.author = user;
+        setPostData(clone);
+      }
+    } else if (postData.author.profile_picture.slice(0, 4) !== 'http') {
       fetchImage(postData.author, setImage);
     }
-  }, [postData.author]);
+  }, [postData.author, user]);
 
   useEffect(() => {
     if (postInformation)

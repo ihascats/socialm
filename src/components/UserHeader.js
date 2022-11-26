@@ -1,13 +1,22 @@
+import { useState } from 'react';
 import FriendStatus from './FriendStatus';
+import UpdateUserInfoForm from './mini-components/forms/UpdateUserInfoForm';
 
 export default function UserHeader({
   userInformation,
   signedUserInfo,
   setSignedUserInfo,
 }) {
+  const [editUser, setEditUser] = useState(false);
+
   return (
     <div className="flex p-2 items-end w-full dark:bg-neutral-900 dark:text-neutral-50">
-      <div className="flex gap-2 items-end w-3/4">
+      <div
+        onClick={() => {
+          setEditUser(true);
+        }}
+        className="flex gap-2 items-end w-3/4"
+      >
         <img
           alt=""
           src={userInformation.profile_picture}
@@ -27,6 +36,13 @@ export default function UserHeader({
             />
           ) : null
         ) : null
+      ) : null}
+      {editUser ? (
+        <UpdateUserInfoForm
+          signedUserInfo={signedUserInfo}
+          setEditUser={setEditUser}
+          setSignedUserInfo={setSignedUserInfo}
+        />
       ) : null}
     </div>
   );

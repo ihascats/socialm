@@ -66,7 +66,7 @@ export default function UserSearch() {
 
   return (
     <div>
-      <div className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
+      <div className="bg-gradient-to-r from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
         <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
           Outgoing Friend Requests
         </h1>

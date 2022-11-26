@@ -28,7 +28,7 @@ export default function Timeline() {
         <a href={`${process.env.REACT_APP_APILINK}/auth/google`}>Google</a>
       )}
 
-      <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
+      <ul className="bg-gradient-to-r from-yellow-200 to-rose-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
         {timeline
           ? timeline.map((post) => (
               <PostCard

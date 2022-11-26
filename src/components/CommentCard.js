@@ -34,6 +34,21 @@ export default function CommentCard({
     }
   }, []);
 
+  useEffect(() => {
+    if (commentData.author._id === user._id) {
+      if (user.profile_picture.slice(0, 4) !== 'http') {
+        fetchImage(user, setImage);
+      } else if (image) {
+        setImage();
+        const clone = structuredClone(commentData);
+        clone.author = user;
+        setCommentData(clone);
+      }
+    } else if (commentData.author.profile_picture.slice(0, 4) !== 'http') {
+      fetchImage(commentData.author, setImage);
+    }
+  }, [commentData.author, user]);
+
   return (
     <div className="bg-neutral-900 bg-opacity-20 border-l-4 border-l-blue-500 pl-4 p-2 border-b-2 border-neutral-900 dark:border-lime-300">
       <div className="flex justify-between">

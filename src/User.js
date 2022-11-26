@@ -63,7 +63,7 @@ export default function User() {
           fetchImage(userInformation, setUserInformation);
         }
     }
-  }, [userInformation]);
+  }, [userInformation, signedUserInfo]);
 
   return (
     <div className="dark:text-neutral-50 dark:bg-neutral-900">
@@ -96,7 +96,7 @@ export default function User() {
           >
             Comments
           </button>
-          <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
+          <ul className="bg-gradient-to-br from-blue-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
             {showPosts
               ? userPosts.posts.map((post) => (
                   <PostCard
