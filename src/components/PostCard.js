@@ -92,7 +92,9 @@ export default function PostCard({
               }
               className="font-mono overflow-clip text-ellipsis"
             >
-              {postData.author.username}
+              {postData.author._id === user._id
+                ? user.username
+                : postData.author.username}
             </Link>
             {Math.abs(Date.parse(postData.createdAt) - Date.now()) / 36e5 >
             23 ? (

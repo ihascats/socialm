@@ -84,7 +84,9 @@ export default function CommentCard({
             }
             className="font-mono overflow-clip text-ellipsis"
           >
-            {comment.author.username}
+            {comment.author._id === user._id
+              ? user.username
+              : comment.author.username}
           </Link>
           {/* date */}
           {Math.abs(Date.parse(comment.createdAt) - Date.now()) / 36e5 > 23 ? (
