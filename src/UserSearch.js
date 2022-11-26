@@ -66,44 +66,13 @@ export default function UserSearch() {
 
   return (
     <div>
-      <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
+      <div className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
         <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
           Outgoing Friend Requests
         </h1>
-        {allUsers && signedUserInfo && outgoingFr
-          ? outgoingFr.map((user) => {
-              return (
-                <UserCard
-                  key={user._id}
-                  user={user}
-                  signedUserInfo={signedUserInfo}
-                  setSignedUserInfo={setSignedUserInfo}
-                />
-              );
-            })
-          : null}
-        <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
-          Incoming Friend Requests
-        </h1>
-        {allUsers && signedUserInfo && incomingFr
-          ? incomingFr.map((user) => {
-              return (
-                <UserCard
-                  key={user._id}
-                  user={user}
-                  signedUserInfo={signedUserInfo}
-                  setSignedUserInfo={setSignedUserInfo}
-                />
-              );
-            })
-          : null}
-        <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
-          Friends
-        </h1>
-        {allUsers && signedUserInfo
-          ? allUsers.map((user) => {
-              if (user._id === signedUserInfo._id) return;
-              if (signedUserInfo.friends_list.includes(user._id))
+        <ul>
+          {allUsers && signedUserInfo && outgoingFr
+            ? outgoingFr.map((user) => {
                 return (
                   <UserCard
                     key={user._id}
@@ -112,35 +81,74 @@ export default function UserSearch() {
                     setSignedUserInfo={setSignedUserInfo}
                   />
                 );
-            })
-          : null}
+              })
+            : null}
+        </ul>
+        <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
+          Incoming Friend Requests
+        </h1>
+        <ul>
+          {allUsers && signedUserInfo && incomingFr
+            ? incomingFr.map((user) => {
+                return (
+                  <UserCard
+                    key={user._id}
+                    user={user}
+                    signedUserInfo={signedUserInfo}
+                    setSignedUserInfo={setSignedUserInfo}
+                  />
+                );
+              })
+            : null}
+        </ul>
+        <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
+          Friends
+        </h1>
+        <ul>
+          {allUsers && signedUserInfo
+            ? allUsers.map((user) => {
+                if (user._id === signedUserInfo._id) return;
+                if (signedUserInfo.friends_list.includes(user._id))
+                  return (
+                    <UserCard
+                      key={user._id}
+                      user={user}
+                      signedUserInfo={signedUserInfo}
+                      setSignedUserInfo={setSignedUserInfo}
+                    />
+                  );
+              })
+            : null}
+        </ul>
         <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
           SocialM Users
         </h1>
-        {allUsers && signedUserInfo && outgoingFr
-          ? allUsers.map((user) => {
-              if (user._id === signedUserInfo._id) return;
-              if (signedUserInfo.friend_requests.includes(user._id)) return;
-              if (signedUserInfo.friends_list.includes(user._id)) return;
-              if (
-                outgoingFr.some(
-                  (friend_request) => friend_request._id === user._id,
+        <ul>
+          {allUsers && signedUserInfo && outgoingFr
+            ? allUsers.map((user) => {
+                if (user._id === signedUserInfo._id) return;
+                if (signedUserInfo.friend_requests.includes(user._id)) return;
+                if (signedUserInfo.friends_list.includes(user._id)) return;
+                if (
+                  outgoingFr.some(
+                    (friend_request) => friend_request._id === user._id,
+                  )
                 )
-              )
-                return;
+                  return;
 
-              return (
-                <UserCard
-                  key={user._id}
-                  user={user}
-                  signedUserInfo={signedUserInfo}
-                  setSignedUserInfo={setSignedUserInfo}
-                  updateOutgoing={updateOutgoing}
-                />
-              );
-            })
-          : null}
-      </ul>
+                return (
+                  <UserCard
+                    key={user._id}
+                    user={user}
+                    signedUserInfo={signedUserInfo}
+                    setSignedUserInfo={setSignedUserInfo}
+                    updateOutgoing={updateOutgoing}
+                  />
+                );
+              })
+            : null}
+        </ul>
+      </div>
       <Nav timeline={true} />
     </div>
   );
