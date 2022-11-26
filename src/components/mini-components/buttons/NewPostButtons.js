@@ -5,6 +5,8 @@ export default function NewPostButtons({
   setTimeline,
   textArea,
   setUserPosts,
+  imageFile,
+  imageUrl,
 }) {
   return (
     <div className="flex justify-end gap-2">
@@ -21,7 +23,11 @@ export default function NewPostButtons({
         onClick={async (event) => {
           event.preventDefault();
           setNewPostVisible(false);
-          const posts = await fetchPostPost(textArea.current.value);
+          const posts = await fetchPostPost(
+            textArea.current.value,
+            imageFile.current.files[0] || imageUrl.current.value,
+          );
+
           if (setTimeline) setTimeline(posts.post.posts);
           if (setUserPosts) setUserPosts(posts.post);
         }}
