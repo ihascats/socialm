@@ -111,14 +111,21 @@ exports.fetchPutComment = async function (comment_id, comment_text) {
   }
 };
 
-exports.fetchPostPost = async function (post_text) {
+exports.fetchPostPost = async function (post_text, image) {
   if (post_text.length === 0) return;
-  var urlencoded = new URLSearchParams();
-  urlencoded.append('post_text', post_text.trim());
+  var formData = new FormData();
+  if (image) {
+    if (typeof image === 'string') {
+      formData.append('image_url', image);
+    } else {
+      formData.append('image', image, image.name);
+    }
+  }
+  formData.append('post_text', post_text.trim());
   const response = await fetch(`${process.env.REACT_APP_APILINK}/post/`, {
     mode: 'cors',
     method: 'POST',
-    body: urlencoded,
+    body: formData,
     headers: new Headers({
       Authorization: localStorage.Authorization,
     }),
