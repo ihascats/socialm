@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchImage } from '../fetch_requests/img.fetch';
+import { fetchImage, fetchPostImage } from '../fetch_requests/img.fetch';
 import { fetchPutLike } from '../fetch_requests/post.fetch';
 import DeletePost from './DeletePost';
 import CommentLikeButtons from './mini-components/buttons/CommentLikeButtons';
@@ -48,6 +48,17 @@ export default function PostCard({
       fetchImage(postData.author, setImage);
     }
   }, [postData.author, user]);
+
+  useEffect(() => {
+    if ('image' in postData) {
+      if (
+        postData.image.slice(0, 4) !== 'http' &&
+        postData.image.slice(0, 4) !== 'blob'
+      ) {
+        fetchPostImage(postData, setPostData);
+      }
+    }
+  }, [postData]);
 
   useEffect(() => {
     if (postInformation)
@@ -138,7 +149,18 @@ export default function PostCard({
               defaultValue={postData.post_text}
             ></textarea>
           ) : (
-            <p>{postData.post_text}</p>
+            <div>
+              <p>{postData.post_text}</p>
+              {postData.image ? (
+                <div className="p-2">
+                  <img
+                    src={postData.image}
+                    alt=""
+                    className="border-2 border-neutral-100/70 rounded-md w-full"
+                  ></img>
+                </div>
+              ) : null}
+            </div>
           )}
         </div>
         {editPost ? (
