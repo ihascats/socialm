@@ -116,3 +116,34 @@ exports.fetchIncomingFr = async function () {
     return { response };
   }
 };
+
+exports.fetchPutUserInfo = async function (username, image) {
+  if (username.length === 0) return;
+
+  var formData = new FormData();
+
+  formData.append('username', username.trim());
+
+  if (image) {
+    if (typeof image === 'string') {
+      formData.append('image_url', image);
+    } else {
+      formData.append('profile_picture', image, image.name);
+    }
+  }
+  const link = `${process.env.REACT_APP_APILINK}/user`;
+  const response = await fetch(link, {
+    mode: 'cors',
+    method: 'PUT',
+    body: formData,
+    headers: new Headers({
+      Authorization: localStorage.Authorization,
+    }),
+  });
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    return { user: json, response };
+  } else {
+    return { response };
+  }
+};
