@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import NewCommentButtons from './mini-components/buttons/NewCommentButtons';
+import ImageInput from './mini-components/ImageInput';
 
 export default function NewComment({
   setNewCommentVisible,
@@ -8,6 +9,8 @@ export default function NewComment({
   setPostInformation,
 }) {
   const textArea = useRef();
+  const imageFile = useRef();
+  const imageUrl = useRef();
 
   return (
     <div className="fixed top-0 min-h-screen-nav w-full backdrop-brightness-50 backdrop-blur-sm text-neutral-200">
@@ -20,12 +23,15 @@ export default function NewComment({
           placeholder="What's happening?"
           className="w-full bg-transparent border-b-2 border-l-2 border-blue-600 resize-none h-20 outline-offset-4 p-2"
         ></textarea>
+        <ImageInput imageFile={imageFile} imageUrl={imageUrl} />
         <NewCommentButtons
           setNewCommentVisible={setNewCommentVisible}
           postId={postId}
           textArea={textArea}
           setRepliesCount={setRepliesCount}
           setPostInformation={setPostInformation}
+          imageFile={imageFile}
+          imageUrl={imageUrl}
         />
       </div>
     </div>
