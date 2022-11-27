@@ -65,16 +65,25 @@ exports.fetchPost = async function (post_id) {
   }
 };
 
-exports.fetchPutPost = async function (post_id, post_text) {
+exports.fetchPutPost = async function (post_id, post_text, image) {
   if (post_text.length === 0) return;
-  var urlencoded = new URLSearchParams();
-  urlencoded.append('post_text', post_text.trim());
+
+  var formData = new FormData();
+  if (image) {
+    if (typeof image === 'string') {
+      formData.append('image_url', image);
+    } else {
+      formData.append('image', image, image.name);
+    }
+  }
+
+  formData.append('post_text', post_text.trim());
   const response = await fetch(
     `${process.env.REACT_APP_APILINK}/post/${post_id}`,
     {
       mode: 'cors',
       method: 'PUT',
-      body: urlencoded,
+      body: formData,
       headers: new Headers({
         Authorization: localStorage.Authorization,
       }),
