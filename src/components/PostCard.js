@@ -6,6 +6,7 @@ import DeletePost from './DeletePost';
 import CommentLikeButtons from './mini-components/buttons/CommentLikeButtons';
 import EditCancelSaveButtons from './mini-components/buttons/EditCancelSaveButtons';
 import MoreOptionsButton from './mini-components/buttons/MoreOptionsButton';
+import ImageInput from './mini-components/ImageInput';
 import MoreOptionsMenu from './MoreOptionsMenu';
 import NewComment from './NewComment';
 
@@ -27,6 +28,8 @@ export default function PostCard({
   const [deletePost, setDeletePost] = useState(false);
   const [newCommentVisible, setNewCommentVisible] = useState(false);
   const [repliesCount, setRepliesCount] = useState(post.replies.length);
+  const imageFile = useRef();
+  const imageUrl = useRef();
 
   async function like() {
     const json = await fetchPutLike(post);
@@ -140,14 +143,25 @@ export default function PostCard({
 
         <div className="pt-2">
           {editPost ? (
-            <textarea
-              ref={textArea}
-              onClick={(event) => {
-                event.preventDefault();
-              }}
-              className="w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
-              defaultValue={postData.post_text}
-            ></textarea>
+            <div>
+              <textarea
+                ref={textArea}
+                onClick={(event) => {
+                  event.preventDefault();
+                }}
+                className="w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
+                defaultValue={postData.post_text}
+              ></textarea>
+              {postData.image ? (
+                <div className="p-2">
+                  <img
+                    src={postData.image}
+                    alt=""
+                    className="border-2 border-neutral-100/70 rounded-md w-full"
+                  ></img>
+                </div>
+              ) : null}
+            </div>
           ) : (
             <div>
               <p>{postData.post_text}</p>
@@ -164,12 +178,17 @@ export default function PostCard({
           )}
         </div>
         {editPost ? (
-          <EditCancelSaveButtons
-            setEditPost={setEditPost}
-            setPostData={setPostData}
-            textArea={textArea}
-            postData={postData}
-          />
+          <div>
+            <ImageInput imageFile={imageFile} imageUrl={imageUrl} />
+            <EditCancelSaveButtons
+              setEditPost={setEditPost}
+              setPostData={setPostData}
+              textArea={textArea}
+              postData={postData}
+              imageFile={imageFile}
+              imageUrl={imageUrl}
+            />
+          </div>
         ) : (
           <CommentLikeButtons
             like={like}
