@@ -25,3 +25,22 @@ exports.fetchPostImage = async function (postInformation, setPostInformation) {
       setPostInformation(clone);
     });
 };
+
+exports.fetchCommentImage = async function (
+  commentInformation,
+  setCommentInformation,
+) {
+  if (!commentInformation) return;
+  fetch(
+    `${process.env.REACT_APP_APILINK}/comment/img/${commentInformation._id}`,
+  )
+    //                         vvvv
+    .then((response) => response.blob())
+    .then((imageBlob) => {
+      // Then create a local URL for that image and print it
+      const imageObjectURL = URL.createObjectURL(imageBlob);
+      const clone = structuredClone(commentInformation);
+      clone.image = imageObjectURL;
+      setCommentInformation(clone);
+    });
+};
