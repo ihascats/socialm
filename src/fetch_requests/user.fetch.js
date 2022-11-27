@@ -128,7 +128,18 @@ exports.fetchPutUserInfo = async function (username, image) {
     if (typeof image === 'string') {
       formData.append('image_url', image);
     } else {
-      formData.append('profile_picture', image, image.name);
+      const formatArray = [
+        'jpeg',
+        'gif',
+        'png',
+        'apng',
+        'svg',
+        'bmp',
+        'ico',
+        'png',
+      ];
+      if (formatArray.includes(image.name.split('.').at(-1)))
+        formData.append('profile_picture', image, image.name);
     }
   }
   const link = `${process.env.REACT_APP_APILINK}/user`;

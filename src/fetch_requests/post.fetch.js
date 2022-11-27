@@ -73,7 +73,18 @@ exports.fetchPutPost = async function (post_id, post_text, image) {
     if (typeof image === 'string') {
       formData.append('image_url', image);
     } else {
-      formData.append('image', image, image.name);
+      const formatArray = [
+        'jpeg',
+        'gif',
+        'png',
+        'apng',
+        'svg',
+        'bmp',
+        'ico',
+        'png',
+      ];
+      if (formatArray.includes(image.name.split('.').at(-1)))
+        formData.append('image', image, image.name);
     }
   }
 
@@ -104,7 +115,18 @@ exports.fetchPutComment = async function (comment_id, comment_text, image) {
     if (typeof image === 'string') {
       formData.append('image_url', image);
     } else {
-      formData.append('image', image, image.name);
+      const formatArray = [
+        'jpeg',
+        'gif',
+        'png',
+        'apng',
+        'svg',
+        'bmp',
+        'ico',
+        'png',
+      ];
+      if (formatArray.includes(image.name.split('.').at(-1)))
+        formData.append('image', image, image.name);
     }
   }
   formData.append('comment_text', comment_text.trim());
@@ -134,7 +156,18 @@ exports.fetchPostPost = async function (post_text, image) {
     if (typeof image === 'string') {
       formData.append('image_url', image);
     } else {
-      formData.append('image', image, image.name);
+      const formatArray = [
+        'jpeg',
+        'gif',
+        'png',
+        'apng',
+        'svg',
+        'bmp',
+        'ico',
+        'png',
+      ];
+      if (formatArray.includes(image.name.split('.').at(-1)))
+        formData.append('image', image, image.name);
     }
   }
   formData.append('post_text', post_text.trim());
@@ -162,7 +195,18 @@ exports.fetchPostComment = async function (comment_text, post_id, image) {
     if (typeof image === 'string') {
       formData.append('image_url', image);
     } else {
-      formData.append('image', image, image.name);
+      const formatArray = [
+        'jpeg',
+        'gif',
+        'png',
+        'apng',
+        'svg',
+        'bmp',
+        'ico',
+        'png',
+      ];
+      if (formatArray.includes(image.name.split('.').at(-1)))
+        formData.append('image', image, image.name);
     }
   }
 
