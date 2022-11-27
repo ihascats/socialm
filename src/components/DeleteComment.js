@@ -28,7 +28,6 @@ export default function DeleteComment({
             onClick={async () => {
               setDeleteComment(false);
               const posts = await fetchDeleteComment(commentId);
-              console.log(posts);
               setPostInformation
                 ? setPostInformation(posts.post)
                 : setUserPosts(posts.post);
