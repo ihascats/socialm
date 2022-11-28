@@ -42,7 +42,7 @@ export default function Nav({
         </button>
       )}
       <button>{icons.notifications}</button>
-      <button>{icons.settings}</button>
+      <Link to={`/conversations`}>{icons.chat}</Link>
       {newPostVisible ? (
         <NewPost
           setNewPostVisible={setNewPostVisible}
