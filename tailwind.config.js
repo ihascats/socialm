@@ -6,10 +6,12 @@ module.exports = {
     extend: {
       height: {
         'screen-nav': 'calc(100vh - 68px)',
+        'screen-chat': 'calc(100vh - 116px)',
       },
       minHeight: {
         'screen-nav': 'calc(100vh - 68px)',
         'screen-user': 'calc(100vh - 190px)',
+        'screen-chat': 'calc(100vh - 116px)',
       },
     },
   },
