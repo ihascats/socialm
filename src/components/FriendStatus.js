@@ -8,6 +8,7 @@ export default function FriendStatus({
   signedUserInfo,
   setSignedUserInfo,
   updateOutgoing,
+  updateIncoming,
 }) {
   const icons = Icons();
   let signId;
@@ -44,6 +45,7 @@ export default function FriendStatus({
       <AcceptDeclineFrButtons
         setSignedUserInfo={setSignedUserInfo}
         id={userInformation._id}
+        updateIncoming={updateIncoming}
       />
     );
 

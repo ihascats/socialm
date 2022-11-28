@@ -27,6 +27,19 @@ export default function UserSearch() {
     );
   }
 
+  function updateIncoming() {
+    fetchIncomingFr().then(
+      function (value) {
+        if (value.response.status === 200) {
+          setIncomingFr(value.users.friend_requests);
+        }
+      },
+      function (error) {
+        console.log(error);
+      },
+    );
+  }
+
   useEffect(() => {
     fetchUsers().then(
       function (value) {
@@ -90,12 +103,14 @@ export default function UserSearch() {
         <ul>
           {allUsers && signedUserInfo && incomingFr
             ? incomingFr.map((user) => {
+                if (signedUserInfo.friends_list.includes(user._id)) return;
                 return (
                   <UserCard
                     key={user._id}
                     user={user}
                     signedUserInfo={signedUserInfo}
                     setSignedUserInfo={setSignedUserInfo}
+                    updateIncoming={updateIncoming}
                   />
                 );
               })

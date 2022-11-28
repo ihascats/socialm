@@ -4,7 +4,11 @@ import {
 } from '../../../fetch_requests/user.fetch';
 import Icons from '../../Icons';
 
-export default function AcceptDeclineFrButtons({ setSignedUserInfo, id }) {
+export default function AcceptDeclineFrButtons({
+  setSignedUserInfo,
+  id,
+  updateIncoming,
+}) {
   const icons = Icons();
 
   return (
@@ -13,6 +17,7 @@ export default function AcceptDeclineFrButtons({ setSignedUserInfo, id }) {
         onClick={async () => {
           const userInfo = await fetchPutAcceptFr(id);
           setSignedUserInfo(userInfo.user);
+          if (updateIncoming) updateIncoming();
         }}
         className="fill-blue-500"
       >
@@ -22,6 +27,7 @@ export default function AcceptDeclineFrButtons({ setSignedUserInfo, id }) {
         onClick={async () => {
           const userInfo = await fetchPutDeclineFr(id);
           setSignedUserInfo(userInfo.user);
+          if (updateIncoming) updateIncoming();
         }}
         className="fill-red-500"
       >

@@ -8,6 +8,7 @@ export default function UserCard({
   signedUserInfo,
   setSignedUserInfo,
   updateOutgoing,
+  updateIncoming,
 }) {
   const [userInfo, setUserInfo] = useState(user);
   useEffect(() => {
@@ -48,6 +49,7 @@ export default function UserCard({
                 signedUserInfo={signedUserInfo}
                 setSignedUserInfo={setSignedUserInfo}
                 updateOutgoing={updateOutgoing}
+                updateIncoming={updateIncoming}
               />
             ) : null
           ) : null
