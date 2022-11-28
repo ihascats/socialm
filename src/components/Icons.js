@@ -18,6 +18,8 @@ import {
   mdiAccountPlusOutline,
   mdiAccountClockOutline,
   mdiImagePlusOutline,
+  mdiMessageOutline,
+  mdiSend,
 } from '@mdi/js';
 
 export default function Icons() {
@@ -211,6 +213,26 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const chat = (
+    <Icon
+      path={mdiMessageOutline}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const sendMessage = (
+    <Icon
+      path={mdiSend}
+      size={1}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
 
   return {
     // ..icons
@@ -233,5 +255,7 @@ export default function Icons() {
     sendFriendRequest,
     friendRequestPending,
     addImage,
+    chat,
+    sendMessage,
   };
 }
