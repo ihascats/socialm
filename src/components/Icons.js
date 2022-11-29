@@ -21,6 +21,7 @@ import {
   mdiMessageOutline,
   mdiSend,
   mdiLogout,
+  mdiMenu,
 } from '@mdi/js';
 
 export default function Icons() {
@@ -244,6 +245,16 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const menuUp = (
+    <Icon
+      path={mdiMenu}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
 
   return {
     // ..icons
@@ -269,5 +280,6 @@ export default function Icons() {
     chat,
     sendMessage,
     logout,
+    menuUp,
   };
 }

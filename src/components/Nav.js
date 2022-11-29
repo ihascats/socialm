@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Icons from './Icons';
+import AdditionalNavOptions from './mini-components/AdditionalNavOptions';
 import NewComment from './NewComment';
 import NewPost from './NewPost';
 
 export default function Nav({
-  timeline,
   setTimeline,
   setUserPosts,
   setPostInformation,
@@ -13,31 +13,31 @@ export default function Nav({
 }) {
   const [newPostVisible, setNewPostVisible] = useState(false);
   const [newCommentVisible, setNewCommentVisible] = useState(false);
-  const showTimeline = false || timeline;
+  const [viewAdditional, setViewAdditional] = useState(false);
   const icons = Icons();
 
   const navigate = useNavigate();
 
   return localStorage.Authorization ? (
     <nav
-      className={`grid grid-cols-6 items-end justify-items-center sticky p-2 bottom-0 w-full h-fit border-t-4 bg-lime-300 fill-neutral-900 border-neutral-900 dark:bg-neutral-900 dark:fill-lime-300 dark:border-lime-300`}
+      className={`grid grid-cols-5 items-end justify-items-center sticky p-2 bottom-0 w-full h-16 border-t-4 bg-lime-300 fill-neutral-900 border-neutral-900 dark:bg-neutral-900 dark:fill-lime-300 dark:border-lime-300`}
     >
-      {showTimeline ? (
-        <Link to={`/timeline`}>{icons.timeline}</Link>
-      ) : (
-        <Link to={`/user`}>{icons.profile}</Link>
-      )}
+      <Link to={`/timeline`}>{icons.timeline}</Link>
       <Link to={`/userSearch`}>{icons.friendList}</Link>
       {setPostInformation ? (
         <button
           onClick={() => {
             setNewCommentVisible(true);
           }}
+          className={`fixed bottom-20 right-3 bg-green-400 rounded-full p-2`}
         >
           {icons.bigComment}
         </button>
       ) : (
         <button
+          className={`fixed ${
+            viewAdditional ? `bottom-[168px]` : `bottom-20` //92+64+12=1
+          } right-3 bg-green-400 rounded-full p-2 transition-all`}
           onClick={() => {
             setNewPostVisible(true);
           }}
@@ -47,6 +47,13 @@ export default function Nav({
       )}
       <button>{icons.notifications}</button>
       <Link to={`/conversations`}>{icons.chat}</Link>
+      <button
+        onClick={() => {
+          setViewAdditional((prev) => !prev);
+        }}
+      >
+        {icons.menuUp}
+      </button>
       {newPostVisible ? (
         <NewPost
           setNewPostVisible={setNewPostVisible}
@@ -54,14 +61,6 @@ export default function Nav({
           setUserPosts={setUserPosts}
         />
       ) : null}
-      <button
-        onClick={() => {
-          localStorage.removeItem('Authorization');
-          navigate(`${process.env.PUBLIC_URL}/`, { replace: true });
-        }}
-      >
-        {icons.logout}
-      </button>
       {newCommentVisible ? (
         <NewComment
           setNewCommentVisible={setNewCommentVisible}
@@ -71,6 +70,7 @@ export default function Nav({
           setPostInformation={setPostInformation}
         />
       ) : null}
+      {viewAdditional ? <AdditionalNavOptions /> : null}
     </nav>
   ) : (
     <nav
