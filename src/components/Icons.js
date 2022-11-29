@@ -20,6 +20,7 @@ import {
   mdiImagePlusOutline,
   mdiMessageOutline,
   mdiSend,
+  mdiLogout,
 } from '@mdi/js';
 
 export default function Icons() {
@@ -233,6 +234,16 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const logout = (
+    <Icon
+      path={mdiLogout}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
 
   return {
     // ..icons
@@ -257,5 +268,6 @@ export default function Icons() {
     addImage,
     chat,
     sendMessage,
+    logout,
   };
 }
