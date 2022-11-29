@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Conversations from './Conversations';
+import Notifications from './Notifications';
 import Post from './Post';
 import SignIn from './SignIn';
 import Timeline from './Timeline';
@@ -15,6 +16,7 @@ const RouteSwitch = () => {
           element={<Navigate to={`/timeline`} replace={true} />}
         />
         <Route path={'/conversations'} element={<Conversations />} />
+        <Route path={'/notifications'} element={<Notifications />} />
         <Route path={'/timeline'} element={<Timeline />} />
         <Route path={'/userSearch'} element={<UserSearch />} />
         <Route path={'/user'} element={<User />} />
