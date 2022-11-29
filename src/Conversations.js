@@ -98,7 +98,7 @@ export default function Conversations() {
           ref={list}
           className="h-screen-chat overflow-auto hide-scroll scroll-smooth"
         >
-          {existingChat.length
+          {existingChat.length && signedUserInfo
             ? existingChat.map((messageInfo) => {
                 return (
                   <ChatMessage
@@ -109,7 +109,7 @@ export default function Conversations() {
                 );
               })
             : null}
-          {messages.length
+          {messages.length && signedUserInfo
             ? messages.map((messageInfo) => {
                 return (
                   <ChatMessage
