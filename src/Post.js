@@ -61,11 +61,7 @@ export default function Post() {
               ))
           : null}
       </ul>
-      <Nav
-        timeline={true}
-        setPostInformation={setPostInformation}
-        postId={id}
-      />
+      <Nav setPostInformation={setPostInformation} postId={id} />
     </div>
   );
 }

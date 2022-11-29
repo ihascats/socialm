@@ -74,7 +74,7 @@ export default function ChatMessage({ signedUserInfo, messageData }) {
         </div>
       </div>
       <div className="pt-2">
-        <p>{messageData.message}</p>
+        <p className="break-words">{messageData.message}</p>
       </div>
     </div>
   );

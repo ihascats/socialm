@@ -145,7 +145,7 @@ export default function User() {
         </div>
       )}
 
-      <Nav timeline={true} setUserPosts={setUserPosts} />
+      <Nav setUserPosts={setUserPosts} />
     </div>
   );
 }

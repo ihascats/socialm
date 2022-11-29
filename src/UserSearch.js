@@ -164,7 +164,7 @@ export default function UserSearch() {
             : null}
         </ul>
       </div>
-      <Nav timeline={true} />
+      <Nav />
     </div>
   );
 }
