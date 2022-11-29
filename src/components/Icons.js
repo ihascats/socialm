@@ -255,7 +255,16 @@ export default function Icons() {
       color="inherit"
     />
   );
-
+  const frPendingNotification = (
+    <Icon
+      path={mdiAccountClockOutline}
+      size={1}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
   return {
     // ..icons
     timeline,
@@ -281,5 +290,6 @@ export default function Icons() {
     sendMessage,
     logout,
     menuUp,
+    frPendingNotification,
   };
 }
