@@ -48,7 +48,6 @@ export default function Nav({
         </button>
       )}
       <Link to={`/notifications`}>{icons.notifications}</Link>
-
       <Link to={`/conversations`}>{icons.chat}</Link>
       <button
         onClick={() => {
