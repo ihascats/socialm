@@ -122,7 +122,7 @@ export default function Conversations() {
             : null}
         </ul>
       </div>
-      <div className="sticky bottom-[68px] w-full">
+      <div className="sticky bottom-0 w-full">
         <div className="p-2 bg-blue-300 w-full flex gap-3">
           <input ref={messageInput} className="p-1 rounded-md w-full"></input>
           <button
