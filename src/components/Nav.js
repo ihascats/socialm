@@ -29,14 +29,16 @@ export default function Nav({
           onClick={() => {
             setNewCommentVisible(true);
           }}
-          className={`fixed bottom-20 right-3 bg-green-400 rounded-full p-2`}
+          className={`fixed ${
+            viewAdditional ? `bottom-[168px]` : `bottom-24` //92+64+12=1
+          } right-3 bg-green-400 rounded-full p-2 transition-all`}
         >
           {icons.bigComment}
         </button>
       ) : (
         <button
           className={`fixed ${
-            viewAdditional ? `bottom-[168px]` : `bottom-20` //92+64+12=1
+            viewAdditional ? `bottom-[168px]` : `bottom-24` //92+64+12=1
           } right-3 bg-green-400 rounded-full p-2 transition-all`}
           onClick={() => {
             setNewPostVisible(true);
@@ -45,7 +47,8 @@ export default function Nav({
           {icons.newPost}
         </button>
       )}
-      <button>{icons.notifications}</button>
+      <Link to={`/notifications`}>{icons.notifications}</Link>
+
       <Link to={`/conversations`}>{icons.chat}</Link>
       <button
         onClick={() => {
