@@ -81,15 +81,16 @@ export default function UserSearch() {
 
   const [search, setSearch] = useState('');
 
-  const [mobile, setMobile] = useState(true);
+  const [mobile, setMobile] = useState(false);
 
   function screenWidth(event) {
     if (event.target.innerWidth > 768) setMobile(false);
-    if (event.target.innerWidth < 768) setMobile(true);
+    if (event.target.innerWidth <= 768) setMobile(true);
   }
 
   useEffect(() => {
     if (window.innerWidth > 768) setMobile(false);
+    if (window.innerWidth <= 768) setMobile(true);
     window.onresize = screenWidth;
   });
 

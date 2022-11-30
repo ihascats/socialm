@@ -23,7 +23,7 @@ export default function Timeline() {
     );
   }, []);
 
-  const [mobile, setMobile] = useState(true);
+  const [mobile, setMobile] = useState(false);
 
   function screenWidth(event) {
     if (event.target.innerWidth > 768) setMobile(false);
@@ -32,6 +32,7 @@ export default function Timeline() {
 
   useEffect(() => {
     if (window.innerWidth > 768) setMobile(false);
+    if (window.innerWidth <= 768) setMobile(true);
     window.onresize = screenWidth;
   });
 

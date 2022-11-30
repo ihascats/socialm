@@ -6,7 +6,8 @@ module.exports = {
     extend: {
       height: {
         'screen-nav': 'calc(100vh - 68px)',
-        'screen-chat': 'calc(100vh - 112px)',
+        'screen-chat': 'calc(100vh - 64px)',
+        'screen-chat-input': 'calc(100vh - 112px)',
         'screen-chat-wide': 'calc(100vh - 48px)',
         'screen-user-search': 'calc(100vh - 40px)',
         'screen-user-wide': 'calc(100vh - 122px)',
