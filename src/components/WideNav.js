@@ -104,7 +104,9 @@ export default function WideNav({
           {icons.chat} {showDescription ? 'Chat' : null}
         </Link>
         <Link
-          className="flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2"
+          className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+            window.location.pathname === '/user' ? `fill-fuchsia-500` : null
+          }`}
           to={`/user`}
         >
           {icons.profileNav} {showDescription ? 'Profile' : null}
