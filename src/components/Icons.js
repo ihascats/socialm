@@ -22,6 +22,9 @@ import {
   mdiSend,
   mdiLogout,
   mdiMenu,
+  mdiWhiteBalanceSunny,
+  mdiWhiteBalanceIridescent,
+  mdiMoonWaningCrescent,
 } from '@mdi/js';
 
 export default function Icons() {
@@ -58,7 +61,7 @@ export default function Icons() {
   const profile = (
     <Icon
       path={mdiAccountOutline}
-      size={1.5}
+      size={1}
       horizontal
       vertical
       rotate={180}
@@ -238,7 +241,7 @@ export default function Icons() {
   const logout = (
     <Icon
       path={mdiLogout}
-      size={1.5}
+      size={1}
       horizontal
       vertical
       rotate={180}
@@ -258,6 +261,26 @@ export default function Icons() {
   const frPendingNotification = (
     <Icon
       path={mdiAccountClockOutline}
+      size={1}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const light = (
+    <Icon
+      path={mdiWhiteBalanceSunny}
+      size={1}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const dark = (
+    <Icon
+      path={mdiMoonWaningCrescent}
       size={1}
       horizontal
       vertical
@@ -291,5 +314,7 @@ export default function Icons() {
     logout,
     menuUp,
     frPendingNotification,
+    light,
+    dark,
   };
 }
