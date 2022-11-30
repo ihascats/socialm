@@ -16,7 +16,9 @@ export default function NotificationCard({ notificationInfo, unread }) {
         <Link
           draggable={false}
           to={`/post/${notificationInfo.post}`}
-          className="flex px-2 py-4 justify-between"
+          className={`flex px-2 py-4 justify-between ${
+            'comment_text' in notificationInfo ? `fill-yellow-500` : null
+          }`}
         >
           <p>
             Your{' '}
