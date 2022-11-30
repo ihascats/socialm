@@ -18,17 +18,25 @@ export default function Conversations() {
     query: { Authorization: localStorage.Authorization },
   });
 
-  useEffect(() => {
-    if (!socketId)
-      socket.on('connect', () => {
-        setSocketId(socket.id);
-      });
-  }, []);
-
-  const [socketId, setSocketId] = useState();
   const [messages, setMessages] = useState([]);
   const [signedUserInfo, setSignedUserInfo] = useState();
   const [existingChat, setExistingChat] = useState([]);
+
+  useEffect(() => {
+    socket.on('receive-message', (messageData) => {
+      const clone = structuredClone(messages);
+      clone.push({
+        message: messageData.message,
+        author: messageData.author,
+        id: messageData._id,
+        createdAt: messageData.createdAt,
+      });
+      setMessages(clone);
+    });
+    return function disconnect() {
+      socket.disconnect();
+    };
+  });
 
   useEffect(() => {
     fetchUserInformation().then(
@@ -78,17 +86,6 @@ export default function Conversations() {
       socket.emit('send-message', { message: messageInput.current.value });
     messageInput.current.value = '';
   }
-
-  socket.on('receive-message', (messageData) => {
-    const clone = structuredClone(messages);
-    clone.push({
-      message: messageData.message,
-      author: messageData.author,
-      id: messageData._id,
-      createdAt: messageData.createdAt,
-    });
-    setMessages(clone);
-  });
 
   const icons = Icons();
   return (
