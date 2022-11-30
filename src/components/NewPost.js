@@ -6,13 +6,18 @@ export default function NewPost({
   setNewPostVisible,
   setTimeline,
   setUserPosts,
+  showDescription,
 }) {
   const textArea = useRef();
   const imageFile = useRef();
   const imageUrl = useRef();
 
   return (
-    <div className="fixed top-0 min-h-screen-nav w-full max-w-[500px]  backdrop-brightness-50 backdrop-blur-sm text-neutral-200">
+    <div
+      className={`fixed top-0 min-h-screen-nav w-full max-w-[500px] backdrop-brightness-50 backdrop-blur-sm text-neutral-200 ${
+        showDescription ? 'z-50 h-full ml-44' : null
+      }`}
+    >
       <div className="p-4">
         <textarea
           ref={textArea}
