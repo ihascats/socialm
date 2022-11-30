@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Nav from './components/Nav';
 import UserCard from './components/UserCard';
 import {
@@ -77,9 +77,42 @@ export default function UserSearch() {
     );
   }, []);
 
+  const [search, setSearch] = useState('');
+
   return (
     <div>
       <div className="bg-gradient-to-r from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
+        <div className="w-full px-2 py-1 sticky top-0 bg-neutral-500 z-50">
+          <input
+            onInput={(event) => {
+              setSearch(event.target.value);
+            }}
+            placeholder="Search for a user"
+            className="w-full px-2 py-1 rounded-lg"
+          ></input>
+        </div>
+        <ul className="fixed bg-neutral-400 w-full z-50">
+          {allUsers && search.length > 2
+            ? allUsers.map((user) => {
+                if (user._id === signedUserInfo._id) return;
+                if (
+                  user.username
+                    .toLowerCase()
+                    .trim()
+                    .includes(search.toLowerCase().trim())
+                )
+                  return (
+                    <UserCard
+                      key={user._id}
+                      user={user}
+                      signedUserInfo={signedUserInfo}
+                      setSignedUserInfo={setSignedUserInfo}
+                      updateOutgoing={updateOutgoing}
+                    />
+                  );
+              })
+            : null}
+        </ul>
         <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
           Outgoing Friend Requests
         </h1>
