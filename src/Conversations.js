@@ -77,7 +77,6 @@ export default function Conversations() {
 
   useEffect(() => {
     list.current.scrollTop = list.current.scrollHeight;
-    console.log(list.current.scrollTop);
   }, [existingChat]);
 
   const messageInput = useRef();
