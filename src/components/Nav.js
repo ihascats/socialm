@@ -4,6 +4,7 @@ import Icons from './Icons';
 import AdditionalNavOptions from './mini-components/AdditionalNavOptions';
 import NewComment from './NewComment';
 import NewPost from './NewPost';
+import { io } from 'socket.io-client';
 
 export default function Nav({
   setTimeline,
@@ -18,12 +19,52 @@ export default function Nav({
 
   const navigate = useNavigate();
 
+  const [notificationPending, setNotificationPending] = useState(false);
+  const socket = io(process.env.REACT_APP_APICHAT, {
+    reconnectionDelay: 1000,
+    reconnection: true,
+    reconnectionAttemps: 10,
+    transports: ['websocket'],
+    agent: false,
+    upgrade: false,
+    rejectUnauthorized: false,
+    query: { Authorization: localStorage.Authorization },
+  });
+
+  useEffect(() => {
+    socket.on('unread-notification', function (status) {
+      if (status !== notificationPending) setNotificationPending(status);
+    });
+    socket.emit('check-notifications');
+    const checkNotifications = setInterval(() => {
+      socket.emit('check-notifications');
+    }, 20000);
+    return function stopTimer() {
+      clearInterval(checkNotifications);
+      socket.disconnect();
+    };
+  }, []);
+
   return localStorage.Authorization ? (
     <nav
       className={`grid grid-cols-5 items-end justify-items-center sticky p-2 bottom-0 w-full h-16 border-t-4 bg-lime-300 fill-neutral-900 border-neutral-900 dark:bg-neutral-900 dark:fill-lime-300 dark:border-lime-300`}
     >
-      <Link to={`/timeline`}>{icons.timeline}</Link>
-      <Link to={`/userSearch`}>{icons.friendList}</Link>
+      <Link
+        to={`/timeline`}
+        className={`${
+          window.location.pathname === '/timeline' ? `fill-amber-600` : null
+        }`}
+      >
+        {icons.timeline}
+      </Link>
+      <Link
+        to={`/userSearch`}
+        className={`${
+          window.location.pathname === '/userSearch' ? `fill-pink-500` : null
+        }`}
+      >
+        {icons.friendList}
+      </Link>
       {setPostInformation ? (
         <button
           onClick={() => {
@@ -47,12 +88,27 @@ export default function Nav({
           {icons.newPost}
         </button>
       )}
-      <Link to={`/notifications`}>{icons.notifications}</Link>
-      <Link to={`/conversations`}>{icons.chat}</Link>
+      <Link
+        to={`/notifications`}
+        className={`${notificationPending ? `fill-rose-500` : null} ${
+          window.location.pathname === '/notifications' ? `fill-blue-500` : null
+        }`}
+      >
+        {notificationPending ? icons.notificationAlert : icons.notifications}
+      </Link>
+      <Link
+        to={`/conversations`}
+        className={`${
+          window.location.pathname === '/conversations' ? `fill-rose-500` : null
+        }`}
+      >
+        {icons.chat}
+      </Link>
       <button
         onClick={() => {
           setViewAdditional((prev) => !prev);
         }}
+        className={`${viewAdditional ? `fill-indigo-600` : null}`}
       >
         {icons.menuUp}
       </button>
