@@ -288,6 +288,46 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const lightNav = (
+    <Icon
+      path={mdiWhiteBalanceSunny}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const darkNav = (
+    <Icon
+      path={mdiMoonWaningCrescent}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const profileNav = (
+    <Icon
+      path={mdiAccountOutline}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
+  const logoutNav = (
+    <Icon
+      path={mdiLogout}
+      size={1.5}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+    />
+  );
   return {
     // ..icons
     timeline,
@@ -316,5 +356,9 @@ export default function Icons() {
     frPendingNotification,
     light,
     dark,
+    profileNav,
+    lightNav,
+    darkNav,
+    logoutNav,
   };
 }
