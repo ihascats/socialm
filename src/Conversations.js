@@ -122,7 +122,9 @@ export default function Conversations() {
           <ul
             ref={list}
             className={`overflow-auto hide-scroll scroll-smooth min-w-full ${
-              mobile ? 'h-screen-chat-input' : 'h-screen min-w-[500px]'
+              mobile
+                ? 'h-screen-chat-input'
+                : 'h-screen-chat-wide min-w-[500px]'
             }`}
           >
             {existingChat.length && signedUserInfo
