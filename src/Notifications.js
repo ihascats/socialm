@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Nav from './components/Nav';
 import NotificationCard from './components/NotificationCard';
+import WideNav from './components/WideNav';
 import {
   fetchNotifications,
   fetchPutClearNotifications,
@@ -35,11 +36,34 @@ export default function Notifications() {
     );
   }
 
+  const [mobile, setMobile] = useState(true);
+
+  function screenWidth(event) {
+    if (event.target.innerWidth > 768) setMobile(false);
+    if (event.target.innerWidth < 768) setMobile(true);
+  }
+
+  useEffect(() => {
+    if (window.innerWidth > 768) setMobile(false);
+    window.onresize = screenWidth;
+  });
+
   return (
-    <div className="w-full grid justify-items-center">
-      <div className="bg-gradient-to-b from-violet-800 to-cyan-600 h-screen-nav min-h-screen-nav max-h-screen max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll">
+    <div
+      className={`w-full hide-scroll ${
+        mobile
+          ? 'min-h-nav grid justify-items-center'
+          : 'min-h-screen flex justify-center'
+      }`}
+    >
+      {mobile ? null : <WideNav />}
+      <div
+        className={`bg-gradient-to-b from-violet-800 to-cyan-600 h-screen-nav max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll ${
+          mobile ? 'min-h-screen-nav max-h-screen' : 'min-h-screen max-h-screen'
+        }`}
+      >
         <button
-          className="w-full bg-red-500 p-2 sticky top-0"
+          className="w-full bg-red-500 p-2 sticky top-0 z-50"
           onClick={clearNotifications}
         >
           Clear notifications
@@ -68,7 +92,7 @@ export default function Notifications() {
             : null}
         </ul>
       </div>
-      <Nav timeline={true} />
+      {mobile ? <Nav /> : null}
     </div>
   );
 }

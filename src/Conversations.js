@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import ChatMessage from './components/ChatMessage';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
 import { fetchChat } from './fetch_requests/chat.fetch';
+import WideNav from './components/WideNav';
 
 export default function Conversations() {
   const socket = io(process.env.REACT_APP_APICHAT, {
@@ -87,60 +88,90 @@ export default function Conversations() {
     messageInput.current.value = '';
   }
 
+  const [mobile, setMobile] = useState(false);
+
+  function screenWidth(event) {
+    if (event.target.innerWidth > 768) setMobile(false);
+    if (event.target.innerWidth <= 768) setMobile(true);
+  }
+
+  useEffect(() => {
+    if (window.innerWidth > 768) setMobile(false);
+    if (window.innerWidth <= 768) setMobile(true);
+    window.onresize = screenWidth;
+  });
+
   const icons = Icons();
   return (
-    <div className="w-full grid justify-items-center">
-      <div className="bg-gradient-to-b from-violet-800 to-cyan-600 h-screen-chat min-h-screen-chat max-h-screen max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll">
-        <ul
-          ref={list}
-          className="h-screen-chat overflow-auto hide-scroll scroll-smooth"
+    <div
+      className={`w-full hide-scroll ${
+        mobile
+          ? 'min-h-nav grid justify-items-center'
+          : 'min-h-screen flex justify-center'
+      }`}
+    >
+      {mobile ? null : <WideNav />}
+      <div>
+        <div
+          className={`bg-gradient-to-b from-violet-800 to-cyan-600 max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll ${
+            mobile
+              ? 'h-screen-chat min-h-screen-chat'
+              : 'h-screen-chat-wide min-h-screen-chat-wide'
+          }`}
         >
-          {existingChat.length && signedUserInfo
-            ? existingChat.map((messageInfo) => {
-                return (
-                  <ChatMessage
-                    key={messageInfo._id}
-                    signedUserInfo={signedUserInfo}
-                    messageData={messageInfo}
-                  />
-                );
-              })
-            : null}
-          {messages.length && signedUserInfo
-            ? messages.map((messageInfo) => {
-                return (
-                  <ChatMessage
-                    key={messageInfo.id}
-                    signedUserInfo={signedUserInfo}
-                    messageData={messageInfo}
-                  />
-                );
-              })
-            : null}
-        </ul>
-      </div>
-      <div className="sticky bottom-0 max-w-[500px] w-full">
-        <div className="p-2 bg-blue-300 w-full flex gap-3">
-          <input
-            onKeyUp={(event) => {
-              if (event.key === 'Enter') {
-                event.preventDefault();
-                sendMessage();
-              }
-            }}
-            ref={messageInput}
-            className="p-1 rounded-md w-full"
-          ></input>
-          <button
-            onClick={() => {
-              sendMessage();
-            }}
+          <ul
+            ref={list}
+            className={`overflow-auto hide-scroll scroll-smooth min-w-full ${
+              mobile ? 'h-screen-chat' : 'h-screen min-w-[500px]'
+            }`}
           >
-            {icons.sendMessage}
-          </button>
+            {existingChat.length && signedUserInfo
+              ? existingChat.map((messageInfo) => {
+                  return (
+                    <ChatMessage
+                      key={messageInfo._id}
+                      signedUserInfo={signedUserInfo}
+                      messageData={messageInfo}
+                    />
+                  );
+                })
+              : null}
+            {messages.length && signedUserInfo
+              ? messages.map((messageInfo) => {
+                  return (
+                    <ChatMessage
+                      key={messageInfo.id}
+                      signedUserInfo={signedUserInfo}
+                      messageData={messageInfo}
+                    />
+                  );
+                })
+              : null}
+          </ul>
+        </div>
+        <div className="sticky bottom-0 max-w-[500px] w-full">
+          <div className="p-2 bg-blue-300 w-full flex gap-3">
+            <input
+              onKeyUp={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  sendMessage();
+                }
+              }}
+              ref={messageInput}
+              className="p-1 rounded-md w-full"
+            ></input>
+            <button
+              onClick={() => {
+                sendMessage();
+              }}
+            >
+              {icons.sendMessage}
+            </button>
+          </div>
         </div>
       </div>
-      <Nav timeline={true} />
+      {mobile ? <Nav /> : null}
     </div>
   );
 }

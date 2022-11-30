@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
+import WideNav from './components/WideNav';
 import { fetchTimeline } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
 
@@ -22,9 +23,32 @@ export default function Timeline() {
     );
   }, []);
 
+  const [mobile, setMobile] = useState(true);
+
+  function screenWidth(event) {
+    if (event.target.innerWidth > 768) setMobile(false);
+    if (event.target.innerWidth <= 768) setMobile(true);
+  }
+
+  useEffect(() => {
+    if (window.innerWidth > 768) setMobile(false);
+    window.onresize = screenWidth;
+  });
+
   return (
-    <div className="w-full grid justify-items-center min-h-nav hide-scroll">
-      <ul className="bg-gradient-to-r from-yellow-200 to-rose-300 min-h-screen-nav max-w-[500px] dark:from-indigo-600 dark:to-green-600 h-screen-nav overflow-auto hide-scroll">
+    <div
+      className={`w-full hide-scroll ${
+        mobile
+          ? 'min-h-nav grid justify-items-center'
+          : 'min-h-screen flex justify-center'
+      }  `}
+    >
+      {mobile ? null : <WideNav setTimeline={setTimeline} />}
+      <ul
+        className={`bg-gradient-to-r from-yellow-200 to-rose-300 max-w-[500px] dark:from-indigo-600 dark:to-green-600 overflow-auto hide-scroll ${
+          mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
+        }  `}
+      >
         {timeline
           ? timeline.map((post) => (
               <PostCard
@@ -36,7 +60,14 @@ export default function Timeline() {
             ))
           : null}
       </ul>
-      <Nav setTimeline={setTimeline} />
+      {timeline ? null : (
+        <ul
+          className={`bg-gradient-to-r from-yellow-200 to-rose-300 max-w-[500px] w-full dark:from-indigo-600 dark:to-green-600 overflow-auto hide-scroll ${
+            mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
+          }  `}
+        ></ul>
+      )}
+      {mobile ? <Nav setTimeline={setTimeline} /> : null}
     </div>
   );
 }

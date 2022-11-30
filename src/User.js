@@ -4,6 +4,7 @@ import CommentCard from './components/CommentCard';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
 import UserHeader from './components/UserHeader';
+import WideNav from './components/WideNav';
 import { fetchImage } from './fetch_requests/img.fetch';
 import { fetchUserPosts } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
@@ -65,9 +66,32 @@ export default function User() {
     }
   }, [userInformation, signedUserInfo]);
 
+  const [mobile, setMobile] = useState(true);
+
+  function screenWidth(event) {
+    if (event.target.innerWidth > 768) setMobile(false);
+    if (event.target.innerWidth < 768) setMobile(true);
+  }
+
+  useEffect(() => {
+    if (window.innerWidth > 768) setMobile(false);
+    window.onresize = screenWidth;
+  });
+
   return (
-    <div className=" w-full grid justify-items-center">
-      <div className="dark:text-neutral-50 dark:bg-neutral-900 max-w-[500px] w-full">
+    <div
+      className={`w-full hide-scroll ${
+        mobile
+          ? 'min-h-nav grid justify-items-center'
+          : 'min-h-screen flex justify-center'
+      }`}
+    >
+      {mobile ? null : <WideNav setUserPosts={setUserPosts} />}
+      <div
+        className={`dark:text-neutral-50 dark:bg-neutral-900 max-w-[500px] w-full ${
+          mobile ? null : 'min-h-screen h-screen'
+        }`}
+      >
         {userInformation ? (
           <UserHeader
             userInformation={userInformation}
@@ -97,7 +121,13 @@ export default function User() {
             >
               Comments
             </button>
-            <ul className="bg-gradient-to-br from-blue-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
+            <ul
+              className={`bg-gradient-to-br from-blue-200 to-purple-300 dark:from-indigo-600 dark:to-green-600 ${
+                mobile
+                  ? 'min-h-screen-user'
+                  : 'min-h-screen-user-nav h-screen-user-wide overflow-auto hide-scroll'
+              }`}
+            >
               {showPosts
                 ? userPosts.posts.map((post) => (
                     <PostCard
@@ -142,11 +172,15 @@ export default function User() {
             >
               Comments
             </button>
-            <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600"></ul>
+            <ul
+              className={`bg-gradient-to-br from-blue-200 to-purple-300 dark:from-indigo-600 dark:to-green-600 ${
+                mobile ? 'min-h-screen-user' : 'min-h-screen-user-nav'
+              }`}
+            ></ul>
           </div>
         )}
       </div>
-      <Nav setUserPosts={setUserPosts} />
+      {mobile ? <Nav setUserPosts={setUserPosts} /> : null}
     </div>
   );
 }
