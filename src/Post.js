@@ -38,8 +38,8 @@ export default function Post() {
   }, []);
 
   return (
-    <div>
-      <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
+    <div className="w-full grid justify-items-center">
+      <ul className="bg-gradient-to-br from-yellow-200 to-pink-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600  max-w-[500px] w-full">
         {postInformation ? (
           <PostCard
             post={postInformation}

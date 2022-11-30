@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+/* eslint-disable array-callback-return */
+import { useEffect, useState } from 'react';
 import Nav from './components/Nav';
 import UserCard from './components/UserCard';
 import {
@@ -80,8 +81,8 @@ export default function UserSearch() {
   const [search, setSearch] = useState('');
 
   return (
-    <div>
-      <div className="bg-gradient-to-r from-emerald-200 to-purple-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
+    <div className="w-full grid justify-items-center">
+      <div className="bg-gradient-to-r from-emerald-200 to-purple-300 min-h-screen-nav max-w-[500px] w-full dark:from-indigo-600 dark:to-green-600">
         <div className="w-full px-2 py-1 sticky top-0 bg-neutral-500 z-50">
           <input
             onInput={(event) => {
@@ -91,7 +92,7 @@ export default function UserSearch() {
             className="w-full px-2 py-1 rounded-lg"
           ></input>
         </div>
-        <ul className="fixed bg-neutral-400 w-full z-50">
+        <ul className="fixed bg-neutral-400 max-w-[500px] w-full z-50">
           {allUsers && search.length > 2
             ? allUsers.map((user) => {
                 if (user._id === signedUserInfo._id) return;

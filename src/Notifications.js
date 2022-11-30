@@ -36,8 +36,8 @@ export default function Notifications() {
   }
 
   return (
-    <div>
-      <div className="bg-gradient-to-b from-violet-800 to-cyan-600 h-screen-nav min-h-screen-nav max-h-screen text-neutral-300 overflow-auto hide-scroll">
+    <div className="w-full grid justify-items-center">
+      <div className="bg-gradient-to-b from-violet-800 to-cyan-600 h-screen-nav min-h-screen-nav max-h-screen max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll">
         <button
           className="w-full bg-red-500 p-2 sticky top-0"
           onClick={clearNotifications}

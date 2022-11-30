@@ -23,8 +23,8 @@ export default function Timeline() {
   }, []);
 
   return (
-    <div>
-      <ul className="bg-gradient-to-r from-yellow-200 to-rose-300 min-h-screen-nav dark:from-indigo-600 dark:to-green-600">
+    <div className="w-full grid justify-items-center min-h-nav hide-scroll">
+      <ul className="bg-gradient-to-r from-yellow-200 to-rose-300 min-h-screen-nav max-w-[500px] dark:from-indigo-600 dark:to-green-600 h-screen-nav overflow-auto hide-scroll">
         {timeline
           ? timeline.map((post) => (
               <PostCard

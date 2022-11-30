@@ -65,7 +65,7 @@ export default function CommentCard({
 
   return (
     <div className="bg-neutral-900 bg-opacity-20 border-l-4 border-l-blue-500 pl-4 p-2 border-b-2 border-neutral-900 dark:border-lime-300">
-      <div className="flex justify-between">
+      <div className="flex justify-between relative">
         <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
           <Link
             as={Link}

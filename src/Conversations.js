@@ -89,8 +89,8 @@ export default function Conversations() {
 
   const icons = Icons();
   return (
-    <div>
-      <div className="bg-gradient-to-b from-violet-800 to-cyan-600 h-screen-chat min-h-screen-chat max-h-screen text-neutral-300 overflow-auto hide-scroll">
+    <div className="w-full grid justify-items-center">
+      <div className="bg-gradient-to-b from-violet-800 to-cyan-600 h-screen-chat min-h-screen-chat max-h-screen max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll">
         <ul
           ref={list}
           className="h-screen-chat overflow-auto hide-scroll scroll-smooth"
@@ -119,9 +119,18 @@ export default function Conversations() {
             : null}
         </ul>
       </div>
-      <div className="sticky bottom-0 w-full">
+      <div className="sticky bottom-0 max-w-[500px] w-full">
         <div className="p-2 bg-blue-300 w-full flex gap-3">
-          <input ref={messageInput} className="p-1 rounded-md w-full"></input>
+          <input
+            onKeyUp={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+              }
+            }}
+            ref={messageInput}
+            className="p-1 rounded-md w-full"
+          ></input>
           <button
             onClick={() => {
               sendMessage();

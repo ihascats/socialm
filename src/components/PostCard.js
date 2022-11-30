@@ -73,7 +73,7 @@ export default function PostCard({
   return (
     <Link draggable={false} to={`/post/${postData._id}`}>
       <div className="p-2 border-b-2 border-neutral-900 dark:border-lime-300">
-        <div className="flex justify-between">
+        <div className="flex justify-between relative">
           <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
             <Link
               as={Link}

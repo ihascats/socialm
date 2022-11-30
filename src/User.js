@@ -66,85 +66,86 @@ export default function User() {
   }, [userInformation, signedUserInfo]);
 
   return (
-    <div className="dark:text-neutral-50 dark:bg-neutral-900">
-      {userInformation ? (
-        <UserHeader
-          userInformation={userInformation}
-          signedUserInfo={signedUserInfo}
-          setSignedUserInfo={setSignedUserInfo}
-        />
-      ) : (
-        <div className="h-20 bg-lime-300"></div>
-      )}
-      {userPosts ? (
-        <div>
-          <button
-            onClick={() => {
-              setShowPosts(true);
-              update();
-            }}
-            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
-          >
-            Posts
-          </button>
-          <button
-            onClick={() => {
-              setShowPosts(false);
-              update();
-            }}
-            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
-          >
-            Comments
-          </button>
-          <ul className="bg-gradient-to-br from-blue-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
-            {showPosts
-              ? userPosts.posts.map((post) => (
-                  <PostCard
-                    key={post._id}
-                    post={post}
-                    user={signedUserInfo}
-                    setUserPosts={setUserPosts}
-                  />
-                ))
-              : userPosts.comments.map((comment) => (
-                  <Link
-                    key={comment._id}
-                    draggable={false}
-                    to={`/post/${comment.parent}`}
-                  >
-                    <CommentCard
-                      comment={comment}
+    <div className=" w-full grid justify-items-center">
+      <div className="dark:text-neutral-50 dark:bg-neutral-900 max-w-[500px] w-full">
+        {userInformation ? (
+          <UserHeader
+            userInformation={userInformation}
+            signedUserInfo={signedUserInfo}
+            setSignedUserInfo={setSignedUserInfo}
+          />
+        ) : (
+          <div className="h-20 bg-lime-300"></div>
+        )}
+        {userPosts ? (
+          <div>
+            <button
+              onClick={() => {
+                setShowPosts(true);
+                update();
+              }}
+              className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+            >
+              Posts
+            </button>
+            <button
+              onClick={() => {
+                setShowPosts(false);
+                update();
+              }}
+              className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+            >
+              Comments
+            </button>
+            <ul className="bg-gradient-to-br from-blue-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600">
+              {showPosts
+                ? userPosts.posts.map((post) => (
+                    <PostCard
+                      key={post._id}
+                      post={post}
                       user={signedUserInfo}
                       setUserPosts={setUserPosts}
                     />
-                  </Link>
-                ))}
-          </ul>
-        </div>
-      ) : (
-        <div>
-          <button
-            onClick={() => {
-              setShowPosts(true);
-              update();
-            }}
-            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
-          >
-            Posts
-          </button>
-          <button
-            onClick={() => {
-              setShowPosts(false);
-              update();
-            }}
-            className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
-          >
-            Comments
-          </button>
-          <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600"></ul>
-        </div>
-      )}
-
+                  ))
+                : userPosts.comments.map((comment) => (
+                    <Link
+                      key={comment._id}
+                      draggable={false}
+                      to={`/post/${comment.parent}`}
+                    >
+                      <CommentCard
+                        comment={comment}
+                        user={signedUserInfo}
+                        setUserPosts={setUserPosts}
+                      />
+                    </Link>
+                  ))}
+            </ul>
+          </div>
+        ) : (
+          <div>
+            <button
+              onClick={() => {
+                setShowPosts(true);
+                update();
+              }}
+              className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+            >
+              Posts
+            </button>
+            <button
+              onClick={() => {
+                setShowPosts(false);
+                update();
+              }}
+              className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+            >
+              Comments
+            </button>
+            <ul className="bg-gradient-to-br from-emerald-200 to-purple-300 min-h-screen-user dark:from-indigo-600 dark:to-green-600"></ul>
+          </div>
+        )}
+      </div>
       <Nav setUserPosts={setUserPosts} />
     </div>
   );
