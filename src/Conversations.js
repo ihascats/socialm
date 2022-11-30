@@ -77,6 +77,7 @@ export default function Conversations() {
 
   useEffect(() => {
     list.current.scrollTop = list.current.scrollHeight;
+    console.log(list.current.scrollTop);
   }, [existingChat]);
 
   const messageInput = useRef();
@@ -106,23 +107,23 @@ export default function Conversations() {
     <div
       className={`w-full hide-scroll ${
         mobile
-          ? 'min-h-nav grid justify-items-center'
+          ? 'min-h-screen grid justify-items-center'
           : 'min-h-screen flex justify-center'
       }`}
     >
       {mobile ? null : <WideNav />}
-      <div>
-        <div
-          className={`bg-gradient-to-b from-violet-800 to-cyan-600 max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll ${
-            mobile
-              ? 'h-screen-chat min-h-screen-chat'
-              : 'h-screen-chat-wide min-h-screen-chat-wide'
-          }`}
-        >
+      <div
+        className={`bg-gradient-to-b from-violet-800 to-cyan-600 max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll ${
+          mobile
+            ? 'h-screen-chat min-h-screen-chat'
+            : 'h-screen-chat-wide min-h-screen'
+        }`}
+      >
+        <div>
           <ul
             ref={list}
             className={`overflow-auto hide-scroll scroll-smooth min-w-full ${
-              mobile ? 'h-screen-chat' : 'h-screen min-w-[500px]'
+              mobile ? 'h-screen-chat-input' : 'h-screen min-w-[500px]'
             }`}
           >
             {existingChat.length && signedUserInfo
