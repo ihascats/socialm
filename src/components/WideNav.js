@@ -172,7 +172,9 @@ export default function WideNav({
     </div>
   ) : (
     <nav
-      className={`grid grid-cols-2 items-end justify-items-center sticky p-2 bottom-0 w-full h-fit border-t-4 bg-lime-300 fill-neutral-900 border-neutral-900 dark:bg-neutral-900 dark:fill-lime-300 dark:border-lime-300`}
+      className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit bg-lime-300 fill-neutral-900 dark:bg-neutral-900 dark:fill-lime-300 dark:border-lime-300 ${
+        showDescription ? 'w-44' : null
+      }`}
     >
       <a
         href={`${process.env.REACT_APP_APILINK}/auth/google`}
