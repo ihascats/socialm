@@ -3,6 +3,7 @@ import Conversations from './Conversations';
 import Notifications from './Notifications';
 import Post from './Post';
 import SignIn from './SignIn';
+import SignInPage from './SignInPage';
 import Timeline from './Timeline';
 import User from './User';
 import UserSearch from './UserSearch';
@@ -18,6 +19,7 @@ const RouteSwitch = () => {
         <Route path={'/conversations'} element={<Conversations />} />
         <Route path={'/notifications'} element={<Notifications />} />
         <Route path={'/timeline'} element={<Timeline />} />
+        <Route path={'/signIn'} element={<SignInPage />} />
         <Route path={'/userSearch'} element={<UserSearch />} />
         <Route path={'/user'} element={<User />} />
         <Route path={'/user/:id'} element={<User />} />
