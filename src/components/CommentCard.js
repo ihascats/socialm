@@ -150,11 +150,11 @@ export default function CommentCard({
               defaultValue={commentData.comment_text}
             ></textarea>
             {commentData.image ? (
-              <div className="p-2">
+              <div className="p-2 flex justify-center bg-black/10 rounded-2xl my-2">
                 <img
                   src={commentData.image}
                   alt=""
-                  className="border-2 border-neutral-100/70 rounded-md w-full"
+                  className="border-2 border-neutral-100/70 rounded-md max-h-[500px] max-w-full"
                 ></img>
               </div>
             ) : null}
@@ -163,11 +163,11 @@ export default function CommentCard({
           <div>
             <p>{commentData.comment_text}</p>
             {commentData.image ? (
-              <div className="p-2">
+              <div className="p-2 flex justify-center bg-black/10 rounded-2xl my-2">
                 <img
                   src={commentData.image}
                   alt=""
-                  className="border-2 border-neutral-100/70 rounded-md w-full"
+                  className="border-2 border-neutral-100/70 rounded-md max-h-[500px] max-w-full"
                 ></img>
               </div>
             ) : null}
