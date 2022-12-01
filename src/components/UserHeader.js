@@ -10,7 +10,7 @@ export default function UserHeader({
   const [editUser, setEditUser] = useState(false);
 
   return (
-    <div className="flex p-2 items-end w-full dark:bg-neutral-900 dark:text-neutral-50">
+    <div className="flex p-2 items-end w-full max-w-[100vw]">
       <div
         onClick={() => {
           setEditUser(true);
@@ -20,7 +20,7 @@ export default function UserHeader({
         <img
           alt=""
           src={userInformation.profile_picture}
-          className="min-w-fit object-center object-cover w-16 h-16 rounded-full border-2 border-neutral-900 dark:border-lime-300"
+          className="min-w-fit object-center object-cover w-16 h-16 rounded-full border-2 border-neutral-900"
         ></img>
         <h1 className="font-mono font-bold text-2xl overflow-clip text-ellipsis">
           {userInformation.username}

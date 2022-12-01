@@ -28,7 +28,7 @@ export default function CommentLikeButtons({
         }}
         className={`flex gap-1 ${
           liked
-            ? 'fill-red-500 text-red-500 dark:fill-rose-300 dark:text-rose-300'
+            ? 'fill-red-500 text-red-500'
             : 'fill-neutral-900 text-neutral-900'
         }`}
       >

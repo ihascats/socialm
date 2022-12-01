@@ -64,7 +64,7 @@ export default function CommentCard({
   }, [commentData]);
 
   return (
-    <div className="bg-neutral-900 bg-opacity-20 border-l-4 border-l-blue-500 pl-4 p-2 border-b-2 border-neutral-900 dark:border-lime-300">
+    <div className="bg-neutral-900 bg-opacity-20 border-l-4 border-l-blue-500 pl-4 p-2 border-b-2 border-neutral-900">
       <div className="flex justify-between relative">
         <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
           <Link
@@ -213,7 +213,7 @@ export default function CommentCard({
             }}
             className={`flex gap-1 ${
               liked
-                ? 'fill-red-500 text-red-500 dark:fill-rose-300 dark:text-rose-300'
+                ? 'fill-red-500 text-red-500'
                 : 'fill-neutral-900 text-neutral-900'
             }`}
           >

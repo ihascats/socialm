@@ -8,6 +8,6 @@ export default function SignIn() {
   localStorage.setItem('Authorization', validation);
 
   useEffect(() => {
-    navigate(`${process.env.PUBLIC_URL}/reviews/all`, { replace: true });
+    navigate(`${process.env.PUBLIC_URL}/timeline`, { replace: true });
   });
 }

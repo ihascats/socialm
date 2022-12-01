@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import CommentCard from './components/CommentCard';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
@@ -15,6 +15,13 @@ export default function User() {
   const [userPosts, setUserPosts] = useState();
   const [showPosts, setShowPosts] = useState(true);
   const { id } = useParams();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.Authorization) {
+      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+    }
+  });
 
   function update() {
     fetchUserInformation(id).then(
@@ -55,7 +62,7 @@ export default function User() {
 
   useEffect(() => {
     update();
-  }, [signedUserInfo]);
+  }, [signedUserInfo, id]);
 
   useEffect(() => {
     if (userInformation) {
@@ -76,7 +83,7 @@ export default function User() {
   useEffect(() => {
     if (window.innerWidth > 768) setMobile(false);
     if (window.innerWidth <= 768) setMobile(true);
-    window.onresize = screenWidth;
+    window.addEventListener('resize', screenWidth);
   });
 
   return (
@@ -89,8 +96,8 @@ export default function User() {
     >
       {mobile ? null : <WideNav setUserPosts={setUserPosts} />}
       <div
-        className={`dark:text-neutral-50 dark:bg-neutral-900 max-w-[500px] w-full ${
-          mobile ? null : 'min-h-screen h-screen'
+        className={`w-full border-x-2 border-neutral-900 max-w-[500px] ${
+          mobile ? 'w-[100vw]' : 'min-h-screen h-screen'
         }`}
       >
         {userInformation ? (
@@ -109,7 +116,7 @@ export default function User() {
                 setShowPosts(true);
                 update();
               }}
-              className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+              className="w-1/2 border-b-2 border-neutral-900 py-2"
             >
               Posts
             </button>
@@ -118,12 +125,12 @@ export default function User() {
                 setShowPosts(false);
                 update();
               }}
-              className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+              className="w-1/2 border-b-2 border-neutral-900 py-2"
             >
               Comments
             </button>
             <ul
-              className={`bg-gradient-to-br from-blue-200 to-purple-300 dark:from-indigo-600 dark:to-green-600 ${
+              className={`${
                 mobile
                   ? 'min-h-screen-user'
                   : 'min-h-screen-user-nav h-screen-user-wide overflow-auto hide-scroll'
@@ -160,7 +167,7 @@ export default function User() {
                 setShowPosts(true);
                 update();
               }}
-              className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+              className="w-1/2 border-b-2 border-neutral-900 py-2"
             >
               Posts
             </button>
@@ -169,12 +176,12 @@ export default function User() {
                 setShowPosts(false);
                 update();
               }}
-              className="w-1/2 border-b-2 border-neutral-900 dark:border-lime-300 py-2"
+              className="w-1/2 border-b-2 border-neutral-900py-2"
             >
               Comments
             </button>
             <ul
-              className={`bg-gradient-to-br from-blue-200 to-purple-300 dark:from-indigo-600 dark:to-green-600 ${
+              className={`${
                 mobile ? 'min-h-screen-user' : 'min-h-screen-user-nav'
               }`}
             ></ul>

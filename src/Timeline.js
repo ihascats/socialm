@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
 import WideNav from './components/WideNav';
@@ -8,6 +9,13 @@ import { fetchUserInformation } from './fetch_requests/user.fetch';
 export default function Timeline() {
   const [timeline, setTimeline] = useState();
   const [userInformation, setUserInformation] = useState();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.Authorization) {
+      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+    }
+  });
 
   useEffect(() => {
     fetchUserInformation().then(
@@ -33,7 +41,7 @@ export default function Timeline() {
   useEffect(() => {
     if (window.innerWidth > 768) setMobile(false);
     if (window.innerWidth <= 768) setMobile(true);
-    window.onresize = screenWidth;
+    window.addEventListener('resize', screenWidth);
   });
 
   return (
@@ -45,29 +53,31 @@ export default function Timeline() {
       }  `}
     >
       {mobile ? null : <WideNav setTimeline={setTimeline} />}
-      <ul
-        className={`bg-gradient-to-r from-yellow-200 to-rose-300 max-w-[500px] dark:from-indigo-600 dark:to-green-600 overflow-auto hide-scroll ${
-          mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
-        }  `}
-      >
-        {timeline
-          ? timeline.map((post) => (
-              <PostCard
-                key={post._id}
-                post={post}
-                user={userInformation}
-                setTimeline={setTimeline}
-              />
-            ))
-          : null}
-      </ul>
-      {timeline ? null : (
+      {timeline ? (
         <ul
-          className={`bg-gradient-to-r from-yellow-200 to-rose-300 max-w-[500px] w-full dark:from-indigo-600 dark:to-green-600 overflow-auto hide-scroll ${
+          className={`max-w-[500px] overflow-auto hide-scroll border-x-2 border-neutral-900 ${
+            mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
+          }  `}
+        >
+          {timeline
+            ? timeline.map((post) => (
+                <PostCard
+                  key={post._id}
+                  post={post}
+                  user={userInformation}
+                  setTimeline={setTimeline}
+                />
+              ))
+            : null}
+        </ul>
+      ) : (
+        <ul
+          className={`max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 ${
             mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
           }  `}
         ></ul>
       )}
+
       {mobile ? <Nav setTimeline={setTimeline} /> : null}
     </div>
   );

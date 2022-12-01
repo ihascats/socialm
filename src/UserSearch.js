@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Nav from './components/Nav';
 import UserCard from './components/UserCard';
 import WideNav from './components/WideNav';
@@ -15,6 +16,13 @@ export default function UserSearch() {
   const [signedUserInfo, setSignedUserInfo] = useState();
   const [outgoingFr, setOutgoingFr] = useState();
   const [incomingFr, setIncomingFr] = useState();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.Authorization) {
+      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+    }
+  });
 
   function updateOutgoing() {
     fetchOutgoingFr().then(
@@ -91,26 +99,26 @@ export default function UserSearch() {
   useEffect(() => {
     if (window.innerWidth > 768) setMobile(false);
     if (window.innerWidth <= 768) setMobile(true);
-    window.onresize = screenWidth;
+    window.addEventListener('resize', screenWidth);
   });
 
   return (
     <div
-      className={`w-full hide-scroll ${
+      className={`w-full hide-scroll max-w-[100vw] ${
         mobile
-          ? 'min-h-nav grid justify-items-center'
+          ? 'min-h-screen grid justify-items-center'
           : 'min-h-screen flex justify-center'
       }`}
     >
       {mobile ? null : <WideNav />}
       <div
-        className={`bg-gradient-to-r from-emerald-200 to-purple-300 max-w-[500px] w-full dark:from-indigo-600 dark:to-green-600 ${
+        className={` w-full border-x-2 border-neutral-900 ${
           mobile
-            ? 'min-h-screen-nav'
-            : 'min-h-screen h-screen-user-search overflow-auto hide-scroll'
+            ? 'min-h-screen-nav max-w-[100vw]'
+            : 'max-w-[500px] min-h-screen h-screen-user-search overflow-auto hide-scroll'
         }`}
       >
-        <div className="w-full px-2 py-1 sticky top-0 bg-neutral-500 z-50">
+        <div className="w-full px-2 py-1 sticky top-0 z-20">
           <input
             onInput={(event) => {
               setSearch(event.target.value);
@@ -120,7 +128,7 @@ export default function UserSearch() {
           ></input>
         </div>
         <ul
-          className={`fixed bg-neutral-400 max-w-[500px] w-full z-50 ${
+          className={`fixed max-w-[500px] w-full z-20 ${
             mobile ? null : 'max-h-screen-user-search overflow-auto hide-scroll'
           }`}
         >
@@ -145,7 +153,7 @@ export default function UserSearch() {
               })
             : null}
         </ul>
-        <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
+        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900">
           Outgoing Friend Requests
         </h1>
         <ul>
@@ -162,7 +170,7 @@ export default function UserSearch() {
               })
             : null}
         </ul>
-        <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
+        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900">
           Incoming Friend Requests
         </h1>
         <ul>
@@ -181,7 +189,7 @@ export default function UserSearch() {
               })
             : null}
         </ul>
-        <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
+        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900">
           Friends
         </h1>
         <ul>
@@ -200,7 +208,7 @@ export default function UserSearch() {
               })
             : null}
         </ul>
-        <h1 className="bg-gradient-to-t from-transparent to-blue-400 dark:from-transparent dark:to-green-600 p-2 font-mono border-t-2 border-t-neutral-900">
+        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900">
           SocialM Users
         </h1>
         <ul>

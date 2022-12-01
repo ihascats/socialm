@@ -52,7 +52,7 @@ export default function WideNav({
 
   useEffect(() => {
     if (window.innerWidth >= 1024) setShowDescription(true);
-    window.onresize = screenWidth;
+    window.addEventListener('resize', screenWidth);
   });
 
   const [theme, setTheme] = useState(false);
@@ -60,7 +60,7 @@ export default function WideNav({
   return localStorage.Authorization ? (
     <div className="flex">
       <nav
-        className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit bg-lime-300 fill-neutral-900 dark:bg-neutral-900 dark:fill-lime-300 dark:border-lime-300 ${
+        className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit bg-lime-300 fill-neutral-900 ${
           showDescription ? 'w-44' : null
         }`}
       >
@@ -172,7 +172,7 @@ export default function WideNav({
     </div>
   ) : (
     <nav
-      className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit bg-lime-300 fill-neutral-900 dark:bg-neutral-900 dark:fill-lime-300 dark:border-lime-300 ${
+      className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit bg-lime-300 fill-neutral-900 ${
         showDescription ? 'w-44' : null
       }`}
     >

@@ -72,7 +72,7 @@ export default function PostCard({
 
   return (
     <Link draggable={false} to={`/post/${postData._id}`}>
-      <div className="p-2 border-b-2 border-neutral-900 dark:border-lime-300">
+      <div className="p-2 border-b-2 border-neutral-900">
         <div className="flex justify-between relative">
           <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
             <Link
@@ -153,11 +153,11 @@ export default function PostCard({
                 defaultValue={postData.post_text}
               ></textarea>
               {postData.image ? (
-                <div className="p-2">
+                <div className="p-2 flex justify-center bg-black/10 rounded-2xl my-2">
                   <img
                     src={postData.image}
                     alt=""
-                    className="border-2 border-neutral-100/70 rounded-md w-full"
+                    className="border-2 border-neutral-100/70 rounded-md max-h-[500px] max-w-full"
                   ></img>
                 </div>
               ) : null}
@@ -166,11 +166,11 @@ export default function PostCard({
             <div>
               <p>{postData.post_text}</p>
               {postData.image ? (
-                <div className="p-2">
+                <div className="p-2 flex justify-center bg-black/10 rounded-2xl my-2">
                   <img
                     src={postData.image}
                     alt=""
-                    className="border-2 border-neutral-100/70 rounded-md w-full"
+                    className="border-2 border-neutral-100/70 rounded-md max-h-[500px] max-w-full"
                   ></img>
                 </div>
               ) : null}

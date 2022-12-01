@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import NewPostButtons from './mini-components/buttons/NewPostButtons';
 import ImageInput from './mini-components/ImageInput';
 
@@ -12,10 +12,16 @@ export default function NewPost({
   const imageFile = useRef();
   const imageUrl = useRef();
 
+  useEffect(() => {
+    window.addEventListener('resize', function () {
+      setNewPostVisible(false);
+    });
+  });
+
   return (
     <div
-      className={`fixed top-0 min-h-screen-nav w-full max-w-[500px] backdrop-brightness-50 backdrop-blur-sm text-neutral-200 ${
-        showDescription ? 'z-50 h-full ml-44' : null
+      className={`fixed top-0 min-h-screen-nav w-full max-w-[500px] backdrop-brightness-50 backdrop-blur-sm text-neutral-200 z-[100] ${
+        showDescription ? 'h-full ml-44' : null
       }`}
     >
       <div className="p-4">

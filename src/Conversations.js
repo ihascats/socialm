@@ -6,6 +6,7 @@ import ChatMessage from './components/ChatMessage';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
 import { fetchChat } from './fetch_requests/chat.fetch';
 import WideNav from './components/WideNav';
+import { useNavigate } from 'react-router-dom';
 
 export default function Conversations() {
   const socket = io(process.env.REACT_APP_APICHAT, {
@@ -22,6 +23,13 @@ export default function Conversations() {
   const [messages, setMessages] = useState([]);
   const [signedUserInfo, setSignedUserInfo] = useState();
   const [existingChat, setExistingChat] = useState([]);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.Authorization) {
+      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+    }
+  });
 
   useEffect(() => {
     socket.on('receive-message', (messageData) => {
@@ -98,7 +106,7 @@ export default function Conversations() {
   useEffect(() => {
     if (window.innerWidth > 768) setMobile(false);
     if (window.innerWidth <= 768) setMobile(true);
-    window.onresize = screenWidth;
+    window.addEventListener('resize', screenWidth);
   });
 
   const icons = Icons();
@@ -112,7 +120,7 @@ export default function Conversations() {
     >
       {mobile ? null : <WideNav />}
       <div
-        className={`bg-gradient-to-b from-violet-800 to-cyan-600 max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll ${
+        className={`max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 ${
           mobile
             ? 'h-screen-chat min-h-screen-chat'
             : 'h-screen-chat-wide min-h-screen'
@@ -151,8 +159,8 @@ export default function Conversations() {
               : null}
           </ul>
         </div>
-        <div className="sticky bottom-0 max-w-[500px] w-full">
-          <div className="p-2 bg-blue-300 w-full flex gap-3">
+        <div className="sticky bottom-0 max-w-[500px] w-full border-t-2 border-neutral-900">
+          <div className="p-2 w-full flex gap-3">
             <input
               onKeyUp={(event) => {
                 if (event.key === 'Enter') {

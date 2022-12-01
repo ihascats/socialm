@@ -19,7 +19,7 @@ export default function UserCard({
 
   return (
     <li>
-      <div className="flex items-end gap-2 border-b-2 border-neutral-900 p-2 max-w-full">
+      <div className="flex items-end gap-2 border-b-2 border-neutral-900 p-2 max-w-[100vw]">
         <Link to={`/user/${userInfo._id}`}>
           {userInfo ? (
             <img

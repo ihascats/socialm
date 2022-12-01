@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CommentCard from './components/CommentCard';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
@@ -11,6 +11,13 @@ export default function Post() {
   const [postInformation, setPostInformation] = useState();
   const [signedUserInfo, setSignedUserInfo] = useState();
   const { id } = useParams();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.Authorization) {
+      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+    }
+  });
 
   useEffect(() => {
     fetchUserInformation().then(
@@ -48,7 +55,7 @@ export default function Post() {
   useEffect(() => {
     if (window.innerWidth > 768) setMobile(false);
     if (window.innerWidth <= 768) setMobile(true);
-    window.onresize = screenWidth;
+    window.addEventListener('resize', screenWidth);
   });
 
   return (
@@ -63,8 +70,10 @@ export default function Post() {
         <WideNav setPostInformation={setPostInformation} postId={id} />
       )}
       <ul
-        className={`bg-gradient-to-br from-yellow-200 to-pink-300 dark:from-indigo-600 dark:to-green-600  max-w-[500px] w-full ${
-          mobile ? 'min-h-screen-nav' : 'min-h-screen'
+        className={`max-w-[500px] w-full ${
+          mobile
+            ? 'min-h-screen-nav'
+            : 'min-h-screen overflow-auto h-screen hide-scroll'
         }`}
       >
         {postInformation ? (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Nav from './components/Nav';
 import NotificationCard from './components/NotificationCard';
 import WideNav from './components/WideNav';
@@ -9,6 +10,13 @@ import {
 
 export default function Notifications() {
   const [allNotifications, setAllNotifications] = useState();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.Authorization) {
+      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+    }
+  });
 
   useEffect(() => {
     fetchNotifications().then(
@@ -46,7 +54,7 @@ export default function Notifications() {
   useEffect(() => {
     if (window.innerWidth > 768) setMobile(false);
     if (window.innerWidth <= 768) setMobile(true);
-    window.onresize = screenWidth;
+    window.addEventListener('resize', screenWidth);
   });
 
   return (
@@ -59,7 +67,7 @@ export default function Notifications() {
     >
       {mobile ? null : <WideNav />}
       <div
-        className={`bg-gradient-to-b from-violet-800 to-cyan-600 h-screen-nav max-w-[500px] w-full text-neutral-300 overflow-auto hide-scroll ${
+        className={`h-screen-nav max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 ${
           mobile ? 'min-h-screen-nav max-h-screen' : 'min-h-screen max-h-screen'
         }`}
       >
