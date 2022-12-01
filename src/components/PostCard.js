@@ -195,7 +195,6 @@ export default function PostCard({
             liked={liked}
             likeCount={likeCount}
             repliesCount={repliesCount}
-            postData={postData}
             setNewCommentVisible={setNewCommentVisible}
           />
         )}
