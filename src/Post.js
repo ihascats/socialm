@@ -70,7 +70,7 @@ export default function Post() {
         <WideNav setPostInformation={setPostInformation} postId={id} />
       )}
       <ul
-        className={`max-w-[500px] w-full ${
+        className={`max-w-[500px] w-full border-x-2 border-neutral-900 ${
           mobile
             ? 'min-h-screen-nav'
             : 'min-h-screen overflow-auto h-screen hide-scroll'
