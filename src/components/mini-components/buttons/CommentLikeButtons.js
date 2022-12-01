@@ -5,7 +5,6 @@ export default function CommentLikeButtons({
   liked,
   likeCount,
   repliesCount,
-  postData,
   setNewCommentVisible,
 }) {
   const icons = Icons();
