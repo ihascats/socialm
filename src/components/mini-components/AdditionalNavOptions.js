@@ -16,7 +16,7 @@ export default function AdditionalNavOptions() {
   }, []);
 
   return (
-    <div className="fixed bottom-16 right-0 border-l-4 border-t-4 bg-neutral-900/60 text-neutral-50 fill-neutral-400 border-neutral-900 dark:border-neutral-400 w-40 z-50">
+    <div className="z-[200] fixed bottom-16 right-0 border-l-4 border-t-4 bg-neutral-900/60 text-neutral-50 fill-neutral-400 border-neutral-900 dark:border-neutral-400 w-40">
       <Link
         className="flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full"
         to={`/user`}
