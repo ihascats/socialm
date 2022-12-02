@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { fetchPostPost } from '../../../fetch_requests/post.fetch';
 
 export default function NewPostButtons({
@@ -8,33 +9,50 @@ export default function NewPostButtons({
   imageFile,
   imageUrl,
 }) {
-  return (
-    <div className="flex justify-end gap-2">
-      <button
-        onClick={(event) => {
-          event.preventDefault();
-          setNewPostVisible(false);
-        }}
-        className="border-b-2 border-red-500 px-4 py-1"
-      >
-        Cancel
-      </button>
-      <button
-        onClick={async (event) => {
-          event.preventDefault();
-          setNewPostVisible(false);
-          const posts = await fetchPostPost(
-            textArea.current.value,
-            imageFile.current.files[0] || imageUrl.current.value,
-          );
+  const [emptyField, setEmptyField] = useState(false);
 
-          if (setTimeline) setTimeline(posts.post.posts);
-          if (setUserPosts) setUserPosts(posts.post);
-        }}
-        className="border-b-2 border-green-500 px-4 py-1"
-      >
-        Send
-      </button>
+  return (
+    <div>
+      <div className="flex justify-end gap-2">
+        <button
+          onClick={(event) => {
+            event.preventDefault();
+            setNewPostVisible(false);
+          }}
+          className="border-b-2 border-red-500 px-4 py-1"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={async (event) => {
+            event.preventDefault();
+            if (textArea.current.value === '') {
+              setEmptyField(true);
+              textArea.current.oninput = () => {
+                setEmptyField(false);
+                textArea.oninput = null;
+              };
+              return;
+            }
+            setNewPostVisible(false);
+            const posts = await fetchPostPost(
+              textArea.current.value,
+              imageFile.current.files[0] || imageUrl.current.value,
+            );
+
+            if (setTimeline) setTimeline(posts.post.posts);
+            if (setUserPosts) setUserPosts(posts.post);
+          }}
+          className="border-b-2 border-green-500 px-4 py-1"
+        >
+          Send
+        </button>
+      </div>
+      {emptyField ? (
+        <div className="absolute mt-10 text-red-500 border-2 border-red-500 -mx-4 py-2 px-10 rounded-md text-center w-full bg-black/50">
+          Text field can't be empty!
+        </div>
+      ) : null}
     </div>
   );
 }

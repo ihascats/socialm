@@ -186,6 +186,7 @@ export default function PostCard({
               postData={postData}
               imageFile={imageFile}
               imageUrl={imageUrl}
+              setDeletePost={setDeletePost}
             />
           </div>
         ) : (

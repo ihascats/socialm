@@ -196,6 +196,10 @@ export default function CommentCard({
             <button
               onClick={async (event) => {
                 event.preventDefault();
+                if (textArea.current.value === '') {
+                  setDeleteComment(true);
+                  return;
+                }
                 const updatedcommentData = await fetchPutComment(
                   commentData._id,
                   textArea.current.value,

@@ -7,6 +7,7 @@ export default function EditCancelSaveButtons({
   postData,
   imageFile,
   imageUrl,
+  setDeletePost,
 }) {
   return (
     <div className="flex justify-end gap-2">
@@ -22,6 +23,10 @@ export default function EditCancelSaveButtons({
       <button
         onClick={async (event) => {
           event.preventDefault();
+          if (textArea.current.value === '') {
+            setDeletePost(true);
+            return;
+          }
           const updatedPostData = await fetchPutPost(
             postData._id,
             textArea.current.value,

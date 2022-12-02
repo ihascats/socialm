@@ -118,7 +118,7 @@ export default function UserSearch() {
             : 'max-w-[500px] min-h-screen h-screen-user-search overflow-auto hide-scroll'
         }`}
       >
-        <div className="w-full px-2 py-1 sticky top-0 dark:text-neutral-900">
+        <div className="w-full px-2 py-1 sticky top-0 dark:text-neutral-900 bg-neutral-200 z-20">
           <input
             onInput={(event) => {
               setSearch(event.target.value);
@@ -128,7 +128,7 @@ export default function UserSearch() {
           ></input>
         </div>
         <ul
-          className={`fixed max-w-[496px] w-full z-20 bg-neutral-400 dark:bg-neutral-400 ${
+          className={`fixed max-w-[496px] w-full bg-neutral-400 dark:bg-neutral-400 ${
             mobile ? null : 'max-h-screen-user-search overflow-auto hide-scroll'
           }`}
         >
