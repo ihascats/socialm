@@ -52,8 +52,9 @@ export default function WideNav({
 
   useEffect(() => {
     if (window.innerWidth >= 1024) setShowDescription(true);
+    if (window.innerWidth < 1024) setShowDescription(false);
     window.addEventListener('resize', screenWidth);
-  });
+  }, []);
 
   const [theme, setTheme] = useState(false);
 
