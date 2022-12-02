@@ -118,7 +118,7 @@ export default function UserSearch() {
             : 'max-w-[500px] min-h-screen h-screen-user-search overflow-auto hide-scroll'
         }`}
       >
-        <div className="w-full px-2 py-1 sticky top-0 z-20 dark:text-neutral-900">
+        <div className="w-full px-2 py-1 sticky top-0 dark:text-neutral-900">
           <input
             onInput={(event) => {
               setSearch(event.target.value);

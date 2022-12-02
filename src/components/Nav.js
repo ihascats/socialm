@@ -47,7 +47,7 @@ export default function Nav({
 
   return localStorage.Authorization ? (
     <nav
-      className={`grid grid-cols-5 max-w-[100vw] items-end justify-items-center sticky p-2 bottom-0 w-full h-16 border-t-4 bg-neutral-200 dark:bg-neutral-900 fill-neutral-900 dark:fill-neutral-400 border-neutral-900 dark:border-neutral-400`}
+      className={`grid grid-cols-5 max-w-[100vw] z-[100] items-end justify-items-center sticky p-2 bottom-0 w-full h-16 border-t-4 bg-neutral-200 dark:bg-neutral-900 fill-neutral-900 dark:fill-neutral-400 border-neutral-900 dark:border-neutral-400`}
     >
       <Link
         to={`/timeline`}
