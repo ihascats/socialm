@@ -16,7 +16,7 @@ export default function NewComment({
   return (
     <div
       className={`z-50 fixed top-0 min-h-screen-nav w-full max-w-[500px] backdrop-brightness-50 backdrop-blur-sm text-neutral-200 ${
-        showDescription ? 'z-50 h-full ml-44' : null
+        showDescription ? 'z-50 h-full' : null
       }`}
     >
       <div className="p-4">

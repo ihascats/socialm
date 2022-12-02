@@ -70,7 +70,7 @@ export default function WideNav({
     <div className="flex">
       <nav
         className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit fill-neutral-900 dark:fill-neutral-400 ${
-          showDescription ? 'w-44' : null
+          showDescription ? 'w-44 -ml-44' : null
         }`}
       >
         <Link

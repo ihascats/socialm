@@ -21,7 +21,7 @@ export default function NewPost({
   return (
     <div
       className={`fixed top-0 min-h-screen-nav w-full max-w-[500px] backdrop-brightness-50 backdrop-blur-sm text-neutral-200 z-[100] ${
-        showDescription ? 'h-full ml-44' : null
+        showDescription ? 'h-full' : null
       } ${showDescription === false ? 'h-full ml-20' : null}`}
     >
       <div className="p-4">
