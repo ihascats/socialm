@@ -70,7 +70,7 @@ export default function Nav({
           onClick={() => {
             setNewCommentVisible(true);
           }}
-          className={`fixed ${
+          className={`fixed fill-neutral-900 ${
             viewAdditional ? `bottom-[168px]` : `bottom-24` //92+64+12=1
           } right-3 bg-green-400 rounded-full p-2 transition-all`}
         >
@@ -78,7 +78,7 @@ export default function Nav({
         </button>
       ) : (
         <button
-          className={`fixed ${
+          className={`fixed fill-neutral-900 ${
             viewAdditional ? `bottom-[168px]` : `bottom-24` //92+64+12=1
           } right-3 bg-green-400 rounded-full p-2 transition-all`}
           onClick={() => {
