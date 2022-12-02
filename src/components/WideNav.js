@@ -57,17 +57,27 @@ export default function WideNav({
 
   const [theme, setTheme] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.dark === 'true') {
+      setTheme(true);
+    } else {
+      setTheme(false);
+    }
+  }, []);
+
   return localStorage.Authorization ? (
     <div className="flex">
       <nav
-        className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit bg-lime-300 fill-neutral-900 ${
+        className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit fill-neutral-900 dark:fill-neutral-400 ${
           showDescription ? 'w-44' : null
         }`}
       >
         <Link
           to={`/timeline`}
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
-            window.location.pathname === '/timeline' ? `fill-amber-600` : null
+            window.location.pathname === '/timeline'
+              ? `fill-indigo-500 text-indigo-500`
+              : null
           }`}
         >
           {icons.timeline} {showDescription ? 'Timeline' : null}
@@ -75,7 +85,9 @@ export default function WideNav({
         <Link
           to={`/userSearch`}
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
-            window.location.pathname === '/userSearch' ? `fill-pink-500` : null
+            window.location.pathname === '/userSearch'
+              ? `fill-pink-500 text-pink-500`
+              : null
           }`}
         >
           {icons.friendList} {showDescription ? 'Users' : null}
@@ -83,10 +95,10 @@ export default function WideNav({
         <Link
           to={`/notifications`}
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
-            notificationPending ? `fill-rose-500` : null
+            notificationPending ? `fill-rose-500 text-rose-500` : null
           } ${
             window.location.pathname === '/notifications'
-              ? `fill-blue-500`
+              ? `fill-cyan-500 text-cyan-500`
               : null
           }`}
         >
@@ -97,7 +109,7 @@ export default function WideNav({
           to={`/conversations`}
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
             window.location.pathname === '/conversations'
-              ? `fill-rose-500`
+              ? `fill-emerald-500 text-emerald-500`
               : null
           }`}
         >
@@ -105,7 +117,9 @@ export default function WideNav({
         </Link>
         <Link
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
-            window.location.pathname === '/user' ? `fill-fuchsia-500` : null
+            window.location.pathname === '/user'
+              ? `fill-fuchsia-500 text-fuchsia-500`
+              : null
           }`}
           to={`/user`}
         >
@@ -114,6 +128,7 @@ export default function WideNav({
         <button
           onClick={() => {
             document.body.classList.toggle('dark');
+            localStorage.dark = !theme;
             setTheme((prev) => !prev);
           }}
           className="flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2"
@@ -136,13 +151,13 @@ export default function WideNav({
             onClick={() => {
               setNewCommentVisible(true);
             }}
-            className="w-full flex justify-center right-3 bg-green-400 rounded-full p-2 transition-all hover:bg-green-300"
+            className="w-full flex justify-center right-3 bg-green-400 rounded-full p-2 transition-all hover:bg-green-300 fill-neutral-900"
           >
             {icons.bigComment}
           </button>
         ) : (
           <button
-            className="w-full flex justify-center right-3 bg-green-400 rounded-full p-2 transition-all hover:bg-green-300"
+            className="w-full flex justify-center right-3 bg-green-400 rounded-full p-2 transition-all hover:bg-green-300 fill-neutral-900"
             onClick={() => {
               setNewPostVisible(true);
             }}
@@ -172,7 +187,7 @@ export default function WideNav({
     </div>
   ) : (
     <nav
-      className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit bg-lime-300 fill-neutral-900 ${
+      className={`grid gap-6 items-end justify-items-center sticky p-2 bottom-0 h-fit fill-neutral-900 ${
         showDescription ? 'w-44' : null
       }`}
     >

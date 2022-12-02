@@ -33,6 +33,14 @@ export default function Conversations() {
 
   useEffect(() => {
     socket.on('receive-message', (messageData) => {
+      if (list) console.log();
+      if (
+        list.current.scrollHeight - list.current.scrollTop ===
+        list.current.offsetHeight
+      ) {
+        console.log();
+        setScrollBottom(true);
+      }
       const clone = structuredClone(messages);
       clone.push({
         message: messageData.message,
@@ -73,10 +81,17 @@ export default function Conversations() {
     );
   }, []);
 
+  const [scrollBottom, setScrollBottom] = useState(false);
+
   useEffect(() => {
     if (messages.length)
       if (messages[messages.length - 1].author._id === signedUserInfo._id)
         list.current.scrollTop = list.current.scrollHeight;
+
+    if (scrollBottom) {
+      list.current.scrollTop = list.current.scrollHeight;
+      setScrollBottom(false);
+    }
     // window.scrollTo({
     //   top: list.current.offsetHeight,
     //   behavior: 'smooth',
@@ -112,7 +127,7 @@ export default function Conversations() {
   const icons = Icons();
   return (
     <div
-      className={`w-full hide-scroll ${
+      className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
           ? 'min-h-screen grid justify-items-center'
           : 'min-h-screen flex justify-center'
@@ -120,7 +135,7 @@ export default function Conversations() {
     >
       {mobile ? null : <WideNav />}
       <div
-        className={`max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 ${
+        className={`max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 dark:border-neutral-400 ${
           mobile
             ? 'h-screen-chat min-h-screen-chat'
             : 'h-screen-chat-wide min-h-screen'
@@ -159,7 +174,7 @@ export default function Conversations() {
               : null}
           </ul>
         </div>
-        <div className="sticky bottom-0 max-w-[500px] w-full border-t-2 border-neutral-900">
+        <div className="sticky bottom-0 max-w-[500px] w-full border-t-2 border-neutral-900 dark:border-neutral-400">
           <div className="p-2 w-full flex gap-3">
             <input
               onKeyUp={(event) => {
@@ -169,7 +184,7 @@ export default function Conversations() {
                 }
               }}
               ref={messageInput}
-              className="p-1 rounded-md w-full"
+              className="p-1 rounded-md w-full dark:bg-neutral-700"
             ></input>
             <button
               onClick={() => {

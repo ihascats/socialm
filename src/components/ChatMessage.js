@@ -19,9 +19,9 @@ export default function ChatMessage({ signedUserInfo, messageData }) {
   }, [messageData.author, user]);
 
   return (
-    <div className="p-2 border-b-2 border-neutral-900 dark:border-lime-300">
+    <div className="p-2 border-b-2 border-neutral-900 dark:border-neutral-400">
       <div className="flex justify-between">
-        <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
+        <div className="flex items-end gap-2 border-b-2 border-neutral-900 dark:border-neutral-400 pb-2 max-w-full">
           <Link
             to={
               user._id === messageData.author._id
@@ -33,13 +33,13 @@ export default function ChatMessage({ signedUserInfo, messageData }) {
               <img
                 alt=""
                 src={image.profile_picture}
-                className="rounded-full w-10 h-10 border-2 border-neutral-900"
+                className="rounded-full w-10 h-10 border-2 border-neutral-900 dark:border-neutral-400"
               ></img>
             ) : (
               <img
                 alt=""
                 src={messageData.author.profile_picture}
-                className="rounded-full w-10 h-10 border-2 border-neutral-900"
+                className="rounded-full w-10 h-10 border-2 border-neutral-900 dark:border-neutral-400"
               ></img>
             )}
           </Link>

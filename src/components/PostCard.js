@@ -72,9 +72,9 @@ export default function PostCard({
 
   return (
     <Link draggable={false} to={`/post/${postData._id}`}>
-      <div className="p-2 border-b-2 border-neutral-900">
-        <div className="flex justify-between relative">
-          <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
+      <div className="p-2 border-b-2 border-neutral-900 dark:border-neutral-400 max-w-[100vw]">
+        <div className="flex justify-between relative w-full">
+          <div className="flex items-end gap-2 border-b-2 border-neutral-900 dark:border-neutral-400 pb-2 max-w-full">
             <Link
               as={Link}
               to={
@@ -87,13 +87,13 @@ export default function PostCard({
                 <img
                   alt=""
                   src={image.profile_picture}
-                  className="rounded-full w-10 h-10 border-2 border-neutral-900"
+                  className="rounded-full w-10 h-10 border-2 border-neutral-900 dark:border-neutral-400 hover:opacity-70"
                 ></img>
               ) : (
                 <img
                   alt=""
                   src={postData.author.profile_picture}
-                  className="rounded-full w-10 h-10 border-2 border-neutral-900"
+                  className="rounded-full w-10 h-10 border-2 border-neutral-900 dark:border-neutral-400 hover:opacity-70"
                 ></img>
               )}
             </Link>
@@ -104,7 +104,7 @@ export default function PostCard({
                   ? `/user`
                   : `/user/${postData.author._id}`
               }
-              className="font-mono overflow-clip text-ellipsis"
+              className="font-mono overflow-clip text-ellipsis hover:underline max-w-[160px]"
             >
               {postData.author._id === user._id
                 ? user.username
@@ -127,7 +127,6 @@ export default function PostCard({
               </h2>
             )}
           </div>
-
           {user._id === postData.author._id ? (
             <MoreOptionsButton setMenuVisible={setMenuVisible} />
           ) : null}
@@ -153,7 +152,7 @@ export default function PostCard({
                 defaultValue={postData.post_text}
               ></textarea>
               {postData.image ? (
-                <div className="p-2 flex justify-center bg-black/10 rounded-2xl my-2">
+                <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
                   <img
                     src={postData.image}
                     alt=""
@@ -166,7 +165,7 @@ export default function PostCard({
             <div>
               <p>{postData.post_text}</p>
               {postData.image ? (
-                <div className="p-2 flex justify-center bg-black/10 rounded-2xl my-2">
+                <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
                   <img
                     src={postData.image}
                     alt=""

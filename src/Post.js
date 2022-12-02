@@ -60,7 +60,7 @@ export default function Post() {
 
   return (
     <div
-      className={`w-full hide-scroll ${
+      className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
           ? 'min-h-nav grid justify-items-center'
           : 'min-h-screen flex justify-center'
@@ -70,7 +70,7 @@ export default function Post() {
         <WideNav setPostInformation={setPostInformation} postId={id} />
       )}
       <ul
-        className={`max-w-[500px] w-full border-x-2 border-neutral-900 ${
+        className={`max-w-[500px] w-full border-x-2 border-neutral-900 dark:border-neutral-400 ${
           mobile
             ? 'min-h-screen-nav'
             : 'min-h-screen overflow-auto h-screen hide-scroll'

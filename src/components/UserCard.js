@@ -19,19 +19,19 @@ export default function UserCard({
 
   return (
     <li>
-      <div className="flex items-end gap-2 border-b-2 border-neutral-900 p-2 max-w-[100vw]">
+      <div className="flex items-end gap-2 border-b-2 border-neutral-900 dark:border-neutral-400 p-2 max-w-[100vw]">
         <Link to={`/user/${userInfo._id}`}>
           {userInfo ? (
             <img
               alt=""
               src={userInfo.profile_picture}
-              className="rounded-full w-10 h-10 border-2 border-neutral-900 hover:opacity-70"
+              className="rounded-full w-10 h-10 border-2 border-neutral-900 dark:border-neutral-400 hover:opacity-70"
             ></img>
           ) : (
             <img
               alt=""
               src={userInfo.profile_picture}
-              className="rounded-full w-10 h-10 border-2 border-neutral-900 hover:opacity-70"
+              className="rounded-full w-10 h-10 border-2 border-neutral-900 dark:border-neutral-400 hover:opacity-70"
             ></img>
           )}
         </Link>

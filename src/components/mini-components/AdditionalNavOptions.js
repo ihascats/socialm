@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Icons from '../Icons';
 
@@ -7,8 +7,16 @@ export default function AdditionalNavOptions() {
   const icons = Icons();
   const [theme, setTheme] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.dark === 'true') {
+      setTheme(true);
+    } else {
+      setTheme(false);
+    }
+  }, []);
+
   return (
-    <div className="fixed bottom-16 right-0 border-l-4 border-t-4 border-neutral-900 bg-lime-400 w-40 z-50">
+    <div className="fixed bottom-16 right-0 border-l-4 border-t-4 bg-neutral-900/60 text-neutral-50 fill-neutral-400 border-neutral-900 dark:border-neutral-400 w-40 z-50">
       <Link
         className="flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full"
         to={`/user`}
@@ -27,6 +35,7 @@ export default function AdditionalNavOptions() {
       <button
         onClick={() => {
           document.body.classList.toggle('dark');
+          localStorage.dark = !theme;
           setTheme((prev) => !prev);
         }}
         className="flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full"

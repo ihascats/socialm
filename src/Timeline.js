@@ -46,7 +46,7 @@ export default function Timeline() {
 
   return (
     <div
-      className={`w-full hide-scroll ${
+      className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
           ? 'min-h-nav grid justify-items-center'
           : 'min-h-screen flex justify-center'
@@ -55,7 +55,7 @@ export default function Timeline() {
       {mobile ? null : <WideNav setTimeline={setTimeline} />}
       {timeline ? (
         <ul
-          className={`max-w-[500px] overflow-auto hide-scroll border-x-2 border-neutral-900 ${
+          className={`max-w-[500px] overflow-auto hide-scroll border-x-2 border-neutral-900 dark:border-neutral-400 ${
             mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
           }  `}
         >
@@ -72,7 +72,7 @@ export default function Timeline() {
         </ul>
       ) : (
         <ul
-          className={`max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 ${
+          className={`max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 dark:border-neutral-400 ${
             mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
           }  `}
         ></ul>

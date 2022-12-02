@@ -47,12 +47,12 @@ export default function Nav({
 
   return localStorage.Authorization ? (
     <nav
-      className={`grid grid-cols-5 items-end justify-items-center sticky p-2 bottom-0 w-full h-16 border-t-4 bg-lime-300 fill-neutral-900 border-neutral-900`}
+      className={`grid grid-cols-5 max-w-[100vw] items-end justify-items-center sticky p-2 bottom-0 w-full h-16 border-t-4 bg-neutral-200 dark:bg-neutral-900 fill-neutral-900 dark:fill-neutral-400 border-neutral-900 dark:border-neutral-400`}
     >
       <Link
         to={`/timeline`}
         className={`${
-          window.location.pathname === '/timeline' ? `fill-amber-600` : null
+          window.location.pathname === '/timeline' ? `fill-indigo-500` : null
         }`}
       >
         {icons.timeline}
@@ -91,7 +91,7 @@ export default function Nav({
       <Link
         to={`/notifications`}
         className={`${notificationPending ? `fill-rose-500` : null} ${
-          window.location.pathname === '/notifications' ? `fill-blue-500` : null
+          window.location.pathname === '/notifications' ? `fill-cyan-500` : null
         }`}
       >
         {notificationPending ? icons.notificationAlert : icons.notifications}
@@ -99,7 +99,9 @@ export default function Nav({
       <Link
         to={`/conversations`}
         className={`${
-          window.location.pathname === '/conversations' ? `fill-rose-500` : null
+          window.location.pathname === '/conversations'
+            ? `fill-emerald-500`
+            : null
         }`}
       >
         {icons.chat}
@@ -108,7 +110,7 @@ export default function Nav({
         onClick={() => {
           setViewAdditional((prev) => !prev);
         }}
-        className={`${viewAdditional ? `fill-indigo-600` : null}`}
+        className={`${viewAdditional ? `fill-purple-500` : null}`}
       >
         {icons.menuUp}
       </button>
@@ -132,7 +134,7 @@ export default function Nav({
     </nav>
   ) : (
     <nav
-      className={`grid grid-cols-2 items-end justify-items-center sticky p-2 bottom-0 w-full h-fit border-t-4 bg-lime-300 fill-neutral-900 border-neutral-900`}
+      className={`grid grid-cols-2 items-end justify-items-center sticky p-2 bottom-0 w-full h-fit border-t-4 fill-neutral-900 dark:fill-neutral-400 border-neutral-900 dark:border-neutral-400`}
     >
       <a
         href={`${process.env.REACT_APP_APILINK}/auth/google`}

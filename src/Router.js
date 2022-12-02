@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Conversations from './Conversations';
 import Notifications from './Notifications';
@@ -9,6 +10,12 @@ import User from './User';
 import UserSearch from './UserSearch';
 
 const RouteSwitch = () => {
+  useEffect(() => {
+    if (localStorage.dark === 'true') {
+      document.body.classList.add('dark');
+    }
+  });
+
   return (
     <BrowserRouter basename={'/'}>
       <Routes>

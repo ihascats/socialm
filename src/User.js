@@ -88,7 +88,7 @@ export default function User() {
 
   return (
     <div
-      className={`w-full hide-scroll ${
+      className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
           ? 'min-h-nav grid justify-items-center'
           : 'min-h-screen flex justify-center'
@@ -96,7 +96,7 @@ export default function User() {
     >
       {mobile ? null : <WideNav setUserPosts={setUserPosts} />}
       <div
-        className={`w-full border-x-2 border-neutral-900 max-w-[500px] ${
+        className={`w-full border-x-2 border-neutral-900 dark:border-neutral-400 max-w-[500px] ${
           mobile ? 'w-[100vw]' : 'min-h-screen h-screen'
         }`}
       >
@@ -107,7 +107,7 @@ export default function User() {
             setSignedUserInfo={setSignedUserInfo}
           />
         ) : (
-          <div className="h-20 bg-lime-300"></div>
+          <div className="h-20"></div>
         )}
         {userPosts ? (
           <div>
@@ -116,7 +116,7 @@ export default function User() {
                 setShowPosts(true);
                 update();
               }}
-              className="w-1/2 border-b-2 border-neutral-900 py-2"
+              className="w-1/2 border-b-2 border-neutral-900 dark:border-neutral-400 py-2"
             >
               Posts
             </button>
@@ -125,14 +125,14 @@ export default function User() {
                 setShowPosts(false);
                 update();
               }}
-              className="w-1/2 border-b-2 border-neutral-900 py-2"
+              className="w-1/2 border-b-2 border-neutral-900 dark:border-neutral-400 py-2"
             >
               Comments
             </button>
             <ul
               className={`${
                 mobile
-                  ? 'min-h-screen-user'
+                  ? 'min-h-screen-user max-h-screen-user-nav overflow-auto hide-scroll'
                   : 'min-h-screen-user-nav h-screen-user-wide overflow-auto hide-scroll'
               }`}
             >
@@ -167,7 +167,7 @@ export default function User() {
                 setShowPosts(true);
                 update();
               }}
-              className="w-1/2 border-b-2 border-neutral-900 py-2"
+              className="w-1/2 border-b-2 border-neutral-900 dark:border-neutral-400 py-2"
             >
               Posts
             </button>
@@ -176,7 +176,7 @@ export default function User() {
                 setShowPosts(false);
                 update();
               }}
-              className="w-1/2 border-b-2 border-neutral-900py-2"
+              className="w-1/2 border-b-2 border-neutral-900 dark:border-neutral-400 py-2"
             >
               Comments
             </button>

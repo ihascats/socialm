@@ -21,6 +21,7 @@ module.exports = {
       },
       maxHeight: {
         'screen-user-search': 'calc(100vh - 40px)',
+        'screen-user-nav': 'calc(100vh - 186px)',
       },
     },
   },

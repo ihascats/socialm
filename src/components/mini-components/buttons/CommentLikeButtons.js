@@ -15,7 +15,7 @@ export default function CommentLikeButtons({
           event.preventDefault();
           setNewCommentVisible(true);
         }}
-        className="flex gap-1 text-neutral-900"
+        className="flex gap-1 text-neutral-900 dark:text-neutral-400"
       >
         {icons.comment}
         {`${repliesCount}`}
@@ -28,7 +28,7 @@ export default function CommentLikeButtons({
         className={`flex gap-1 ${
           liked
             ? 'fill-red-500 text-red-500'
-            : 'fill-neutral-900 text-neutral-900'
+            : 'fill-neutral-900 text-neutral-900 dark:fill-neutral-400 dark:text-neutral-400'
         }`}
       >
         {icons.like}

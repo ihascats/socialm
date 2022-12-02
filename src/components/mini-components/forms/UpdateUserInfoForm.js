@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { fetchPutUserInfo } from '../../../fetch_requests/user.fetch';
 
 export default function UpdateUserInfoForm({
@@ -9,8 +9,26 @@ export default function UpdateUserInfoForm({
   const image = useRef();
   const url = useRef();
   const username = useRef();
+
+  const [mobile, setMobile] = useState(false);
+
+  function screenWidth(event) {
+    if (event.target.innerWidth > 768) setMobile(false);
+    if (event.target.innerWidth <= 768) setMobile(true);
+  }
+
+  useEffect(() => {
+    if (window.innerWidth > 768) setMobile(false);
+    if (window.innerWidth <= 768) setMobile(true);
+    window.addEventListener('resize', screenWidth);
+  });
+
   return (
-    <form className="min-h-screen-nav w-full bg-blue-300/70 backdrop-blur-md fixed top-0 left-0 z-40 p-6 flex flex-col justify-center items-center gap-2">
+    <form
+      className={`${
+        mobile ? 'min-h-screen-nav' : 'min-h-screen'
+      } w-full bg-blue-300/70 backdrop-blur-md fixed top-0 left-0 z-40 p-6 flex flex-col justify-center items-center gap-2`}
+    >
       <label htmlFor="url" className="font-mono grid">
         image url:
         <input

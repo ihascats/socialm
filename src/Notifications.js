@@ -59,7 +59,7 @@ export default function Notifications() {
 
   return (
     <div
-      className={`w-full hide-scroll ${
+      className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
           ? 'min-h-nav grid justify-items-center'
           : 'min-h-screen flex justify-center'
@@ -67,7 +67,7 @@ export default function Notifications() {
     >
       {mobile ? null : <WideNav />}
       <div
-        className={`h-screen-nav max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 ${
+        className={`h-screen-nav max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 dark:border-neutral-400 ${
           mobile ? 'min-h-screen-nav max-h-screen' : 'min-h-screen max-h-screen'
         }`}
       >

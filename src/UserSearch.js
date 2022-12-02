@@ -104,7 +104,7 @@ export default function UserSearch() {
 
   return (
     <div
-      className={`w-full hide-scroll max-w-[100vw] ${
+      className={`w-full hide-scroll max-w-[100vw] dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
           ? 'min-h-screen grid justify-items-center'
           : 'min-h-screen flex justify-center'
@@ -112,13 +112,13 @@ export default function UserSearch() {
     >
       {mobile ? null : <WideNav />}
       <div
-        className={` w-full border-x-2 border-neutral-900 ${
+        className={` w-full border-x-2 border-neutral-900 dark:border-neutral-400 ${
           mobile
             ? 'min-h-screen-nav max-w-[100vw]'
             : 'max-w-[500px] min-h-screen h-screen-user-search overflow-auto hide-scroll'
         }`}
       >
-        <div className="w-full px-2 py-1 sticky top-0 z-20">
+        <div className="w-full px-2 py-1 sticky top-0 z-20 dark:text-neutral-900">
           <input
             onInput={(event) => {
               setSearch(event.target.value);
@@ -128,7 +128,7 @@ export default function UserSearch() {
           ></input>
         </div>
         <ul
-          className={`fixed max-w-[500px] w-full z-20 ${
+          className={`fixed max-w-[496px] w-full z-20 bg-neutral-400 dark:bg-neutral-400 ${
             mobile ? null : 'max-h-screen-user-search overflow-auto hide-scroll'
           }`}
         >
@@ -153,7 +153,7 @@ export default function UserSearch() {
               })
             : null}
         </ul>
-        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900">
+        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900 dark:border-neutral-400">
           Outgoing Friend Requests
         </h1>
         <ul>
@@ -170,7 +170,7 @@ export default function UserSearch() {
               })
             : null}
         </ul>
-        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900">
+        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900 dark:border-neutral-400">
           Incoming Friend Requests
         </h1>
         <ul>
@@ -189,7 +189,7 @@ export default function UserSearch() {
               })
             : null}
         </ul>
-        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900">
+        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900 dark:border-neutral-400">
           Friends
         </h1>
         <ul>
@@ -208,7 +208,7 @@ export default function UserSearch() {
               })
             : null}
         </ul>
-        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900">
+        <h1 className="p-2 font-mono border-t-2 border-t-neutral-900 dark:border-neutral-400">
           SocialM Users
         </h1>
         <ul>

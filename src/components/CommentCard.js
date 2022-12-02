@@ -64,9 +64,15 @@ export default function CommentCard({
   }, [commentData]);
 
   return (
-    <div className="bg-neutral-900 bg-opacity-20 border-l-4 border-l-blue-500 pl-4 p-2 border-b-2 border-neutral-900">
+    <div
+      className={`bg-neutral-900 bg-opacity-20 dark:bg-neutral-50 dark:bg-opacity-20 border-l-4 ${
+        user._id === comment.author._id
+          ? 'border-l-yellow-500 dark:border-l-yellow-500'
+          : 'border-l-blue-500 dark:border-l-blue-500'
+      } pl-4 p-2 border-b-2 border-neutral-900  dark:border-neutral-400`}
+    >
       <div className="flex justify-between relative">
-        <div className="flex items-end gap-2 border-b-2 border-neutral-900 pb-2 max-w-full">
+        <div className="flex items-end gap-2 border-b-2 border-neutral-900 dark:border-neutral-400 pb-2 max-w-full">
           <Link
             as={Link}
             to={
@@ -79,13 +85,13 @@ export default function CommentCard({
               <img
                 alt=""
                 src={image.profile_picture}
-                className="rounded-full w-10 h-10 border-2 border-neutral-900"
+                className="rounded-full w-10 h-10 border-2 border-neutral-900 dark:border-neutral-400 hover:opacity-70"
               ></img>
             ) : (
               <img
                 alt=""
                 src={comment.author.profile_picture}
-                className="rounded-full w-10 h-10 border-2 border-neutral-900"
+                className="rounded-full w-10 h-10 border-2 border-neutral-900 dark:border-neutral-400 hover:opacity-70"
               ></img>
             )}
           </Link>
@@ -96,7 +102,7 @@ export default function CommentCard({
                 ? `/user`
                 : `/user/${comment.author._id}`
             }
-            className="font-mono overflow-clip text-ellipsis"
+            className="font-mono overflow-clip text-ellipsis hover:underline"
           >
             {comment.author._id === user._id
               ? user.username
@@ -150,7 +156,7 @@ export default function CommentCard({
               defaultValue={commentData.comment_text}
             ></textarea>
             {commentData.image ? (
-              <div className="p-2 flex justify-center bg-black/10 rounded-2xl my-2">
+              <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
                 <img
                   src={commentData.image}
                   alt=""
@@ -163,7 +169,7 @@ export default function CommentCard({
           <div>
             <p>{commentData.comment_text}</p>
             {commentData.image ? (
-              <div className="p-2 flex justify-center bg-black/10 rounded-2xl my-2">
+              <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
                 <img
                   src={commentData.image}
                   alt=""
@@ -214,7 +220,7 @@ export default function CommentCard({
             className={`flex gap-1 ${
               liked
                 ? 'fill-red-500 text-red-500'
-                : 'fill-neutral-900 text-neutral-900'
+                : 'fill-neutral-900 text-neutral-900 dark:fill-neutral-400 dark:text-neutral-400'
             }`}
           >
             {icons.like}
