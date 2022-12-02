@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NewCommentButtons from './mini-components/buttons/NewCommentButtons';
 import ImageInput from './mini-components/ImageInput';
 
@@ -13,11 +13,30 @@ export default function NewComment({
   const imageFile = useRef();
   const imageUrl = useRef();
 
+  useEffect(() => {
+    window.addEventListener('resize', function () {
+      setNewCommentVisible(false);
+    });
+  });
+
+  const [mobile, setMobile] = useState(false);
+
+  function screenWidth(event) {
+    if (event.target.innerWidth > 768) setMobile(false);
+    if (event.target.innerWidth <= 768) setMobile(true);
+  }
+
+  useEffect(() => {
+    if (window.innerWidth > 768) setMobile(false);
+    if (window.innerWidth <= 768) setMobile(true);
+    window.addEventListener('resize', screenWidth);
+  });
+
   return (
     <div
-      className={`z-50 fixed top-0 min-h-screen-nav w-full max-w-[500px] backdrop-brightness-50 backdrop-blur-sm text-neutral-200 ${
-        showDescription ? 'z-50 h-full' : null
-      }`}
+      className={`z-50 fixed top-0 min-h-screen-nav w-full max-w-[498px] backdrop-brightness-50 backdrop-blur-sm text-neutral-200 ${
+        showDescription || !mobile ? 'z-50 h-screen' : null
+      } ${showDescription === false ? 'h-screen' : null}`}
     >
       <div className="p-4">
         <textarea
