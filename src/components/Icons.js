@@ -25,6 +25,7 @@ import {
   mdiWhiteBalanceSunny,
   mdiWhiteBalanceIridescent,
   mdiMoonWaningCrescent,
+  mdiLoading,
 } from '@mdi/js';
 
 export default function Icons() {
@@ -328,6 +329,17 @@ export default function Icons() {
       color="inherit"
     />
   );
+  const loading = (
+    <Icon
+      path={mdiLoading}
+      size={2}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+      spin
+    />
+  );
   return {
     // ..icons
     timeline,
@@ -360,5 +372,6 @@ export default function Icons() {
     lightNav,
     darkNav,
     logoutNav,
+    loading,
   };
 }
