@@ -1,4 +1,4 @@
-exports.fetchNotifications = async function () {
+export const fetchNotifications = async function () {
   const link = `${process.env.REACT_APP_APILINK}/notifications`;
   const response = await fetch(link, {
     mode: 'cors',
@@ -14,7 +14,7 @@ exports.fetchNotifications = async function () {
   }
 };
 
-exports.fetchPutClearNotifications = async function () {
+export const fetchPutClearNotifications = async function () {
   const link = `${process.env.REACT_APP_APILINK}/notifications`;
   const response = await fetch(link, {
     mode: 'cors',

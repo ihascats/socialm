@@ -1,4 +1,4 @@
-exports.fetchUserInformation = async function (user_id) {
+export const fetchUserInformation = async function (user_id) {
   const link = user_id
     ? `${process.env.REACT_APP_APILINK}/users/${user_id}`
     : `${process.env.REACT_APP_APILINK}/user`;
@@ -16,7 +16,7 @@ exports.fetchUserInformation = async function (user_id) {
   }
 };
 
-exports.fetchPutFriendRequest = async function (id) {
+export const fetchPutFriendRequest = async function (id) {
   const link = `${process.env.REACT_APP_APILINK}/user/${id}/fr`;
   const response = await fetch(link, {
     mode: 'cors',
@@ -30,7 +30,7 @@ exports.fetchPutFriendRequest = async function (id) {
   }
 };
 
-exports.fetchPutAcceptFr = async function (id) {
+export const fetchPutAcceptFr = async function (id) {
   const link = `${process.env.REACT_APP_APILINK}/user/accept_fr/${id}`;
   const response = await fetch(link, {
     mode: 'cors',
@@ -44,7 +44,7 @@ exports.fetchPutAcceptFr = async function (id) {
   }
 };
 
-exports.fetchPutDeclineFr = async function (id) {
+export const fetchPutDeclineFr = async function (id) {
   const link = `${process.env.REACT_APP_APILINK}/user/decline_fr/${id}`;
   const response = await fetch(link, {
     mode: 'cors',
@@ -58,7 +58,7 @@ exports.fetchPutDeclineFr = async function (id) {
   }
 };
 
-exports.fetchPutRemoveFr = async function (id) {
+export const fetchPutRemoveFr = async function (id) {
   const link = `${process.env.REACT_APP_APILINK}/user/remove_fr/${id}`;
   const response = await fetch(link, {
     mode: 'cors',
@@ -72,7 +72,7 @@ exports.fetchPutRemoveFr = async function (id) {
   }
 };
 
-exports.fetchUsers = async function () {
+export const fetchUsers = async function () {
   const link = `${process.env.REACT_APP_APILINK}/users`;
   const response = await fetch(link, {
     mode: 'cors',
@@ -85,7 +85,7 @@ exports.fetchUsers = async function () {
   }
 };
 
-exports.fetchOutgoingFr = async function () {
+export const fetchOutgoingFr = async function () {
   const link = `${process.env.REACT_APP_APILINK}/user/outgoingFr`;
   const response = await fetch(link, {
     mode: 'cors',
@@ -101,7 +101,7 @@ exports.fetchOutgoingFr = async function () {
   }
 };
 
-exports.fetchIncomingFr = async function () {
+export const fetchIncomingFr = async function () {
   const link = `${process.env.REACT_APP_APILINK}/user/friend_requests`;
   const response = await fetch(link, {
     mode: 'cors',
@@ -117,7 +117,7 @@ exports.fetchIncomingFr = async function () {
   }
 };
 
-exports.fetchPutUserInfo = async function (username, image) {
+export const fetchPutUserInfo = async function (username, image) {
   if (username.length === 0) return;
 
   var formData = new FormData();

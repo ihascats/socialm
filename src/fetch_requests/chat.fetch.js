@@ -1,4 +1,4 @@
-exports.fetchChat = async function () {
+export const fetchChat = async function () {
   const link = `${process.env.REACT_APP_APILINK}/chat`;
   const response = await fetch(link, {
     mode: 'cors',

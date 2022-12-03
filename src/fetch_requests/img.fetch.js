@@ -1,4 +1,4 @@
-exports.fetchImage = async function (userInformation, setUserInformation) {
+export const fetchImage = async function (userInformation, setUserInformation) {
   if (!userInformation) return;
   fetch(`${process.env.REACT_APP_APILINK}/img/${await userInformation._id}`)
     //                         vvvv
@@ -12,7 +12,10 @@ exports.fetchImage = async function (userInformation, setUserInformation) {
     });
 };
 
-exports.fetchPostImage = async function (postInformation, setPostInformation) {
+export const fetchPostImage = async function (
+  postInformation,
+  setPostInformation,
+) {
   if (!postInformation) return;
   fetch(`${process.env.REACT_APP_APILINK}/post/img/${postInformation._id}`)
     //                         vvvv
@@ -26,7 +29,7 @@ exports.fetchPostImage = async function (postInformation, setPostInformation) {
     });
 };
 
-exports.fetchCommentImage = async function (
+export const fetchCommentImage = async function (
   commentInformation,
   setCommentInformation,
 ) {

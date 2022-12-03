@@ -1,4 +1,4 @@
-exports.checkConnection = async function () {
+export const checkConnection = async function () {
   const response = await fetch(`${process.env.REACT_APP_APILINK}/connection`, {
     mode: 'cors',
   });
