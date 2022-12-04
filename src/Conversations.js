@@ -38,7 +38,6 @@ export default function Conversations() {
         list.current.scrollHeight - list.current.scrollTop ===
         list.current.offsetHeight
       ) {
-        console.log();
         setScrollBottom(true);
       }
       const clone = structuredClone(messages);
@@ -84,7 +83,7 @@ export default function Conversations() {
   const [scrollBottom, setScrollBottom] = useState(false);
 
   useEffect(() => {
-    if (messages.length)
+    if (messages.length && signedUserInfo)
       if (messages[messages.length - 1].author._id === signedUserInfo._id)
         list.current.scrollTop = list.current.scrollHeight;
 

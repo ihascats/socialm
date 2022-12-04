@@ -100,7 +100,7 @@ export default function User() {
           mobile ? 'w-[100vw]' : 'min-h-screen h-screen'
         }`}
       >
-        {userInformation ? (
+        {userInformation && signedUserInfo ? (
           <UserHeader
             userInformation={userInformation}
             signedUserInfo={signedUserInfo}
@@ -109,7 +109,7 @@ export default function User() {
         ) : (
           <div className="h-20"></div>
         )}
-        {userPosts ? (
+        {userPosts && signedUserInfo ? (
           <div>
             <button
               onClick={() => {

@@ -76,7 +76,7 @@ export default function Post() {
             : 'min-h-screen overflow-auto h-screen hide-scroll'
         }`}
       >
-        {postInformation ? (
+        {postInformation && signedUserInfo ? (
           <PostCard
             post={postInformation}
             user={signedUserInfo}

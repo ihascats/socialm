@@ -132,7 +132,7 @@ export default function UserSearch() {
             mobile ? null : 'max-h-screen-user-search overflow-auto hide-scroll'
           }`}
         >
-          {allUsers && search.length > 2
+          {allUsers && signedUserInfo && search.length > 2
             ? allUsers.map((user) => {
                 if (user._id === signedUserInfo._id) return;
                 if (
