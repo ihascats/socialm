@@ -24,7 +24,7 @@ export default function UserHeader({
           src={userInformation.profile_picture}
           className="min-w-fit object-center object-cover w-16 h-16 rounded-full border-2 border-neutral-900 hover:opacity-70"
         ></img>
-        <h1 className="font-mono font-bold text-2xl overflow-clip text-ellipsis hover:underline">
+        <h1 className="font-mono font-bold text-2xl overflow-clip text-ellipsis hover:underline whitespace-nowrap">
           {userInformation.username}
         </h1>
         {userInformation && signedUserInfo ? (

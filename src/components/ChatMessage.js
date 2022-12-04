@@ -21,7 +21,7 @@ export default function ChatMessage({ signedUserInfo, messageData }) {
   return (
     <div className="p-2 border-b-2 border-neutral-900 dark:border-neutral-400">
       <div className="flex justify-between">
-        <div className="flex items-end gap-2 border-b-2 border-neutral-900 dark:border-neutral-400 pb-2 max-w-full">
+        <div className="flex items-end gap-2 border-b-2 border-neutral-900 dark:border-neutral-400 pb-2 max-w-full whitespace-nowrap">
           <Link
             to={
               user._id === messageData.author._id
