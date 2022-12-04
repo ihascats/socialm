@@ -64,11 +64,32 @@ export default function ChatMessage({ signedUserInfo, messageData }) {
                 .split(' ')[2]
                 .trim()}`}
             </h2>
-          ) : (
+          ) : Math.floor(
+              Math.abs(Date.parse(messageData.createdAt) - Date.now()) / 36e5,
+            ) > 0 ? (
             <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
               {`${Math.floor(
                 Math.abs(Date.parse(messageData.createdAt) - Date.now()) / 36e5,
               )}h`}
+            </h2>
+          ) : Math.floor(
+              Math.abs((Date.parse(messageData.createdAt) - Date.now()) / 600) /
+                60,
+            ) > 1 ? (
+            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
+              {`${Math.floor(
+                Math.abs(
+                  (Date.parse(messageData.createdAt) - Date.now()) / 600,
+                ) / 60,
+              )}m`}
+            </h2>
+          ) : (
+            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
+              {`${Math.floor(
+                Math.abs(
+                  (Date.parse(messageData.createdAt) - Date.now()) / 600,
+                ),
+              )}s`}
             </h2>
           )}
         </div>
