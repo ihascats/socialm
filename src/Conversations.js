@@ -7,6 +7,7 @@ import { fetchUserInformation } from './fetch_requests/user.fetch';
 import { fetchChat } from './fetch_requests/chat.fetch';
 import WideNav from './components/WideNav';
 import { useNavigate } from 'react-router-dom';
+import ChatMessageUploading from './components/ChatMessageUploading';
 
 export default function Conversations() {
   const socket = io(process.env.REACT_APP_APICHAT, {
@@ -33,13 +34,14 @@ export default function Conversations() {
 
   useEffect(() => {
     socket.on('receive-message', (messageData) => {
-      if (list) console.log();
-      if (
-        list.current.scrollHeight - list.current.scrollTop ===
-        list.current.offsetHeight
-      ) {
-        setScrollBottom(true);
-      }
+      if (list)
+        if (
+          list.current.scrollHeight - list.current.scrollTop ===
+          list.current.offsetHeight
+        ) {
+          setScrollBottom(true);
+        }
+      newChatUpload(false);
       const clone = structuredClone(messages);
       clone.push({
         message: messageData.message,
@@ -105,8 +107,10 @@ export default function Conversations() {
   const list = useRef();
 
   function sendMessage() {
-    if (messageInput.current.value !== '')
+    if (messageInput.current.value !== '') {
+      newChatUpload(true);
       socket.emit('send-message', { message: messageInput.current.value });
+    }
     messageInput.current.value = '';
   }
 
@@ -122,6 +126,19 @@ export default function Conversations() {
     if (window.innerWidth <= 768) setMobile(true);
     window.addEventListener('resize', screenWidth);
   });
+
+  const [uploading, setUploading] = useState([]);
+
+  function newChatUpload(bool) {
+    const clone = structuredClone(uploading);
+    if (bool) {
+      clone.push(1);
+      setUploading(clone);
+    } else {
+      clone.pop();
+      setUploading(clone);
+    }
+  }
 
   const icons = Icons();
   return (
@@ -175,6 +192,11 @@ export default function Conversations() {
                     />
                   );
                 })
+              : null}
+            {uploading.length > 0 && existingChat.length
+              ? uploading.map((upload, index) => (
+                  <ChatMessageUploading key={`upload-${index}`} />
+                ))
               : null}
           </ul>
         </div>
