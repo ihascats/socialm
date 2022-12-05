@@ -38,7 +38,7 @@ export default function NotificationCard({ notificationInfo, unread }) {
     // link to post
     return (
       <li
-        className={`border-b-2 border-neutral-900 fill-yellow-500 ${
+        className={`border-b-2 border-neutral-900 dark:border-neutral-400 fill-yellow-500 ${
           unread ? `bg-neutral-600/30 dark:bg-neutral-300/30` : null
         }`}
       >
@@ -59,7 +59,7 @@ export default function NotificationCard({ notificationInfo, unread }) {
     // link to userSearch
     return (
       <li
-        className={`border-b-2 border-neutral-900 fill-cyan-500 ${
+        className={`border-b-2 border-neutral-900 dark:border-neutral-400 fill-cyan-500 ${
           unread ? `bg-neutral-600/30 dark:bg-neutral-300/30` : null
         }`}
       >

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Icons from './components/Icons';
 import Nav from './components/Nav';
 import NotificationCard from './components/NotificationCard';
 import WideNav from './components/WideNav';
@@ -57,6 +58,8 @@ export default function Notifications() {
     window.addEventListener('resize', screenWidth);
   });
 
+  const icons = Icons();
+
   return (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
@@ -77,18 +80,23 @@ export default function Notifications() {
         >
           Clear notifications
         </button>
-        <ul className="min-h-screen-nav overflow-auto hide-scroll scroll-smooth">
-          {allNotifications
-            ? allNotifications.unread_notifications
-                .reverse()
-                .map((unread, index) => (
-                  <NotificationCard
-                    key={`unread-${index}`}
-                    notificationInfo={unread}
-                    unread={true}
-                  />
-                ))
-            : null}
+        <ul className="min-h-screen-[100vh - 104px] overflow-auto hide-scroll scroll-smooth">
+          {allNotifications ? (
+            allNotifications.unread_notifications
+              .reverse()
+              .map((unread, index) => (
+                <NotificationCard
+                  key={`unread-${index}`}
+                  notificationInfo={unread}
+                  unread={true}
+                />
+              ))
+          ) : (
+            <div className="w-full min-h-screen-user h-full flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+              {icons.loading}
+              Notifications Loading..
+            </div>
+          )}
           {allNotifications
             ? allNotifications.read_notifications
                 .reverse()

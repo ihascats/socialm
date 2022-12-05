@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CommentCard from './components/CommentCard';
 import CommentUploading from './components/CommentUploading.js';
+import Icons from './components/Icons';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
 import WideNav from './components/WideNav';
@@ -72,6 +73,8 @@ export default function Post() {
     }
   }
 
+  const icons = Icons();
+
   return (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
@@ -102,8 +105,13 @@ export default function Post() {
             postInformation={postInformation}
             newCommentUpload={newCommentUpload}
           />
-        ) : null}
-        {uploading.length > 0
+        ) : (
+          <div className="w-full h-full flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+            {icons.loading}
+            Post Loading..
+          </div>
+        )}
+        {uploading.length > 0 && postInformation
           ? uploading.map((upload, index) => (
               <CommentUploading key={`upload-${index}`} />
             ))

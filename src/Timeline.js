@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Icons from './components/Icons';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
 import PostUploading from './components/PostUploading';
@@ -10,6 +11,8 @@ import { fetchUserInformation } from './fetch_requests/user.fetch';
 export default function Timeline() {
   const [timeline, setTimeline] = useState();
   const [userInformation, setUserInformation] = useState();
+
+  const icons = Icons();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -75,7 +78,7 @@ export default function Timeline() {
             mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
           }  `}
         >
-          {uploading.length > 0
+          {uploading.length > 0 && timeline
             ? uploading.map((upload, index) => (
                 <PostUploading key={`upload-${index}`} />
               ))
@@ -93,10 +96,13 @@ export default function Timeline() {
         </ul>
       ) : (
         <ul
-          className={`max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 dark:border-neutral-400 ${
+          className={`max-w-[500px] flex flex-col font-mono items-center justify-center dark:fill-neutral-50 w-full overflow-auto hide-scroll border-x-2 border-neutral-900 dark:border-neutral-400 ${
             mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
           }  `}
-        ></ul>
+        >
+          {icons.loading}
+          Timeline Loading..
+        </ul>
       )}
 
       {mobile ? <Nav setTimeline={setTimeline} newUpload={newUpload} /> : null}

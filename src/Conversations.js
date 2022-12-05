@@ -149,17 +149,22 @@ export default function Conversations() {
                 : 'h-screen-chat-wide min-w-[500px]'
             }`}
           >
-            {existingChat.length && signedUserInfo
-              ? existingChat.map((messageInfo) => {
-                  return (
-                    <ChatMessage
-                      key={messageInfo._id}
-                      signedUserInfo={signedUserInfo}
-                      messageData={messageInfo}
-                    />
-                  );
-                })
-              : null}
+            {existingChat.length && signedUserInfo ? (
+              existingChat.map((messageInfo) => {
+                return (
+                  <ChatMessage
+                    key={messageInfo._id}
+                    signedUserInfo={signedUserInfo}
+                    messageData={messageInfo}
+                  />
+                );
+              })
+            ) : (
+              <div className="w-full h-full flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+                {icons.loading}
+                Chat Loading..
+              </div>
+            )}
             {messages.length && signedUserInfo
               ? messages.map((messageInfo) => {
                   return (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import CommentCard from './components/CommentCard';
+import Icons from './components/Icons';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
 import PostUploading from './components/PostUploading';
@@ -99,6 +100,8 @@ export default function User() {
       setUploading(clone);
     }
   }
+
+  const icons = Icons();
 
   return (
     <div
@@ -202,10 +205,13 @@ export default function User() {
               Comments
             </button>
             <ul
-              className={`${
+              className={`flex flex-col font-mono items-center justify-center dark:fill-neutral-50 ${
                 mobile ? 'min-h-screen-user' : 'min-h-screen-user-nav'
               }`}
-            ></ul>
+            >
+              {icons.loading}
+              Profile Loading..
+            </ul>
           </div>
         )}
       </div>

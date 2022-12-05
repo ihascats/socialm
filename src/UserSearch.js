@@ -1,6 +1,7 @@
 /* eslint-disable array-callback-return */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Icons from './components/Icons';
 import Nav from './components/Nav';
 import UserCard from './components/UserCard';
 import WideNav from './components/WideNav';
@@ -102,6 +103,8 @@ export default function UserSearch() {
     window.addEventListener('resize', screenWidth);
   });
 
+  const icons = Icons();
+
   return (
     <div
       className={`w-full hide-scroll max-w-[100vw] dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
@@ -112,24 +115,26 @@ export default function UserSearch() {
     >
       {mobile ? null : <WideNav />}
       <div
-        className={` w-full border-x-2 border-neutral-900 dark:border-neutral-400 ${
+        className={`w-full max-w-[500px] border-x-2 border-neutral-900 dark:border-neutral-400 ${
           mobile
-            ? 'min-h-screen-nav max-w-[100vw]'
+            ? 'min-h-screen-nav'
             : 'max-w-[500px] min-h-screen h-screen-user-search overflow-auto hide-scroll'
         }`}
       >
-        <div className="w-full px-2 py-1 sticky top-0 dark:text-neutral-900 bg-neutral-200 z-20">
+        <div className="w-full px-2 py-1 sticky top-0 dark:text-neutral-50 bg-neutral-200 z-20 dark:bg-neutral-900 ">
           <input
             onInput={(event) => {
               setSearch(event.target.value);
             }}
             placeholder="Search for a user"
-            className="w-full px-2 py-1 rounded-lg"
+            className="w-full px-2 py-1 rounded-lg dark:bg-neutral-700"
           ></input>
         </div>
         <ul
-          className={`fixed max-w-[496px] w-full bg-neutral-400 dark:bg-neutral-400 ${
-            mobile ? null : 'max-h-screen-user-search overflow-auto hide-scroll'
+          className={`fixed max-w-[496px] w-full bg-neutral-400 dark:bg-neutral-800 ${
+            mobile
+              ? 'border-r-4'
+              : 'max-h-screen-user-search overflow-auto hide-scroll border-r-2'
           }`}
         >
           {allUsers && signedUserInfo && search.length > 2
@@ -212,29 +217,34 @@ export default function UserSearch() {
           SocialM Users
         </h1>
         <ul>
-          {allUsers && signedUserInfo && outgoingFr
-            ? allUsers.map((user) => {
-                if (user._id === signedUserInfo._id) return;
-                if (signedUserInfo.friend_requests.includes(user._id)) return;
-                if (signedUserInfo.friends_list.includes(user._id)) return;
-                if (
-                  outgoingFr.some(
-                    (friend_request) => friend_request._id === user._id,
-                  )
+          {allUsers && signedUserInfo && outgoingFr ? (
+            allUsers.map((user) => {
+              if (user._id === signedUserInfo._id) return;
+              if (signedUserInfo.friend_requests.includes(user._id)) return;
+              if (signedUserInfo.friends_list.includes(user._id)) return;
+              if (
+                outgoingFr.some(
+                  (friend_request) => friend_request._id === user._id,
                 )
-                  return;
+              )
+                return;
 
-                return (
-                  <UserCard
-                    key={user._id}
-                    user={user}
-                    signedUserInfo={signedUserInfo}
-                    setSignedUserInfo={setSignedUserInfo}
-                    updateOutgoing={updateOutgoing}
-                  />
-                );
-              })
-            : null}
+              return (
+                <UserCard
+                  key={user._id}
+                  user={user}
+                  signedUserInfo={signedUserInfo}
+                  setSignedUserInfo={setSignedUserInfo}
+                  updateOutgoing={updateOutgoing}
+                />
+              );
+            })
+          ) : (
+            <div className="w-full h-full flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+              {icons.loading}
+              Loading..
+            </div>
+          )}
         </ul>
       </div>
       {mobile ? <Nav /> : null}
