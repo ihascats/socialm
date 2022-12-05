@@ -8,6 +8,7 @@ export default function NewComment({
   postId,
   setPostInformation,
   showDescription,
+  newCommentUpload,
 }) {
   const textArea = useRef();
   const imageFile = useRef();
@@ -56,6 +57,7 @@ export default function NewComment({
           setPostInformation={setPostInformation}
           imageFile={imageFile}
           imageUrl={imageUrl}
+          newCommentUpload={newCommentUpload}
         />
       </div>
     </div>

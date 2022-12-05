@@ -9,6 +9,7 @@ export default function NewCommentButtons({
   setPostInformation,
   imageFile,
   imageUrl,
+  newCommentUpload,
 }) {
   const [emptyField, setEmptyField] = useState(false);
 
@@ -35,6 +36,9 @@ export default function NewCommentButtons({
               };
               return;
             }
+            if (newCommentUpload) {
+              newCommentUpload(true);
+            }
             setNewCommentVisible(false);
             const posts = await fetchPostComment(
               textArea.current.value,
@@ -42,7 +46,12 @@ export default function NewCommentButtons({
               imageFile.current.files[0] || imageUrl.current.value,
             );
             if (setRepliesCount) setRepliesCount(posts.post.replies.length);
-            if (setPostInformation) setPostInformation(posts.post);
+            if (setPostInformation) {
+              setPostInformation(posts.post);
+              if (newCommentUpload) {
+                newCommentUpload(false);
+              }
+            }
           }}
           className="border-b-2 border-green-500 px-4 py-1"
         >

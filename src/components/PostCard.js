@@ -17,6 +17,7 @@ export default function PostCard({
   setUserPosts,
   setPostInformation,
   postInformation,
+  newCommentUpload,
 }) {
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [liked, setLiked] = useState(post.likes.includes(user._id));
@@ -242,6 +243,7 @@ export default function PostCard({
           setUserPosts={setUserPosts}
           setRepliesCount={setRepliesCount}
           setPostInformation={setPostInformation}
+          newCommentUpload={newCommentUpload}
         />
       ) : null}
     </Link>

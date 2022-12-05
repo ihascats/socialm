@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CommentCard from './components/CommentCard';
+import CommentUploading from './components/CommentUploading.js';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
 import WideNav from './components/WideNav';
@@ -58,6 +59,19 @@ export default function Post() {
     window.addEventListener('resize', screenWidth);
   });
 
+  const [uploading, setUploading] = useState([]);
+
+  function newCommentUpload(bool) {
+    const clone = structuredClone(uploading);
+    if (bool) {
+      clone.push(1);
+      setUploading(clone);
+    } else {
+      clone.pop();
+      setUploading(clone);
+    }
+  }
+
   return (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
@@ -67,7 +81,11 @@ export default function Post() {
       }`}
     >
       {mobile ? null : (
-        <WideNav setPostInformation={setPostInformation} postId={id} />
+        <WideNav
+          setPostInformation={setPostInformation}
+          postId={id}
+          newCommentUpload={newCommentUpload}
+        />
       )}
       <ul
         className={`max-w-[500px] w-full border-x-2 border-neutral-900 dark:border-neutral-400 ${
@@ -82,8 +100,14 @@ export default function Post() {
             user={signedUserInfo}
             setPostInformation={setPostInformation}
             postInformation={postInformation}
+            newCommentUpload={newCommentUpload}
           />
         ) : null}
+        {uploading.length > 0
+          ? uploading.map((upload, index) => (
+              <CommentUploading key={`upload-${index}`} />
+            ))
+          : null}
         {postInformation
           ? postInformation.replies
               .reverse()
@@ -98,7 +122,11 @@ export default function Post() {
           : null}
       </ul>
       {mobile ? (
-        <Nav setPostInformation={setPostInformation} postId={id} />
+        <Nav
+          setPostInformation={setPostInformation}
+          postId={id}
+          newCommentUpload={newCommentUpload}
+        />
       ) : null}
     </div>
   );

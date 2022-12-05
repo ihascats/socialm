@@ -12,6 +12,7 @@ export default function Nav({
   setPostInformation,
   postId,
   newUpload,
+  newCommentUpload,
 }) {
   const [newPostVisible, setNewPostVisible] = useState(false);
   const [newCommentVisible, setNewCommentVisible] = useState(false);
@@ -136,6 +137,7 @@ export default function Nav({
           setTimeline={setTimeline}
           setUserPosts={setUserPosts}
           setPostInformation={setPostInformation}
+          newCommentUpload={newCommentUpload}
         />
       ) : null}
       {viewAdditional ? <AdditionalNavOptions /> : null}

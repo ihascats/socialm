@@ -11,6 +11,7 @@ export default function WideNav({
   setPostInformation,
   postId,
   newUpload,
+  newCommentUpload,
 }) {
   const [newPostVisible, setNewPostVisible] = useState(false);
   const [newCommentVisible, setNewCommentVisible] = useState(false);
@@ -185,6 +186,7 @@ export default function WideNav({
           setUserPosts={setUserPosts}
           setPostInformation={setPostInformation}
           showDescription={showDescription}
+          newCommentUpload={newCommentUpload}
         />
       ) : null}
     </div>
