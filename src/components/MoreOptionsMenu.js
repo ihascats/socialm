@@ -32,7 +32,7 @@ export default function MoreOptionsMenu({
       onTouchEnd={(event) => {
         event.stopPropagation();
       }}
-      className="absolute grid right-0 w-32 bg-lime-200 py-1 font-mono rounded-lg"
+      className="absolute grid right-0 w-32 bg-lime-200 py-1 font-mono rounded-lg dark:text-neutral-900 dark:fill-neutral-900 "
     >
       <button
         onClick={() => {
