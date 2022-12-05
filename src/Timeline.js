@@ -13,9 +13,9 @@ export default function Timeline() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.Authorization) {
-      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+      navigate(`/signIn`, { replace: true });
     }
-  });
+  }, []);
 
   useEffect(() => {
     fetchUserInformation().then(

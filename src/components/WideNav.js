@@ -76,7 +76,7 @@ export default function WideNav({
         <Link
           to={`/timeline`}
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
-            window.location.pathname === '/timeline'
+            window.location.pathname === '/socialm/timeline'
               ? `fill-indigo-500 text-indigo-500`
               : null
           }`}
@@ -86,7 +86,7 @@ export default function WideNav({
         <Link
           to={`/userSearch`}
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
-            window.location.pathname === '/userSearch'
+            window.location.pathname === '/socialm/userSearch'
               ? `fill-pink-500 text-pink-500`
               : null
           }`}
@@ -98,7 +98,7 @@ export default function WideNav({
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
             notificationPending ? `fill-rose-500 text-rose-500` : null
           } ${
-            window.location.pathname === '/notifications'
+            window.location.pathname === '/socialm/notifications'
               ? `fill-cyan-500 text-cyan-500`
               : null
           }`}
@@ -109,7 +109,7 @@ export default function WideNav({
         <Link
           to={`/conversations`}
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
-            window.location.pathname === '/conversations'
+            window.location.pathname === '/socialm/conversations'
               ? `fill-emerald-500 text-emerald-500`
               : null
           }`}
@@ -118,7 +118,7 @@ export default function WideNav({
         </Link>
         <Link
           className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
-            window.location.pathname === '/user'
+            window.location.pathname === '/socialm/user'
               ? `fill-fuchsia-500 text-fuchsia-500`
               : null
           }`}

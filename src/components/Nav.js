@@ -52,7 +52,9 @@ export default function Nav({
       <Link
         to={`/timeline`}
         className={`${
-          window.location.pathname === '/timeline' ? `fill-indigo-500` : null
+          window.location.pathname === '/socialm/timeline'
+            ? `fill-indigo-500`
+            : null
         }`}
       >
         {icons.timeline}
@@ -60,7 +62,9 @@ export default function Nav({
       <Link
         to={`/userSearch`}
         className={`${
-          window.location.pathname === '/userSearch' ? `fill-pink-500` : null
+          window.location.pathname === '/socialm/userSearch'
+            ? `fill-pink-500`
+            : null
         }`}
       >
         {icons.friendList}
@@ -91,7 +95,9 @@ export default function Nav({
       <Link
         to={`/notifications`}
         className={`${notificationPending ? `fill-rose-500` : null} ${
-          window.location.pathname === '/notifications' ? `fill-cyan-500` : null
+          window.location.pathname === '/socialm/notifications'
+            ? `fill-cyan-500`
+            : null
         }`}
       >
         {notificationPending ? icons.notificationAlert : icons.notifications}
@@ -99,7 +105,7 @@ export default function Nav({
       <Link
         to={`/conversations`}
         className={`${
-          window.location.pathname === '/conversations'
+          window.location.pathname === '/socialm/conversations'
             ? `fill-emerald-500`
             : null
         }`}
@@ -133,29 +139,6 @@ export default function Nav({
       {viewAdditional ? <AdditionalNavOptions /> : null}
     </nav>
   ) : (
-    <nav
-      className={`grid grid-cols-2 items-end justify-items-center sticky p-2 bottom-0 w-full h-fit border-t-4 fill-neutral-900 dark:fill-neutral-400 border-neutral-900 dark:border-neutral-400`}
-    >
-      <a
-        href={`${process.env.REACT_APP_APILINK}/auth/google`}
-        className="h-full flex gap-4 text-lg items-center"
-      >
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png"
-          alt="google logo"
-          className="h-12"
-        />
-        Sign In
-      </a>
-      <button
-        onClick={() => {
-          localStorage.setItem('Authorization', process.env.REACT_APP_GUEST);
-          navigate(`${process.env.PUBLIC_URL}/`, { replace: true });
-        }}
-        className="h-full text-lg items-center"
-      >
-        Sign In as Guest
-      </button>
-    </nav>
+    navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true })
   );
 }

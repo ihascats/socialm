@@ -235,7 +235,9 @@ export const fetchPostComment = async function (comment_text, post_id, image) {
 };
 
 export const fetchDeletePost = async function (post_id) {
-  let link = `${process.env.REACT_APP_APILINK}/post/${post_id}${window.location.pathname}`;
+  let link = `${process.env.REACT_APP_APILINK}/post/${post_id}/${
+    window.location.pathname.split('/')[2]
+  }`;
   const response = await fetch(link, {
     mode: 'cors',
     method: 'DELETE',
@@ -253,7 +255,7 @@ export const fetchDeletePost = async function (post_id) {
 
 export const fetchDeleteComment = async function (comment_id) {
   let link = `${process.env.REACT_APP_APILINK}/post/comment/${comment_id}/${
-    window.location.pathname.split('/')[1]
+    window.location.pathname.split('/')[2]
   }`;
   const response = await fetch(link, {
     mode: 'cors',

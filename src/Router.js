@@ -4,11 +4,11 @@ import Conversations from './Conversations';
 import Loading from './Loading';
 import Notifications from './Notifications';
 import Post from './Post';
-import SignIn from './SignIn';
 import SignInPage from './SignInPage';
 import Timeline from './Timeline';
 import User from './User';
 import UserSearch from './UserSearch';
+import SignUp from './SignUp';
 
 const RouteSwitch = () => {
   useEffect(() => {
@@ -17,14 +17,14 @@ const RouteSwitch = () => {
     }
     if (
       !('connected' in localStorage) &&
-      window.location.pathname !== '/loading'
+      window.location.pathname !== `${process.env.PUBLIC_URL}/loading`
     ) {
-      window.location.pathname = '/loading';
+      window.location.pathname = `${process.env.PUBLIC_URL}/loading`;
     }
   }, []);
 
   return (
-    <BrowserRouter basename={'/'}>
+    <BrowserRouter basename={'/socialm'}>
       <Routes>
         <Route
           path="*"
@@ -39,7 +39,7 @@ const RouteSwitch = () => {
         <Route path={'/user'} element={<User />} />
         <Route path={'/user/:id'} element={<User />} />
         <Route path={'/post/:id'} element={<Post />} />
-        <Route path={'/signIn/:validation'} element={<SignIn />} />
+        <Route path={'/signUp/:validation'} element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
