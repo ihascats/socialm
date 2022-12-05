@@ -65,7 +65,7 @@ export default function CommentCard({
 
   return (
     <div
-      className={`bg-neutral-900 bg-opacity-20 dark:bg-neutral-50 dark:bg-opacity-20 border-l-4 ${
+      className={`bg-neutral-900/20 dark:bg-neutral-50/20 border-l-4 ${
         user._id === comment.author._id
           ? 'border-l-yellow-500 dark:border-l-yellow-500'
           : 'border-l-blue-500 dark:border-l-blue-500'
@@ -111,9 +111,11 @@ export default function CommentCard({
           {/* date */}
           {Math.abs(Date.parse(comment.createdAt) - Date.now()) / 36e5 > 23 ? (
             <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${Date(comment.createdAt).split(' ')[1].trim()} ${Date(
-                comment.createdAt,
-              )
+              {`${new Date(comment.createdAt)
+                .toString()
+                .split(' ')[1]
+                .trim()} ${new Date(comment.createdAt)
+                .toString()
                 .split(' ')[2]
                 .trim()}`}
             </h2>

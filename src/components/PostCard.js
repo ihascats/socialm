@@ -114,9 +114,11 @@ export default function PostCard({
             {Math.abs(Date.parse(postData.createdAt) - Date.now()) / 36e5 >
             23 ? (
               <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-                {`${Date(postData.createdAt).split(' ')[1].trim()} ${Date(
-                  postData.createdAt,
-                )
+                {`${new Date(postData.createdAt)
+                  .toString()
+                  .split(' ')[1]
+                  .trim()} ${new Date(postData.createdAt)
+                  .toString()
                   .split(' ')[2]
                   .trim()}`}
               </h2>

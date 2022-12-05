@@ -58,9 +58,11 @@ export default function ChatMessage({ signedUserInfo, messageData }) {
           {Math.abs(Date.parse(messageData.createdAt) - Date.now()) / 36e5 >
           23 ? (
             <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${Date(messageData.createdAt).split(' ')[1].trim()} ${Date(
-                messageData.createdAt,
-              )
+              {`${new Date(messageData.createdAt)
+                .toString()
+                .split(' ')[1]
+                .trim()} ${new Date(messageData.createdAt)
+                .toString()
                 .split(' ')[2]
                 .trim()}`}
             </h2>
