@@ -118,11 +118,17 @@ export default function CommentCard({
                 .trim()}`}
             </h2>
           ) : Math.floor(
-              Math.abs(Date.parse(comment.createdAt) - Date.now()) / 36e5,
+              Math.floor(
+                Math.abs((Date.parse(comment.createdAt) - Date.now()) / 600) /
+                  60,
+              ) / 60,
             ) > 0 ? (
             <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
               {`${Math.floor(
-                Math.abs(Date.parse(comment.createdAt) - Date.now()) / 36e5,
+                Math.floor(
+                  Math.abs((Date.parse(comment.createdAt) - Date.now()) / 600) /
+                    60,
+                ) / 60,
               )}h`}
             </h2>
           ) : Math.floor(
