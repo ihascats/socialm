@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
+import PostUploading from './components/PostUploading';
 import WideNav from './components/WideNav';
 import { fetchTimeline } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
@@ -44,6 +45,19 @@ export default function Timeline() {
     window.addEventListener('resize', screenWidth);
   });
 
+  const [uploading, setUploading] = useState([]);
+
+  function newUpload(bool) {
+    const clone = structuredClone(uploading);
+    if (bool) {
+      clone.push(1);
+      setUploading(clone);
+    } else {
+      clone.pop();
+      setUploading(clone);
+    }
+  }
+
   return (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
@@ -52,13 +66,20 @@ export default function Timeline() {
           : 'min-h-screen flex justify-center'
       }  `}
     >
-      {mobile ? null : <WideNav setTimeline={setTimeline} />}
+      {mobile ? null : (
+        <WideNav setTimeline={setTimeline} newUpload={newUpload} />
+      )}
       {timeline ? (
         <ul
           className={`max-w-[500px] w-full overflow-auto hide-scroll border-x-2 border-neutral-900 dark:border-neutral-400 ${
             mobile ? 'min-h-screen-nav h-screen-nav' : 'min-h-screen h-screen'
           }  `}
         >
+          {uploading.length > 0
+            ? uploading.map((upload, index) => (
+                <PostUploading key={`upload-${index}`} />
+              ))
+            : null}
           {timeline
             ? timeline.map((post) => (
                 <PostCard
@@ -78,7 +99,7 @@ export default function Timeline() {
         ></ul>
       )}
 
-      {mobile ? <Nav setTimeline={setTimeline} /> : null}
+      {mobile ? <Nav setTimeline={setTimeline} newUpload={newUpload} /> : null}
     </div>
   );
 }

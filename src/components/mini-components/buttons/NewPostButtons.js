@@ -8,6 +8,7 @@ export default function NewPostButtons({
   setUserPosts,
   imageFile,
   imageUrl,
+  newUpload,
 }) {
   const [emptyField, setEmptyField] = useState(false);
 
@@ -34,14 +35,26 @@ export default function NewPostButtons({
               };
               return;
             }
+            if (newUpload) {
+              newUpload(true);
+            }
             setNewPostVisible(false);
             const posts = await fetchPostPost(
               textArea.current.value,
               imageFile.current.files[0] || imageUrl.current.value,
             );
-
-            if (setTimeline) setTimeline(posts.post.posts);
-            if (setUserPosts) setUserPosts(posts.post);
+            if (setTimeline) {
+              setTimeline(posts.post.posts);
+              if (newUpload) {
+                newUpload(false);
+              }
+            }
+            if (setUserPosts) {
+              setUserPosts(posts.post);
+              if (newUpload) {
+                newUpload(false);
+              }
+            }
           }}
           className="border-b-2 border-green-500 px-4 py-1"
         >

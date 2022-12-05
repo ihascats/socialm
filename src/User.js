@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import CommentCard from './components/CommentCard';
 import Nav from './components/Nav';
 import PostCard from './components/PostCard';
+import PostUploading from './components/PostUploading';
 import UserHeader from './components/UserHeader';
 import WideNav from './components/WideNav';
 import { fetchImage } from './fetch_requests/img.fetch';
@@ -86,6 +87,19 @@ export default function User() {
     window.addEventListener('resize', screenWidth);
   });
 
+  const [uploading, setUploading] = useState([]);
+
+  function newUpload(bool) {
+    const clone = structuredClone(uploading);
+    if (bool) {
+      clone.push(1);
+      setUploading(clone);
+    } else {
+      clone.pop();
+      setUploading(clone);
+    }
+  }
+
   return (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
@@ -94,7 +108,9 @@ export default function User() {
           : 'min-h-screen flex justify-center'
       }`}
     >
-      {mobile ? null : <WideNav setUserPosts={setUserPosts} />}
+      {mobile ? null : (
+        <WideNav setUserPosts={setUserPosts} newUpload={newUpload} />
+      )}
       <div
         className={`w-full border-x-2 border-neutral-900 dark:border-neutral-400 max-w-[500px] ${
           mobile ? 'w-[100vw]' : 'min-h-screen h-screen'
@@ -136,6 +152,11 @@ export default function User() {
                   : 'min-h-screen-user-nav h-screen-user-wide overflow-auto hide-scroll'
               }`}
             >
+              {uploading.length > 0 && showPosts
+                ? uploading.map((upload, index) => (
+                    <PostUploading key={`upload-${index}`} />
+                  ))
+                : null}
               {showPosts
                 ? userPosts.posts.map((post) => (
                     <PostCard
@@ -188,7 +209,9 @@ export default function User() {
           </div>
         )}
       </div>
-      {mobile ? <Nav setUserPosts={setUserPosts} /> : null}
+      {mobile ? (
+        <Nav setUserPosts={setUserPosts} newUpload={newUpload} />
+      ) : null}
     </div>
   );
 }

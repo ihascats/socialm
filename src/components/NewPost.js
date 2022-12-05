@@ -7,6 +7,7 @@ export default function NewPost({
   setTimeline,
   setUserPosts,
   showDescription,
+  newUpload,
 }) {
   const textArea = useRef();
   const imageFile = useRef();
@@ -41,6 +42,7 @@ export default function NewPost({
           textArea={textArea}
           imageFile={imageFile}
           imageUrl={imageUrl}
+          newUpload={newUpload}
         />
       </div>
     </div>

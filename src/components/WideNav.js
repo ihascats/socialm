@@ -10,6 +10,7 @@ export default function WideNav({
   setUserPosts,
   setPostInformation,
   postId,
+  newUpload,
 }) {
   const [newPostVisible, setNewPostVisible] = useState(false);
   const [newCommentVisible, setNewCommentVisible] = useState(false);
@@ -173,6 +174,7 @@ export default function WideNav({
           setTimeline={setTimeline}
           setUserPosts={setUserPosts}
           showDescription={showDescription}
+          newUpload={newUpload}
         />
       ) : null}
       {newCommentVisible ? (
