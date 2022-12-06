@@ -29,6 +29,7 @@ export default function CommentCard({
     const json = await fetchPutLike(comment);
     setLikeCount(json.likeCount);
     setLiked((prevState) => !prevState);
+    return true;
   }
 
   useEffect(() => {
@@ -62,6 +63,8 @@ export default function CommentCard({
       }
     }
   }, [commentData]);
+
+  const [updating, setUpdating] = useState(false);
 
   return (
     <div
@@ -244,7 +247,12 @@ export default function CommentCard({
           <button
             onClick={async (event) => {
               event.preventDefault();
-              like();
+              if (updating) return;
+              setUpdating(true);
+              const likeUpdated = await like();
+              if (likeUpdated === true) {
+                setUpdating(false);
+              }
             }}
             className={`flex gap-1 ${
               liked
@@ -252,7 +260,7 @@ export default function CommentCard({
                 : 'fill-neutral-900 text-neutral-900 dark:fill-neutral-400 dark:text-neutral-400'
             }`}
           >
-            {icons.like}
+            {updating ? icons.smallLoading : icons.like}
             {`${likeCount}`}
           </button>
         </div>

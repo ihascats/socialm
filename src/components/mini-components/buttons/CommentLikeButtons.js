@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Icons from '../../Icons';
 
 export default function CommentLikeButtons({
@@ -7,6 +8,7 @@ export default function CommentLikeButtons({
   repliesCount,
   setNewCommentVisible,
 }) {
+  const [updating, setUpdating] = useState(false);
   const icons = Icons();
   return (
     <div className="flex justify-end gap-6">
@@ -23,7 +25,12 @@ export default function CommentLikeButtons({
       <button
         onClick={async (event) => {
           event.preventDefault();
-          like();
+          if (updating) return;
+          setUpdating(true);
+          const likeUpdated = await like();
+          if (likeUpdated === true) {
+            setUpdating(false);
+          }
         }}
         className={`flex gap-1 ${
           liked
@@ -31,7 +38,7 @@ export default function CommentLikeButtons({
             : 'fill-neutral-900 text-neutral-900 dark:fill-neutral-400 dark:text-neutral-400'
         }`}
       >
-        {icons.like}
+        {updating ? icons.smallLoading : icons.like}
         {`${likeCount}`}
       </button>
     </div>

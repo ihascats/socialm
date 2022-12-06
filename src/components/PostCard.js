@@ -36,6 +36,7 @@ export default function PostCard({
     const json = await fetchPutLike(post);
     setLikeCount(json.likeCount);
     setLiked((prevState) => !prevState);
+    return true;
   }
 
   useEffect(() => {

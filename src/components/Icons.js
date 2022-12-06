@@ -340,6 +340,17 @@ export default function Icons() {
       spin
     />
   );
+  const smallLoading = (
+    <Icon
+      path={mdiLoading}
+      size={1}
+      horizontal
+      vertical
+      rotate={180}
+      color="inherit"
+      spin
+    />
+  );
   return {
     // ..icons
     timeline,
@@ -373,5 +384,6 @@ export default function Icons() {
     darkNav,
     logoutNav,
     loading,
+    smallLoading,
   };
 }
