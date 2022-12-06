@@ -77,53 +77,53 @@ export default function WideNav({
       >
         <Link
           to={`/timeline`}
-          className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
             window.location.pathname === '/socialm/timeline'
               ? `fill-indigo-500 text-indigo-500`
               : null
-          }`}
+          } ${showDescription ? null : 'w-fit'}`}
         >
           {icons.timeline} {showDescription ? 'Timeline' : null}
         </Link>
         <Link
           to={`/userSearch`}
-          className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
             window.location.pathname === '/socialm/userSearch'
               ? `fill-pink-500 text-pink-500`
               : null
-          }`}
+          } ${showDescription ? null : 'w-fit'}`}
         >
           {icons.friendList} {showDescription ? 'Users' : null}
         </Link>
         <Link
           to={`/notifications`}
-          className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
             notificationPending ? `fill-rose-500 text-rose-500` : null
           } ${
             window.location.pathname === '/socialm/notifications'
               ? `fill-cyan-500 text-cyan-500`
               : null
-          }`}
+          } ${showDescription ? null : 'w-fit'}`}
         >
           {notificationPending ? icons.notificationAlert : icons.notifications}{' '}
           {showDescription ? 'Notifications' : null}
         </Link>
         <Link
           to={`/conversations`}
-          className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
             window.location.pathname === '/socialm/conversations'
               ? `fill-emerald-500 text-emerald-500`
               : null
-          }`}
+          } ${showDescription ? null : 'w-fit'}`}
         >
           {icons.chat} {showDescription ? 'Chat' : null}
         </Link>
         <Link
-          className={`flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
             window.location.pathname === '/socialm/user'
               ? `fill-fuchsia-500 text-fuchsia-500`
               : null
-          }`}
+          } ${showDescription ? null : 'w-fit'}`}
           to={`/user`}
         >
           {icons.profileNav} {showDescription ? 'Profile' : null}
@@ -134,7 +134,9 @@ export default function WideNav({
             localStorage.dark = !theme;
             setTheme((prev) => !prev);
           }}
-          className="flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2"
+          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+            showDescription ? null : 'w-fit'
+          }`}
         >
           {theme ? icons.darkNav : icons.lightNav}{' '}
           {showDescription ? 'Theme' : null}
@@ -144,7 +146,9 @@ export default function WideNav({
             localStorage.removeItem('Authorization');
             navigate(`${process.env.PUBLIC_URL}/`, { replace: true });
           }}
-          className="flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2"
+          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+            showDescription ? null : 'w-fit'
+          }`}
         >
           {icons.logoutNav} {showDescription ? 'Sign Out' : null}
         </button>
