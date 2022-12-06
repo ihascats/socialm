@@ -6,6 +6,7 @@ export default function DeleteComment({
   commentId,
   setPostInformation,
   setUserPosts,
+  setDeletingComment,
 }) {
   const [mobile, setMobile] = useState(false);
 
@@ -42,6 +43,7 @@ export default function DeleteComment({
           </button>
           <button
             onClick={async () => {
+              setDeletingComment(true);
               setDeleteComment(false);
               const posts = await fetchDeleteComment(commentId);
               setPostInformation

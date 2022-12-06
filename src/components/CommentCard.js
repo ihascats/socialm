@@ -68,6 +68,8 @@ export default function CommentCard({
 
   const [updatingComment, setUpdatingComment] = useState(false);
 
+  const [deletingComment, setDeletingComment] = useState(false);
+
   return (
     <div
       className={`bg-neutral-900/20 dark:bg-neutral-50/20 border-l-4 ${
@@ -176,7 +178,12 @@ export default function CommentCard({
       </div>
       <div className="pt-2">
         {editComment ? (
-          updatingComment ? (
+          deletingComment ? (
+            <div className="flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+              {icons.loading}
+              Deleting Comment..
+            </div>
+          ) : updatingComment ? (
             <div className="flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
               {icons.loading}
               Updating Comment Information..
@@ -188,7 +195,7 @@ export default function CommentCard({
                 onClick={(event) => {
                   event.preventDefault();
                 }}
-                className="w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
+                className="my-2 w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
                 defaultValue={commentData.comment_text}
               ></textarea>
               {commentData.image ? (
@@ -202,9 +209,14 @@ export default function CommentCard({
               ) : null}
             </div>
           )
+        ) : deletingComment ? (
+          <div className="flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+            {icons.loading}
+            Deleting Comment..
+          </div>
         ) : (
           <div>
-            <p>{commentData.comment_text}</p>
+            <p className="my-2">{commentData.comment_text}</p>
             {commentData.image ? (
               <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
                 <img
@@ -218,7 +230,7 @@ export default function CommentCard({
         )}
       </div>
       {editComment ? (
-        updatingComment ? null : (
+        deletingComment ? null : updatingComment ? null : (
           <div>
             <ImageInput imageFile={imageFile} imageUrl={imageUrl} />
             <div className="flex justify-end gap-2">
@@ -284,6 +296,7 @@ export default function CommentCard({
           commentId={comment._id}
           setPostInformation={setPostInformation}
           setUserPosts={setUserPosts}
+          setDeletingComment={setDeletingComment}
         />
       ) : null}
     </div>

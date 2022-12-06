@@ -6,6 +6,7 @@ export default function DeletePost({
   postId,
   setTimeline,
   setUserPosts,
+  setDeletingPost,
 }) {
   const [mobile, setMobile] = useState(false);
 
@@ -42,6 +43,7 @@ export default function DeletePost({
           </button>
           <button
             onClick={async () => {
+              setDeletingPost(true);
               setDeletePost(false);
               const posts = await fetchDeletePost(postId);
               if (setTimeline) setTimeline(posts.post);

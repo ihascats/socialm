@@ -74,6 +74,7 @@ export default function PostCard({
   }, [postInformation]);
 
   const [updating, setUpdating] = useState(false);
+  const [deletingPost, setDeletingPost] = useState(false);
   const icons = Icons();
 
   return (
@@ -177,7 +178,12 @@ export default function PostCard({
 
         <div className="pt-2">
           {editPost ? (
-            updating ? (
+            deletingPost ? (
+              <div className="flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+                {icons.loading}
+                Deleting Post..
+              </div>
+            ) : updating ? (
               <div className="flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
                 {icons.loading}
                 Updating Post Information..
@@ -189,7 +195,7 @@ export default function PostCard({
                   onClick={(event) => {
                     event.preventDefault();
                   }}
-                  className="w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
+                  className="my-2 w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
                   defaultValue={postData.post_text}
                 ></textarea>
                 {postData.image ? (
@@ -203,9 +209,14 @@ export default function PostCard({
                 ) : null}
               </div>
             )
+          ) : deletingPost ? (
+            <div className="flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+              {icons.loading}
+              Deleting Post..
+            </div>
           ) : (
             <div>
-              <p>{postData.post_text}</p>
+              <p className="my-2">{postData.post_text}</p>
               {postData.image ? (
                 <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
                   <img
@@ -219,7 +230,7 @@ export default function PostCard({
           )}
         </div>
         {editPost ? (
-          updating ? null : (
+          deletingPost ? null : updating ? null : (
             <div>
               <ImageInput imageFile={imageFile} imageUrl={imageUrl} />
               <EditCancelSaveButtons
@@ -250,6 +261,7 @@ export default function PostCard({
           postId={postData._id}
           setTimeline={setTimeline}
           setUserPosts={setUserPosts}
+          setDeletingPost={setDeletingPost}
         />
       ) : null}
       {newCommentVisible ? (
