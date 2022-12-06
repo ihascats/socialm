@@ -66,6 +66,8 @@ export default function CommentCard({
 
   const [updating, setUpdating] = useState(false);
 
+  const [updatingComment, setUpdatingComment] = useState(false);
+
   return (
     <div
       className={`bg-neutral-900/20 dark:bg-neutral-50/20 border-l-4 ${
@@ -174,25 +176,32 @@ export default function CommentCard({
       </div>
       <div className="pt-2">
         {editComment ? (
-          <div>
-            <textarea
-              ref={textArea}
-              onClick={(event) => {
-                event.preventDefault();
-              }}
-              className="w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
-              defaultValue={commentData.comment_text}
-            ></textarea>
-            {commentData.image ? (
-              <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
-                <img
-                  src={commentData.image}
-                  alt=""
-                  className="border-2 border-neutral-100/70 rounded-md max-h-[500px] max-w-full"
-                ></img>
-              </div>
-            ) : null}
-          </div>
+          updatingComment ? (
+            <div className="flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+              {icons.loading}
+              Updating Comment Information..
+            </div>
+          ) : (
+            <div>
+              <textarea
+                ref={textArea}
+                onClick={(event) => {
+                  event.preventDefault();
+                }}
+                className="w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
+                defaultValue={commentData.comment_text}
+              ></textarea>
+              {commentData.image ? (
+                <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
+                  <img
+                    src={commentData.image}
+                    alt=""
+                    className="border-2 border-neutral-100/70 rounded-md max-h-[500px] max-w-full"
+                  ></img>
+                </div>
+              ) : null}
+            </div>
+          )
         ) : (
           <div>
             <p>{commentData.comment_text}</p>
@@ -209,39 +218,43 @@ export default function CommentCard({
         )}
       </div>
       {editComment ? (
-        <div>
-          <ImageInput imageFile={imageFile} imageUrl={imageUrl} />
-          <div className="flex justify-end gap-2">
-            <button
-              onClick={(event) => {
-                event.preventDefault();
-                setEditComment(false);
-              }}
-              className="border-b-2 border-red-500 px-4 py-1 rounded-md"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={async (event) => {
-                event.preventDefault();
-                if (textArea.current.value === '') {
-                  setDeleteComment(true);
-                  return;
-                }
-                const updatedcommentData = await fetchPutComment(
-                  commentData._id,
-                  textArea.current.value,
-                  imageFile.current.files[0] || imageUrl.current.value,
-                );
-                setCommentData(updatedcommentData.comment.comment);
-                setEditComment(false);
-              }}
-              className="border-b-2 border-green-500 px-4 py-1 rounded-md"
-            >
-              Save
-            </button>
+        updatingComment ? null : (
+          <div>
+            <ImageInput imageFile={imageFile} imageUrl={imageUrl} />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  setEditComment(false);
+                }}
+                className="border-b-2 border-red-500 px-4 py-1 rounded-md"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={async (event) => {
+                  event.preventDefault();
+                  if (textArea.current.value === '') {
+                    setDeleteComment(true);
+                    return;
+                  }
+                  setUpdatingComment(true);
+                  const updatedcommentData = await fetchPutComment(
+                    commentData._id,
+                    textArea.current.value,
+                    imageFile.current.files[0] || imageUrl.current.value,
+                  );
+                  setCommentData(updatedcommentData.comment.comment);
+                  setUpdatingComment(false);
+                  setEditComment(false);
+                }}
+                className="border-b-2 border-green-500 px-4 py-1 rounded-md"
+              >
+                Save
+              </button>
+            </div>
           </div>
-        </div>
+        )
       ) : (
         <div className="flex justify-end gap-6">
           <button

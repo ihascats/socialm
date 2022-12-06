@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { fetchImage, fetchPostImage } from '../fetch_requests/img.fetch';
 import { fetchPutLike } from '../fetch_requests/post.fetch';
 import DeletePost from './DeletePost';
+import Icons from './Icons';
 import CommentLikeButtons from './mini-components/buttons/CommentLikeButtons';
 import EditCancelSaveButtons from './mini-components/buttons/EditCancelSaveButtons';
 import MoreOptionsButton from './mini-components/buttons/MoreOptionsButton';
@@ -71,6 +72,9 @@ export default function PostCard({
         setRepliesCount(postInformation.replies.length);
       }
   }, [postInformation]);
+
+  const [updating, setUpdating] = useState(false);
+  const icons = Icons();
 
   return (
     <Link draggable={false} to={`/post/${postData._id}`}>
@@ -173,25 +177,32 @@ export default function PostCard({
 
         <div className="pt-2">
           {editPost ? (
-            <div>
-              <textarea
-                ref={textArea}
-                onClick={(event) => {
-                  event.preventDefault();
-                }}
-                className="w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
-                defaultValue={postData.post_text}
-              ></textarea>
-              {postData.image ? (
-                <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
-                  <img
-                    src={postData.image}
-                    alt=""
-                    className="border-2 border-neutral-100/70 rounded-md max-h-[500px] max-w-full"
-                  ></img>
-                </div>
-              ) : null}
-            </div>
+            updating ? (
+              <div className="flex flex-col font-mono items-center justify-center dark:fill-neutral-50">
+                {icons.loading}
+                Updating Post Information..
+              </div>
+            ) : (
+              <div>
+                <textarea
+                  ref={textArea}
+                  onClick={(event) => {
+                    event.preventDefault();
+                  }}
+                  className="w-full bg-transparent border-b-2 border-b-green-600 resize-none h-20 outline-offset-4"
+                  defaultValue={postData.post_text}
+                ></textarea>
+                {postData.image ? (
+                  <div className="p-2 flex justify-center bg-black/10 dark:bg-white/10 rounded-2xl my-2">
+                    <img
+                      src={postData.image}
+                      alt=""
+                      className="border-2 border-neutral-100/70 rounded-md max-h-[500px] max-w-full"
+                    ></img>
+                  </div>
+                ) : null}
+              </div>
+            )
           ) : (
             <div>
               <p>{postData.post_text}</p>
@@ -208,18 +219,21 @@ export default function PostCard({
           )}
         </div>
         {editPost ? (
-          <div>
-            <ImageInput imageFile={imageFile} imageUrl={imageUrl} />
-            <EditCancelSaveButtons
-              setEditPost={setEditPost}
-              setPostData={setPostData}
-              textArea={textArea}
-              postData={postData}
-              imageFile={imageFile}
-              imageUrl={imageUrl}
-              setDeletePost={setDeletePost}
-            />
-          </div>
+          updating ? null : (
+            <div>
+              <ImageInput imageFile={imageFile} imageUrl={imageUrl} />
+              <EditCancelSaveButtons
+                setEditPost={setEditPost}
+                setPostData={setPostData}
+                textArea={textArea}
+                postData={postData}
+                imageFile={imageFile}
+                imageUrl={imageUrl}
+                setDeletePost={setDeletePost}
+                setUpdating={setUpdating}
+              />
+            </div>
+          )
         ) : (
           <CommentLikeButtons
             like={like}

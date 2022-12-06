@@ -8,6 +8,7 @@ export default function EditCancelSaveButtons({
   imageFile,
   imageUrl,
   setDeletePost,
+  setUpdating,
 }) {
   return (
     <div className="flex justify-end gap-2">
@@ -27,12 +28,16 @@ export default function EditCancelSaveButtons({
             setDeletePost(true);
             return;
           }
+          if (setUpdating) {
+            setUpdating(true);
+          }
           const updatedPostData = await fetchPutPost(
             postData._id,
             textArea.current.value,
             imageFile.current.files[0] || imageUrl.current.value,
           );
           setPostData(updatedPostData.post.post);
+          setUpdating(false);
           setEditPost(false);
         }}
         className="border-b-2 border-green-500 px-4 py-1 rounded-md"
