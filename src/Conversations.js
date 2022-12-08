@@ -33,7 +33,7 @@ export default function Conversations() {
   });
 
   useEffect(() => {
-    socket.on('receive-message', (messageData) => {
+    const handleReceiveMessage = (messageData) => {
       if (list)
         if (
           list.current.scrollHeight - list.current.scrollTop ===
@@ -50,53 +50,57 @@ export default function Conversations() {
         createdAt: messageData.createdAt,
       });
       setMessages(clone);
-    });
+    };
+
+    socket.on('receive-message', handleReceiveMessage);
     return function disconnect() {
+      socket.off('receive-message', handleReceiveMessage);
       socket.disconnect();
     };
   });
 
-  useEffect(() => {
-    fetchUserInformation().then(
-      function (value) {
-        if (value.response.status === 200) {
-          setSignedUserInfo(value.user);
-        }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
-  }, []);
+  async function fetchUserInformationAndSetSignedUserInfo() {
+    try {
+      const value = await fetchUserInformation();
+      if (value.response.status === 200) {
+        setSignedUserInfo(value.user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchChatAndSetExistingChat() {
+    try {
+      const value = await fetchChat();
+      if (value.response.status === 200) {
+        setExistingChat(value.chat);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    fetchChat().then(
-      function (value) {
-        if (value.response.status === 200) {
-          setExistingChat(value.chat);
-        }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
+    fetchUserInformationAndSetSignedUserInfo();
+    fetchChatAndSetExistingChat();
   }, []);
 
   const [scrollBottom, setScrollBottom] = useState(false);
 
   useEffect(() => {
-    if (messages.length && signedUserInfo)
-      if (messages[messages.length - 1].author._id === signedUserInfo._id)
-        list.current.scrollTop = list.current.scrollHeight;
+    if (list.current) {
+      if (messages.length && signedUserInfo) {
+        if (messages[messages.length - 1].author._id === signedUserInfo._id) {
+          list.current.scrollTop = list.current.scrollHeight;
+        }
+      }
 
-    if (scrollBottom) {
-      list.current.scrollTop = list.current.scrollHeight;
-      setScrollBottom(false);
+      if (scrollBottom) {
+        list.current.scrollTop = list.current.scrollHeight;
+        setScrollBottom(false);
+      }
     }
-    // window.scrollTo({
-    //   top: list.current.offsetHeight,
-    //   behavior: 'smooth',
-    // });
   }, [messages]);
 
   useEffect(() => {

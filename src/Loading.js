@@ -6,8 +6,9 @@ import { checkConnection } from './fetch_requests/connection.fetch';
 export default function Loading() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    checkConnection().then((response) => {
+  async function checkConnectionAndNavigate() {
+    try {
+      const response = await checkConnection();
       if (response.connected === true) {
         localStorage.connected = true;
         if (localStorage.Authorization) {
@@ -22,8 +23,14 @@ export default function Loading() {
           };
         }
       }
-    });
-  });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    checkConnectionAndNavigate();
+  }, []);
 
   const icons = Icons();
   return (

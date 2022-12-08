@@ -52,40 +52,31 @@ export default function UserSearch() {
   }
 
   useEffect(() => {
-    fetchUsers().then(
-      function (value) {
+    fetchUsers()
+      .then((value) => {
         if (value.response.status === 200) {
           setAllUsers(value.users);
         }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
+        return value;
+      })
+      .catch((error) => console.log(error));
     updateOutgoing();
-    fetchIncomingFr().then(
-      function (value) {
+    fetchIncomingFr()
+      .then((value) => {
         if (value.response.status === 200) {
           setIncomingFr(value.users.friend_requests);
         }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    fetchUserInformation().then(
-      function (value) {
+        return value;
+      })
+      .catch((error) => console.log(error));
+    fetchUserInformation()
+      .then((value) => {
         if (value.response.status === 200) {
           setSignedUserInfo(value.user);
         }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
+        return value;
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   const [search, setSearch] = useState('');

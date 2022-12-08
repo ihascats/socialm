@@ -25,27 +25,19 @@ export default function User() {
     }
   });
 
-  function update() {
-    fetchUserInformation(id).then(
-      async function (value) {
-        if (value.response.status === 200) {
-          setUserInformation(value.user);
-          fetchUserPosts(value.user._id).then(
-            function (value) {
-              if (value.response.status === 200) {
-                setUserPosts(value.posts_comments);
-              }
-            },
-            function (error) {
-              console.log(error);
-            },
-          );
+  async function update() {
+    try {
+      const value = await fetchUserInformation(id);
+      if (value.response.status === 200) {
+        setUserInformation(value.user);
+        const value2 = await fetchUserPosts(value.user._id);
+        if (value2.response.status === 200) {
+          setUserPosts(value2.posts_comments);
         }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
@@ -68,10 +60,10 @@ export default function User() {
 
   useEffect(() => {
     if (userInformation) {
-      if (userInformation.profile_picture.slice(0, 4) !== 'blob')
-        if (userInformation.profile_picture.slice(0, 4) !== 'http') {
-          fetchImage(userInformation, setUserInformation);
-        }
+      const pictureString = userInformation.profile_picture.slice(0, 4);
+      if (pictureString !== 'blob' && pictureString !== 'http') {
+        fetchImage(userInformation, setUserInformation);
+      }
     }
   }, [userInformation, signedUserInfo]);
 

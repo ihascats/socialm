@@ -13,36 +13,36 @@ export default function Notifications() {
   const [allNotifications, setAllNotifications] = useState();
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!localStorage.Authorization) {
-      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
-    }
-  });
 
   useEffect(() => {
-    fetchNotifications().then(
-      function (value) {
-        if (value.response.status === 200) {
-          setAllNotifications(value.notifications);
+    async function fetchData() {
+      try {
+        if (!localStorage.Authorization) {
+          navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+          return;
         }
-      },
-      function (error) {
+
+        const notificationsResponse = await fetchNotifications();
+        if (notificationsResponse.response.status === 200) {
+          setAllNotifications(notificationsResponse.notifications);
+        }
+      } catch (error) {
         console.log(error);
-      },
-    );
+      }
+    }
+
+    fetchData();
   }, []);
 
-  function clearNotifications() {
-    fetchPutClearNotifications().then(
-      function (value) {
-        if (value.response.status === 200) {
-          setAllNotifications(value.notifications);
-        }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
+  async function clearNotifications() {
+    try {
+      const value = await fetchPutClearNotifications();
+      if (value.response.status === 200) {
+        setAllNotifications(value.notifications);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const [mobile, setMobile] = useState(false);

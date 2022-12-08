@@ -15,36 +15,30 @@ export default function Post() {
   const { id } = useParams();
 
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!localStorage.Authorization) {
-      navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+    async function fetchData() {
+      try {
+        if (!localStorage.Authorization) {
+          navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+          return;
+        }
+
+        const userInfoResponse = await fetchUserInformation();
+        if (userInfoResponse.response.status === 200) {
+          setSignedUserInfo(userInfoResponse.user);
+        }
+
+        const postResponse = await fetchPost(id);
+        if (postResponse.response.status === 200) {
+          setPostInformation(postResponse.post);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-  });
 
-  useEffect(() => {
-    fetchUserInformation().then(
-      function (value) {
-        if (value.response.status === 200) {
-          setSignedUserInfo(value.user);
-        }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    fetchPost(id).then(
-      function (value) {
-        if (value.response.status === 200) {
-          setPostInformation(value.post);
-        }
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
+    fetchData();
   }, []);
 
   const [mobile, setMobile] = useState(false);

@@ -22,17 +22,19 @@ export default function Timeline() {
   }, []);
 
   useEffect(() => {
-    fetchUserInformation().then(
-      function (value) {
-        if (value.response.status === 200) {
-          setUserInformation(value.user);
-          fetchTimeline().then((value) => setTimeline(value.timeline));
+    async function fetchData() {
+      try {
+        const userInfoResponse = await fetchUserInformation();
+        if (userInfoResponse.response.status === 200) {
+          setUserInformation(userInfoResponse.user);
+          const timelineResponse = await fetchTimeline();
+          setTimeline(timelineResponse.timeline);
         }
-      },
-      function (error) {
+      } catch (error) {
         console.log(error);
-      },
-    );
+      }
+    }
+    fetchData();
   }, []);
 
   const [mobile, setMobile] = useState(false);
@@ -49,13 +51,10 @@ export default function Timeline() {
   const [uploading, setUploading] = useState([]);
 
   function newUpload(bool) {
-    const clone = structuredClone(uploading);
     if (bool) {
-      clone.push(1);
-      setUploading(clone);
+      setUploading((prevUploading) => [...prevUploading, 1]);
     } else {
-      clone.pop();
-      setUploading(clone);
+      setUploading((prevUploading) => prevUploading.slice(0, -1));
     }
   }
 
