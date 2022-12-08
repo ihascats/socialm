@@ -8,6 +8,7 @@ import CommentLikeButtons from './mini-components/buttons/CommentLikeButtons';
 import EditCancelSaveButtons from './mini-components/buttons/EditCancelSaveButtons';
 import MoreOptionsButton from './mini-components/buttons/MoreOptionsButton';
 import ImageInput from './mini-components/ImageInput';
+import Timestamp from './mini-components/Timestamp';
 import MoreOptionsMenu from './MoreOptionsMenu';
 import NewComment from './NewComment';
 
@@ -117,51 +118,7 @@ export default function PostCard({
                 ? user.username
                 : postData.author.username}
             </Link>
-            {Math.abs(Date.parse(postData.createdAt) - Date.now()) / 36e5 >
-            23 ? (
-              <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-                {`${new Date(postData.createdAt)
-                  .toString()
-                  .split(' ')[1]
-                  .trim()} ${new Date(postData.createdAt)
-                  .toString()
-                  .split(' ')[2]
-                  .trim()}`}
-              </h2>
-            ) : Math.floor(
-                Math.floor(
-                  Math.abs(
-                    (Date.parse(postData.createdAt) - Date.now()) / 600,
-                  ) / 60,
-                ) / 60,
-              ) > 0 ? (
-              <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-                {`${Math.floor(
-                  Math.floor(
-                    Math.abs(
-                      (Date.parse(postData.createdAt) - Date.now()) / 600,
-                    ) / 60,
-                  ) / 60,
-                )}h`}
-              </h2>
-            ) : Math.floor(
-                Math.abs((Date.parse(postData.createdAt) - Date.now()) / 600) /
-                  60,
-              ) > 0 ? (
-              <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-                {`${Math.floor(
-                  Math.abs(
-                    (Date.parse(postData.createdAt) - Date.now()) / 600,
-                  ) / 60,
-                )}m`}
-              </h2>
-            ) : (
-              <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-                {`${Math.floor(
-                  Math.abs((Date.parse(postData.createdAt) - Date.now()) / 600),
-                )}s`}
-              </h2>
-            )}
+            <Timestamp createdAt={postData.createdAt} />
           </div>
           {user._id === postData.author._id ? (
             <MoreOptionsButton setMenuVisible={setMenuVisible} />

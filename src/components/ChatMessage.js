@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchImage } from '../fetch_requests/img.fetch';
+import Timestamp from './mini-components/Timestamp';
 
 export default function ChatMessage({ signedUserInfo, messageData }) {
   const user = signedUserInfo;
@@ -55,53 +56,7 @@ export default function ChatMessage({ signedUserInfo, messageData }) {
               ? user.username
               : messageData.author.username}
           </Link>
-          {Math.abs(Date.parse(messageData.createdAt) - Date.now()) / 36e5 >
-          23 ? (
-            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${new Date(messageData.createdAt)
-                .toString()
-                .split(' ')[1]
-                .trim()} ${new Date(messageData.createdAt)
-                .toString()
-                .split(' ')[2]
-                .trim()}`}
-            </h2>
-          ) : Math.floor(
-              Math.floor(
-                Math.abs(
-                  (Date.parse(messageData.createdAt) - Date.now()) / 600,
-                ) / 60,
-              ) / 60,
-            ) > 0 ? (
-            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${Math.floor(
-                Math.floor(
-                  Math.abs(
-                    (Date.parse(messageData.createdAt) - Date.now()) / 600,
-                  ) / 60,
-                ) / 60,
-              )}h`}
-            </h2>
-          ) : Math.floor(
-              Math.abs((Date.parse(messageData.createdAt) - Date.now()) / 600) /
-                60,
-            ) > 0 ? (
-            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${Math.floor(
-                Math.abs(
-                  (Date.parse(messageData.createdAt) - Date.now()) / 600,
-                ) / 60,
-              )}m`}
-            </h2>
-          ) : (
-            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${Math.floor(
-                Math.abs(
-                  (Date.parse(messageData.createdAt) - Date.now()) / 600,
-                ),
-              )}s`}
-            </h2>
-          )}
+          <Timestamp createdAt={messageData.createdAt} />
         </div>
       </div>
       <div className="pt-2">

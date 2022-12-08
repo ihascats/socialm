@@ -5,6 +5,7 @@ import { fetchPutComment, fetchPutLike } from '../fetch_requests/post.fetch';
 import DeleteComment from './DeleteComment';
 import Icons from './Icons';
 import ImageInput from './mini-components/ImageInput';
+import Timestamp from './mini-components/Timestamp';
 import MoreOptionsMenu from './MoreOptionsMenu';
 
 export default function CommentCard({
@@ -116,46 +117,7 @@ export default function CommentCard({
               : comment.author.username}
           </Link>
           {/* date */}
-          {Math.abs(Date.parse(comment.createdAt) - Date.now()) / 36e5 > 23 ? (
-            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${new Date(comment.createdAt)
-                .toString()
-                .split(' ')[1]
-                .trim()} ${new Date(comment.createdAt)
-                .toString()
-                .split(' ')[2]
-                .trim()}`}
-            </h2>
-          ) : Math.floor(
-              Math.floor(
-                Math.abs((Date.parse(comment.createdAt) - Date.now()) / 600) /
-                  60,
-              ) / 60,
-            ) > 0 ? (
-            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${Math.floor(
-                Math.floor(
-                  Math.abs((Date.parse(comment.createdAt) - Date.now()) / 600) /
-                    60,
-                ) / 60,
-              )}h`}
-            </h2>
-          ) : Math.floor(
-              Math.abs((Date.parse(comment.createdAt) - Date.now()) / 600) / 60,
-            ) > 0 ? (
-            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${Math.floor(
-                Math.abs((Date.parse(comment.createdAt) - Date.now()) / 600) /
-                  60,
-              )}m`}
-            </h2>
-          ) : (
-            <h2 className="text-sm font-bold opacity-60 font-mono whitespace-nowrap">
-              {`${Math.floor(
-                Math.abs((Date.parse(comment.createdAt) - Date.now()) / 600),
-              )}s`}
-            </h2>
-          )}
+          <Timestamp createdAt={comment.createdAt} />
           {/* date */}
         </div>
         {user._id === comment.author._id ? (
