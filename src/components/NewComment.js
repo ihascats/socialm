@@ -23,15 +23,13 @@ export default function NewComment({
   const [mobile, setMobile] = useState(false);
 
   function screenWidth(event) {
-    if (event.target.innerWidth > 768) setMobile(false);
-    if (event.target.innerWidth <= 768) setMobile(true);
+    setMobile(event.target.innerWidth <= 768);
   }
 
   useEffect(() => {
-    if (window.innerWidth > 768) setMobile(false);
-    if (window.innerWidth <= 768) setMobile(true);
+    setMobile(window.innerWidth <= 768);
     window.addEventListener('resize', screenWidth);
-  });
+  }, []);
 
   return (
     <div
