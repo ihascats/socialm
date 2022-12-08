@@ -45,27 +45,21 @@ export default function WideNav({
     };
   }, []);
 
-  const [showDescription, setShowDescription] = useState(true);
+  const [showDescription, setShowDescription] = useState(false);
 
   function screenWidth(event) {
-    if (event.target.innerWidth >= 1024) setShowDescription(true);
-    if (event.target.innerWidth < 1024) setShowDescription(false);
+    setShowDescription(event.target.innerWidth >= 1024);
   }
 
   useEffect(() => {
-    if (window.innerWidth >= 1024) setShowDescription(true);
-    if (window.innerWidth < 1024) setShowDescription(false);
+    setShowDescription(window.innerWidth >= 1024);
     window.addEventListener('resize', screenWidth);
   }, []);
 
   const [theme, setTheme] = useState(false);
 
   useEffect(() => {
-    if (localStorage.dark === 'true') {
-      setTheme(true);
-    } else {
-      setTheme(false);
-    }
+    setTheme(localStorage.dark === 'true');
   }, []);
 
   return localStorage.Authorization ? (

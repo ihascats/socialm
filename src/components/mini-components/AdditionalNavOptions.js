@@ -8,11 +8,7 @@ export default function AdditionalNavOptions() {
   const [theme, setTheme] = useState(false);
 
   useEffect(() => {
-    if (localStorage.dark === 'true') {
-      setTheme(true);
-    } else {
-      setTheme(false);
-    }
+    setTheme(localStorage.dark === 'true');
   }, []);
 
   return (
