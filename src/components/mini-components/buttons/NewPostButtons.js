@@ -35,25 +35,30 @@ export default function NewPostButtons({
               };
               return;
             }
+
+            // Check for newUpload flag and update it
             if (newUpload) {
               newUpload(true);
             }
+
+            // Hide the new post form
             setNewPostVisible(false);
+
+            // Fetch new post and update posts in timeline and user posts
             const posts = await fetchPostPost(
               textArea.current.value,
               imageFile.current.files[0] || imageUrl.current.value,
             );
             if (setTimeline) {
               setTimeline(posts.post.posts);
-              if (newUpload) {
-                newUpload(false);
-              }
             }
             if (setUserPosts) {
               setUserPosts(posts.post);
-              if (newUpload) {
-                newUpload(false);
-              }
+            }
+
+            // Update newUpload flag
+            if (newUpload) {
+              newUpload(false);
             }
           }}
           className="border-b-2 border-green-500 px-4 py-1"

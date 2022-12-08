@@ -8,13 +8,20 @@ export default function ChatMessage({ signedUserInfo, messageData }) {
   const [image, setImage] = useState();
 
   useEffect(() => {
-    if (messageData.author._id === user._id) {
-      if (user.profile_picture.slice(0, 4) !== 'http') {
+    const { _id: authorId, profile_picture: authorProfilePicture } =
+      messageData.author;
+
+    if (authorId === user._id) {
+      // If the message was sent by the current user, check their profile picture
+      const { profile_picture: userProfilePicture } = user;
+
+      if (userProfilePicture.slice(0, 4) !== 'http') {
         fetchImage(user, setImage);
       } else if (image) {
         setImage();
       }
-    } else if (messageData.author.profile_picture.slice(0, 4) !== 'http') {
+    } else if (authorProfilePicture.slice(0, 4) !== 'http') {
+      // If the message was sent by a different user, check their profile picture
       fetchImage(messageData.author, setImage);
     }
   }, [messageData.author, user]);

@@ -34,15 +34,21 @@ export default function Nav({
   });
 
   useEffect(() => {
-    socket.on('unread-notification', function (status) {
-      if (status !== notificationPending) setNotificationPending(status);
-    });
+    const handleUnreadNotification = (status) => {
+      if (status !== notificationPending) {
+        setNotificationPending(status);
+      }
+    };
+
+    socket.on('unread-notification', handleUnreadNotification);
     socket.emit('check-notifications');
     const checkNotifications = setInterval(() => {
       socket.emit('check-notifications');
     }, 20000);
+
     return function stopTimer() {
       clearInterval(checkNotifications);
+      socket.off('unread-notification', handleUnreadNotification);
       socket.disconnect();
     };
   }, []);

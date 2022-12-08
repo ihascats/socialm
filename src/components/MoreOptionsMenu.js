@@ -11,12 +11,21 @@ export default function MoreOptionsMenu({
   const icons = Icons();
 
   useEffect(() => {
-    window.ontouchmove = () => {
+    const handleTouchMove = () => {
       setMenuVisible(false);
       window.ontouchmove = null;
     };
-    window.ontouchend = () => {
+
+    const handleTouchEnd = () => {
       setMenuVisible(false);
+      window.ontouchend = null;
+    };
+
+    window.ontouchmove = handleTouchMove;
+    window.ontouchend = handleTouchEnd;
+
+    return function cleanup() {
+      window.ontouchmove = null;
       window.ontouchend = null;
     };
   }, []);

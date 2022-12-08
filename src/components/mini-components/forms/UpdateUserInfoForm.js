@@ -69,9 +69,17 @@ export default function UpdateUserInfoForm({
           defaultValue={signedUserInfo.username}
           onInput={(event) => {
             event.preventDefault();
-            if (event.target.value.length > 2 && event.target.value.length < 20)
+
+            // Get the length of the input value
+            const { value: inputValue } = event.target;
+            const valueLength = inputValue.length;
+
+            // Check the length of the input value and set the nameLengthError variable accordingly
+            if (valueLength > 2 && valueLength < 20) {
               setNameLengthError(false);
-            if (event.target.value.length > 20) setNameLengthError(true);
+            } else if (valueLength > 20) {
+              setNameLengthError(true);
+            }
           }}
           className="bg-neutral-900/50 border-b-yellow-400 border-b-4 text-white p-1"
         ></input>
