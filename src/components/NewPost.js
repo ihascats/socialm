@@ -14,8 +14,12 @@ export default function NewPost({
   const imageUrl = useRef();
 
   useEffect(() => {
-    window.addEventListener('resize', function () {
-      setNewPostVisible(false);
+    const prevWidth = window.innerWidth;
+    window.addEventListener('resize', function (event) {
+      const currentWidth = window.innerWidth;
+      if (prevWidth !== currentWidth) {
+        setNewPostVisible(false);
+      }
     });
   });
 

@@ -15,8 +15,12 @@ export default function NewComment({
   const imageUrl = useRef();
 
   useEffect(() => {
-    window.addEventListener('resize', function () {
-      setNewCommentVisible(false);
+    const prevWidth = window.innerWidth;
+    window.addEventListener('resize', function (event) {
+      const currentWidth = window.innerWidth;
+      if (prevWidth !== currentWidth) {
+        setNewCommentVisible(false);
+      }
     });
   });
 
