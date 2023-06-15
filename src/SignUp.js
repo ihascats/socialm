@@ -8,6 +8,6 @@ export default function SignUp() {
   localStorage.setItem('Authorization', validation);
 
   useEffect(() => {
-    navigate(`/timeline`, { replace: true });
+    navigate(`${process.env.PUBLIC_URL}/timeline`, { replace: true });
   });
 }
