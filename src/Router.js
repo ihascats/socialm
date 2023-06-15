@@ -15,22 +15,15 @@ const RouteSwitch = () => {
     if (localStorage.dark === 'true') {
       document.body.classList.add('dark');
     }
-    if (
-      !('connected' in localStorage) &&
-      window.location.pathname !== `${process.env.PUBLIC_URL}/loading`
-    ) {
-      window.location.pathname = `${process.env.PUBLIC_URL}/loading`;
-    }
   }, []);
 
   return (
-    <BrowserRouter basename={'/socialm'}>
+    <BrowserRouter>
       <Routes>
         <Route
           path="*"
           element={<Navigate to={`/timeline`} replace={true} />}
         />
-        <Route path={'/loading'} element={<Loading />} />
         <Route path={'/conversations'} element={<Conversations />} />
         <Route path={'/notifications'} element={<Notifications />} />
         <Route path={'/timeline'} element={<Timeline />} />

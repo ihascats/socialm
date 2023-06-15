@@ -8,6 +8,8 @@ import { fetchChat } from './fetch_requests/chat.fetch';
 import WideNav from './components/WideNav';
 import { useNavigate } from 'react-router-dom';
 import ChatMessageUploading from './components/ChatMessageUploading';
+import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
+import Loading from './Loading';
 
 export default function Conversations() {
   const socket = io(process.env.REACT_APP_APICHAT, {
@@ -142,8 +144,14 @@ export default function Conversations() {
     }
   }
 
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    checkConnectionAndNavigate(setConnected, navigate);
+  }, []);
+
   const icons = Icons();
-  return (
+  return connected ? (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
@@ -226,5 +234,7 @@ export default function Conversations() {
       </div>
       {mobile ? <Nav /> : null}
     </div>
+  ) : (
+    <Loading />
   );
 }

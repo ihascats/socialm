@@ -10,6 +10,8 @@ import WideNav from './components/WideNav';
 import { fetchImage } from './fetch_requests/img.fetch';
 import { fetchUserPosts } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
+import Loading from './Loading';
+import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
 
 export default function User() {
   const [userInformation, setUserInformation] = useState();
@@ -91,9 +93,15 @@ export default function User() {
     }
   }
 
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    checkConnectionAndNavigate(setConnected, navigate);
+  }, []);
+
   const icons = Icons();
 
-  return (
+  return connected ? (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
@@ -209,5 +217,7 @@ export default function User() {
         <Nav setUserPosts={setUserPosts} newUpload={newUpload} />
       ) : null}
     </div>
+  ) : (
+    <Loading />
   );
 }

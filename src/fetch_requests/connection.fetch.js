@@ -9,3 +9,25 @@ export const checkConnection = async function () {
     return { response };
   }
 };
+
+export async function checkConnectionAndNavigate(setConnected, navigate) {
+  try {
+    const response = await checkConnection();
+    if (response.connected === true) {
+      localStorage.connected = true;
+      if (localStorage.Authorization) {
+        setConnected(true);
+        window.onunload = () => {
+          localStorage.removeItem('connected');
+        };
+      } else {
+        navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+        window.onunload = () => {
+          localStorage.removeItem('connected');
+        };
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

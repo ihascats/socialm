@@ -11,6 +11,8 @@ import {
   fetchUserInformation,
   fetchUsers,
 } from './fetch_requests/user.fetch';
+import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
+import Loading from './Loading';
 
 export default function UserSearch() {
   const [allUsers, setAllUsers] = useState();
@@ -92,9 +94,15 @@ export default function UserSearch() {
     window.addEventListener('resize', screenWidth);
   }, []);
 
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    checkConnectionAndNavigate(setConnected, navigate);
+  }, []);
+
   const icons = Icons();
 
-  return (
+  return connected ? (
     <div
       className={`w-full hide-scroll max-w-[100vw] dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
@@ -238,5 +246,7 @@ export default function UserSearch() {
       </div>
       {mobile ? <Nav /> : null}
     </div>
+  ) : (
+    <Loading />
   );
 }

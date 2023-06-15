@@ -1,8 +1,18 @@
 import { useNavigate } from 'react-router-dom';
+import Loading from './Loading';
+import { useEffect, useState } from 'react';
+import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
 
 export default function SignInPage() {
   const navigate = useNavigate();
-  return (
+
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    checkConnectionAndNavigate(setConnected, navigate);
+  }, []);
+
+  return connected ? (
     <div className="h-screen w-screen grid items-center justify-center dark:text-neutral-50">
       <nav
         className={`grid gap-6 w-56 items-end justify-items-center sticky p-2 bottom-0 h-fit fill-neutral-900`}
@@ -30,5 +40,7 @@ export default function SignInPage() {
         </button>
       </nav>
     </div>
+  ) : (
+    <Loading />
   );
 }

@@ -8,6 +8,8 @@ import PostCard from './components/PostCard';
 import WideNav from './components/WideNav';
 import { fetchPost } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
+import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
+import Loading from './Loading';
 
 export default function Post() {
   const [postInformation, setPostInformation] = useState();
@@ -65,9 +67,15 @@ export default function Post() {
     }
   }
 
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    checkConnectionAndNavigate(setConnected, navigate);
+  }, []);
+
   const icons = Icons();
 
-  return (
+  return connected ? (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
@@ -129,5 +137,7 @@ export default function Post() {
         />
       ) : null}
     </div>
+  ) : (
+    <Loading />
   );
 }

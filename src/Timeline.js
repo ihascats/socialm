@@ -7,6 +7,8 @@ import PostUploading from './components/PostUploading';
 import WideNav from './components/WideNav';
 import { fetchTimeline } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
+import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
+import Loading from './Loading';
 
 export default function Timeline() {
   const [timeline, setTimeline] = useState();
@@ -48,6 +50,11 @@ export default function Timeline() {
     window.addEventListener('resize', screenWidth);
   }, []);
 
+  const [connected, setConnected] = useState(false);
+  useEffect(() => {
+    checkConnectionAndNavigate(setConnected, navigate);
+  }, []);
+
   const [uploading, setUploading] = useState([]);
 
   function newUpload(bool) {
@@ -58,7 +65,7 @@ export default function Timeline() {
     }
   }
 
-  return (
+  return connected ? (
     <div
       className={`w-full hide-scroll dark:bg-neutral-900 dark:text-neutral-50 dark:fill-neutral-400 ${
         mobile
@@ -104,5 +111,7 @@ export default function Timeline() {
 
       {mobile ? <Nav setTimeline={setTimeline} newUpload={newUpload} /> : null}
     </div>
+  ) : (
+    <Loading />
   );
 }
