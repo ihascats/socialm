@@ -15,8 +15,8 @@ export async function checkConnectionAndNavigate(setConnected, navigate) {
     const response = await checkConnection();
     if (response.connected === true) {
       localStorage.connected = true;
+      setConnected(true);
       if (localStorage.Authorization) {
-        setConnected(true);
         window.onunload = () => {
           localStorage.removeItem('connected');
         };
