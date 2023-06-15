@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Conversations from './Conversations';
-import Loading from './Loading';
 import Notifications from './Notifications';
 import Post from './Post';
 import SignInPage from './SignInPage';
@@ -18,7 +17,7 @@ const RouteSwitch = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={'/socialm'}>
       <Routes>
         <Route
           path="*"
