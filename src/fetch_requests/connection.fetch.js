@@ -21,7 +21,9 @@ export async function checkConnectionAndNavigate(setConnected, navigate) {
           localStorage.removeItem('connected');
         };
       } else {
-        navigate(`${process.env.PUBLIC_URL}/signIn`, { replace: true });
+        const currentUrl = window.location.pathname;
+        const signInUrl = `${process.env.PUBLIC_URL}/signIn`;
+        if (currentUrl !== signInUrl) navigate(signInUrl, { replace: true });
         window.onunload = () => {
           localStorage.removeItem('connected');
         };
