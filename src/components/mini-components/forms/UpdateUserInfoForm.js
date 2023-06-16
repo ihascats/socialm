@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { fetchPutUserInfo } from '../../../fetch_requests/user.fetch';
 import Icons from '../../Icons';
+import {
+  isLocalStorageMobile,
+  screenWidth,
+} from '../../../screen_size/isMobile';
 
 export default function UpdateUserInfoForm({
   signedUserInfo,
@@ -11,15 +15,17 @@ export default function UpdateUserInfoForm({
   const url = useRef();
   const username = useRef();
 
-  const [mobile, setMobile] = useState(false);
-
-  function screenWidth(event) {
-    setMobile(event.target.innerWidth <= 768);
-  }
+  const [mobile, setMobile] = useState(isLocalStorageMobile());
 
   useEffect(() => {
-    setMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', screenWidth);
+    if (localStorage.mobile) {
+      setMobile(isLocalStorageMobile());
+    } else {
+      const isMobile = window.innerWidth <= 768;
+      setMobile(isMobile);
+      localStorage.mobile = isMobile;
+    }
+    window.addEventListener('resize', (event) => screenWidth(event, setMobile));
   }, []);
 
   const [nameLengthError, setNameLengthError] = useState(true);

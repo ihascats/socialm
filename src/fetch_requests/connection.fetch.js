@@ -12,6 +12,10 @@ export const checkConnection = async function () {
 
 export async function checkConnectionAndNavigate(setConnected, navigate) {
   try {
+    if (localStorage.connected === 'true') {
+      setConnected(true);
+      return;
+    }
     const response = await checkConnection();
     if (response.connected === true) {
       localStorage.connected = true;

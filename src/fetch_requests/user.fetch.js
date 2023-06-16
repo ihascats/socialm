@@ -1,4 +1,4 @@
-export const fetchUserInformation = async function (user_id) {
+export const fetchUserInformation = async function (navigate, user_id) {
   const link = user_id
     ? `${process.env.REACT_APP_APILINK}/users/${user_id}`
     : `${process.env.REACT_APP_APILINK}/user`;
@@ -12,6 +12,10 @@ export const fetchUserInformation = async function (user_id) {
     const json = await response.json(); //extract JSON from the http response
     return { user: json, response };
   } else {
+    const currentUrl = window.location.pathname;
+    const signInUrl = `${process.env.PUBLIC_URL}/signIn`;
+    if (currentUrl !== signInUrl) navigate(signInUrl, { replace: true });
+    localStorage.removeItem('Authorization');
     return { response };
   }
 };

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import ChatMessageUploading from './components/ChatMessageUploading';
 import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
 import Loading from './Loading';
+import { isLocalStorageMobile, screenWidth } from './screen_size/isMobile';
 
 export default function Conversations() {
   const socket = io(process.env.REACT_APP_APICHAT, {
@@ -36,7 +37,7 @@ export default function Conversations() {
 
   useEffect(() => {
     const handleReceiveMessage = (messageData) => {
-      if (list)
+      if (list.current)
         if (
           list.current.scrollHeight - list.current.scrollTop ===
           list.current.offsetHeight
@@ -63,7 +64,7 @@ export default function Conversations() {
 
   async function fetchUserInformationAndSetSignedUserInfo() {
     try {
-      const value = await fetchUserInformation();
+      const value = await fetchUserInformation(navigate);
       if (value.response.status === 200) {
         setSignedUserInfo(value.user);
       }
@@ -106,7 +107,7 @@ export default function Conversations() {
   }, [messages]);
 
   useEffect(() => {
-    list.current.scrollTop = list.current.scrollHeight;
+    if (list.current) list.current.scrollTop = list.current.scrollHeight;
   }, [existingChat]);
 
   const messageInput = useRef();
@@ -120,15 +121,17 @@ export default function Conversations() {
     messageInput.current.value = '';
   }
 
-  const [mobile, setMobile] = useState(false);
-
-  function screenWidth(event) {
-    setMobile(event.target.innerWidth <= 768);
-  }
+  const [mobile, setMobile] = useState(isLocalStorageMobile());
 
   useEffect(() => {
-    setMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', screenWidth);
+    if (localStorage.mobile) {
+      setMobile(isLocalStorageMobile());
+    } else {
+      const isMobile = window.innerWidth <= 768;
+      setMobile(isMobile);
+      localStorage.mobile = isMobile;
+    }
+    window.addEventListener('resize', (event) => screenWidth(event, setMobile));
   }, []);
 
   const [uploading, setUploading] = useState([]);
@@ -144,7 +147,7 @@ export default function Conversations() {
     }
   }
 
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(localStorage.connected);
 
   useEffect(() => {
     checkConnectionAndNavigate(setConnected, navigate);

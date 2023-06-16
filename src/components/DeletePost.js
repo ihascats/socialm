@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchDeletePost } from '../fetch_requests/post.fetch';
+import { isLocalStorageMobile, screenWidth } from '../screen_size/isMobile';
 
 export default function DeletePost({
   setDeletePost,
@@ -8,15 +9,17 @@ export default function DeletePost({
   setUserPosts,
   setDeletingPost,
 }) {
-  const [mobile, setMobile] = useState(false);
-
-  function screenWidth(event) {
-    setMobile(event.target.innerWidth <= 768);
-  }
+  const [mobile, setMobile] = useState(isLocalStorageMobile());
 
   useEffect(() => {
-    setMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', screenWidth);
+    if (localStorage.mobile) {
+      setMobile(isLocalStorageMobile());
+    } else {
+      const isMobile = window.innerWidth <= 768;
+      setMobile(isMobile);
+      localStorage.mobile = isMobile;
+    }
+    window.addEventListener('resize', (event) => screenWidth(event, setMobile));
   }, []);
 
   return (

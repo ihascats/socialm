@@ -12,6 +12,7 @@ import { fetchUserPosts } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
 import Loading from './Loading';
 import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
+import { isLocalStorageMobile, screenWidth } from './screen_size/isMobile';
 
 export default function User() {
   const [userInformation, setUserInformation] = useState();
@@ -29,7 +30,7 @@ export default function User() {
 
   async function update() {
     try {
-      const value = await fetchUserInformation(id);
+      const value = await fetchUserInformation(navigate, id);
       if (value.response.status === 200) {
         setUserInformation(value.user);
         const value2 = await fetchUserPosts(value.user._id);
@@ -44,7 +45,7 @@ export default function User() {
 
   useEffect(() => {
     update();
-    fetchUserInformation().then(
+    fetchUserInformation(navigate).then(
       async function (value) {
         if (value.response.status === 200) {
           setSignedUserInfo(value.user);
@@ -69,15 +70,17 @@ export default function User() {
     }
   }, [userInformation, signedUserInfo]);
 
-  const [mobile, setMobile] = useState(false);
-
-  function screenWidth(event) {
-    setMobile(event.target.innerWidth <= 768);
-  }
+  const [mobile, setMobile] = useState(isLocalStorageMobile());
 
   useEffect(() => {
-    setMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', screenWidth);
+    if (localStorage.mobile) {
+      setMobile(isLocalStorageMobile());
+    } else {
+      const isMobile = window.innerWidth <= 768;
+      setMobile(isMobile);
+      localStorage.mobile = isMobile;
+    }
+    window.addEventListener('resize', (event) => screenWidth(event, setMobile));
   }, []);
 
   const [uploading, setUploading] = useState([]);
@@ -93,7 +96,7 @@ export default function User() {
     }
   }
 
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(localStorage.connected);
 
   useEffect(() => {
     checkConnectionAndNavigate(setConnected, navigate);

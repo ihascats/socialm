@@ -10,6 +10,7 @@ import {
 } from './fetch_requests/notifications.fetch';
 import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
 import Loading from './Loading';
+import { isLocalStorageMobile, screenWidth } from './screen_size/isMobile';
 
 export default function Notifications() {
   const [allNotifications, setAllNotifications] = useState();
@@ -47,18 +48,20 @@ export default function Notifications() {
     }
   }
 
-  const [mobile, setMobile] = useState(false);
-
-  function screenWidth(event) {
-    setMobile(event.target.innerWidth <= 768);
-  }
+  const [mobile, setMobile] = useState(isLocalStorageMobile());
 
   useEffect(() => {
-    setMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', screenWidth);
+    if (localStorage.mobile) {
+      setMobile(isLocalStorageMobile());
+    } else {
+      const isMobile = window.innerWidth <= 768;
+      setMobile(isMobile);
+      localStorage.mobile = isMobile;
+    }
+    window.addEventListener('resize', (event) => screenWidth(event, setMobile));
   }, []);
 
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(localStorage.connected);
 
   useEffect(() => {
     checkConnectionAndNavigate(setConnected, navigate);

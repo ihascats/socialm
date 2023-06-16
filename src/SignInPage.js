@@ -6,7 +6,17 @@ import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
 export default function SignInPage() {
   const navigate = useNavigate();
 
-  const [connected, setConnected] = useState(false);
+  function isLocalStorageConnected() {
+    if (localStorage.connected === 'true') {
+      return true;
+    }
+    if (localStorage.connected === 'false') {
+      return false;
+    }
+    return false;
+  }
+
+  const [connected, setConnected] = useState(isLocalStorageConnected());
 
   useEffect(() => {
     checkConnectionAndNavigate(setConnected, navigate);

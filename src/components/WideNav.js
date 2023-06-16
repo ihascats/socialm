@@ -45,14 +45,34 @@ export default function WideNav({
     };
   }, []);
 
-  const [showDescription, setShowDescription] = useState(false);
+  function isLocalStorageDescription() {
+    if (localStorage.description === 'true') {
+      return true;
+    }
+    if (localStorage.description === 'false') {
+      return false;
+    }
+    return window.innerWidth >= 1024;
+  }
+
+  const [showDescription, setShowDescription] = useState(
+    isLocalStorageDescription(),
+  );
 
   function screenWidth(event) {
-    setShowDescription(event.target.innerWidth >= 1024);
+    const isDescriptionVisible = event.target.innerWidth >= 1024;
+    setShowDescription(isDescriptionVisible);
+    localStorage.description = isDescriptionVisible;
   }
 
   useEffect(() => {
-    setShowDescription(window.innerWidth >= 1024);
+    if (localStorage.description) {
+      setShowDescription(isLocalStorageDescription());
+    } else {
+      const isDescriptionVisible = window.innerWidth >= 1024;
+      setShowDescription(isDescriptionVisible);
+      localStorage.description = isDescriptionVisible;
+    }
     window.addEventListener('resize', screenWidth);
   }, []);
 

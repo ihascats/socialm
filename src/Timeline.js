@@ -9,6 +9,7 @@ import { fetchTimeline } from './fetch_requests/post.fetch';
 import { fetchUserInformation } from './fetch_requests/user.fetch';
 import { checkConnectionAndNavigate } from './fetch_requests/connection.fetch';
 import Loading from './Loading';
+import { isLocalStorageMobile, screenWidth } from './screen_size/isMobile';
 
 export default function Timeline() {
   const [timeline, setTimeline] = useState();
@@ -26,7 +27,7 @@ export default function Timeline() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const userInfoResponse = await fetchUserInformation();
+        const userInfoResponse = await fetchUserInformation(navigate);
         if (userInfoResponse.response.status === 200) {
           setUserInformation(userInfoResponse.user);
           const timelineResponse = await fetchTimeline();
@@ -39,18 +40,21 @@ export default function Timeline() {
     fetchData();
   }, []);
 
-  const [mobile, setMobile] = useState(false);
-
-  function screenWidth(event) {
-    setMobile(event.target.innerWidth <= 768);
-  }
+  const [mobile, setMobile] = useState(isLocalStorageMobile());
 
   useEffect(() => {
-    setMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', screenWidth);
+    if (localStorage.mobile) {
+      setMobile(isLocalStorageMobile());
+    } else {
+      const isMobile = window.innerWidth <= 768;
+      setMobile(isMobile);
+      localStorage.mobile = isMobile;
+    }
+    window.addEventListener('resize', (event) => screenWidth(event, setMobile));
   }, []);
 
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(localStorage.connected);
+
   useEffect(() => {
     checkConnectionAndNavigate(setConnected, navigate);
   }, []);
