@@ -1,11 +1,65 @@
 @tailwind base;
 @tailwind components;
+
+.btn {
+  @apply border-2 border-b-8 hover:border-2 hover:border-b-4 hover:mt-1 focus:border-b-2 focus:mt-[6px] outline-none;
+}
+
+.btn-neutral {
+  @apply border-neutral-900 bg-neutral-300 text-neutral-900 fill-neutral-900
+  dark:border-neutral-400 dark:bg-neutral-800 dark:text-neutral-400 dark:fill-neutral-400;
+}
+
+.btn-blue {
+  @apply border-blue-900 bg-blue-300 text-blue-900 fill-blue-900 dark:border-blue-500 dark:text-blue-500;
+}
+
+.btn-red {
+  @apply border-red-900 bg-red-300 text-red-900 fill-red-900 dark:border-red-500 dark:text-red-500;
+}
+
+.btn-green {
+  @apply border-green-900 bg-green-300 text-green-900 fill-green-900 dark:border-green-500 dark:text-green-500 dark:bg-green-800 dark:fill-green-600;
+}
+
+.btn-lime {
+  @apply border-lime-900 bg-lime-300 text-lime-900 fill-lime-900 dark:border-lime-500 dark:text-lime-500;
+}
+
+.btn-yellow {
+  @apply border-yellow-900 bg-yellow-300 text-yellow-900 fill-yellow-900 dark:border-yellow-500 dark:text-yellow-500 dark:bg-yellow-800;
+}
+
+.btn-indigo {
+  @apply border-indigo-900 bg-indigo-300 text-indigo-900 fill-indigo-900 dark:border-indigo-500 dark:text-indigo-500 dark:bg-indigo-800;
+}
+
+.btn-pink {
+  @apply border-pink-900 bg-pink-300 text-pink-900 fill-pink-900 dark:border-pink-500 dark:text-pink-500 dark:bg-pink-800;
+}
+
+.btn-cyan {
+  @apply border-cyan-900 bg-cyan-300 text-cyan-900 fill-cyan-900 dark:border-cyan-500 dark:text-cyan-500 dark:bg-cyan-800;
+}
+
+.btn-emerald {
+  @apply border-emerald-900 bg-emerald-300 text-emerald-900 fill-emerald-900 dark:border-emerald-500 dark:text-emerald-500 dark:bg-emerald-800;
+}
+
+.btn-fuchsia {
+  @apply border-fuchsia-900 bg-fuchsia-300 text-fuchsia-900 fill-fuchsia-900 dark:border-fuchsia-500 dark:text-fuchsia-500 dark:bg-fuchsia-800;
+}
+
+.container-btn {
+  @apply border-4 rounded-xl border-neutral-900 bg-neutral-200 text-neutral-900 dark:border-neutral-200 dark:bg-neutral-800 dark:text-neutral-200;
+}
+
 @tailwind utilities;
 
 body {
   height: 100vh;
   --tw-bg-opacity: 1;
-  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
+  background-color: rgb(200 229 150 / var(--tw-bg-opacity));
 }
 
 .dark {

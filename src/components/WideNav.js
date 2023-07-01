@@ -91,7 +91,7 @@ export default function WideNav({
       >
         <Link
           to={`/timeline`}
-          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`btn btn-indigo rounded-md flex items-center px-2 py-1 w-full gap-2 ${
             window.location.pathname === '/socialm/timeline'
               ? `fill-indigo-500 text-indigo-500`
               : null
@@ -101,9 +101,9 @@ export default function WideNav({
         </Link>
         <Link
           to={`/userSearch`}
-          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`btn btn-yellow rounded-md flex items-center px-2 py-1 w-full gap-2 ${
             window.location.pathname === '/socialm/userSearch'
-              ? `fill-pink-500 text-pink-500`
+              ? `fill-amber-500 text-amber-500`
               : null
           } ${showDescription ? null : 'w-fit'}`}
         >
@@ -111,7 +111,7 @@ export default function WideNav({
         </Link>
         <Link
           to={`/notifications`}
-          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`btn btn-cyan rounded-md flex items-center px-2 py-1 w-full gap-2 ${
             notificationPending ? `fill-rose-500 text-rose-500` : null
           } ${
             window.location.pathname === '/socialm/notifications'
@@ -124,7 +124,7 @@ export default function WideNav({
         </Link>
         <Link
           to={`/conversations`}
-          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`btn btn-emerald rounded-md flex items-center px-2 py-1 w-full gap-2 ${
             window.location.pathname === '/socialm/conversations'
               ? `fill-emerald-500 text-emerald-500`
               : null
@@ -133,7 +133,7 @@ export default function WideNav({
           {icons.chat} {showDescription ? 'Chat' : null}
         </Link>
         <Link
-          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`btn btn-fuchsia rounded-md flex items-center px-2 py-1 w-full gap-2 ${
             window.location.pathname === '/socialm/user'
               ? `fill-fuchsia-500 text-fuchsia-500`
               : null
@@ -148,7 +148,7 @@ export default function WideNav({
             localStorage.dark = !theme;
             setTheme((prev) => !prev);
           }}
-          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`btn btn-neutral rounded-md flex items-center px-2 py-1 w-full gap-2 ${
             showDescription ? null : 'w-fit'
           }`}
         >
@@ -160,7 +160,7 @@ export default function WideNav({
             localStorage.removeItem('Authorization');
             navigate(`${process.env.PUBLIC_URL}/`, { replace: true });
           }}
-          className={`rounded-md flex items-center px-2 py-1 hover:bg-neutral-900/50 w-full gap-2 ${
+          className={`btn btn-red rounded-md flex items-center px-2 py-1 w-full gap-2 ${
             showDescription ? null : 'w-fit'
           }`}
         >
@@ -172,13 +172,13 @@ export default function WideNav({
             onClick={() => {
               setNewCommentVisible(true);
             }}
-            className="w-full flex justify-center right-3 bg-green-400 rounded-full p-2 transition-all hover:bg-green-300 fill-neutral-900"
+            className="btn btn-green w-full flex justify-center right-3 bg-green-400 rounded-full p-2 transition-all hover:bg-green-300 fill-neutral-900"
           >
             {icons.bigComment}
           </button>
         ) : (
           <button
-            className="w-full flex justify-center right-3 bg-green-400 rounded-full p-2 transition-all hover:bg-green-300 fill-neutral-900"
+            className="btn btn-green w-full flex justify-center right-3 bg-green-400 rounded-full p-2 transition-all hover:bg-green-300 fill-neutral-900"
             onClick={() => {
               setNewPostVisible(true);
             }}
